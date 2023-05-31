@@ -5,10 +5,10 @@ import classes from './Navbar.css'
 
 const navbar = () => {
     return (
-        <navbar>
+        <div className='navbar'>
             <img className='navLogo' src={logo}/>
-            <img/>
-        </navbar>
+            <img src={closedIcon}/>
+        </div>
     )
 }
 

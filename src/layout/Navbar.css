@@ -1,4 +1,18 @@
+body {
+    background-color: #111820;
+}
+
 .navLogo {
-    width: 103px;
     height: 64px;
+    width: 103px;
+    
+    
+}
+
+.navbar {
+    padding: 20px ;
+    display: flex;
+    flex-wrap: inherit;
+    align-items: center;
+    justify-content: space-between;
 }
