@@ -8,7 +8,7 @@ import React from 'react'
 const homepage = () => {
     return <React.Fragment>
             <Navbar/>
-            <div className='container' >
+            <div  >
             <div className='hero'>
                 <img className='hero-img' src={heroImg}/>
                 <div className='countdown-timer' >
