@@ -1,23 +1,21 @@
 *{
-    font-family: 'Bebas Neue', sans-serif;
+    font-family: 'Rubik', sans-serif;
 }
 
-.hero {
-    width: 100%;
-    padding: 1rem;
+*, ::after, ::before {
+    box-sizing: border-box;
 }
+
+
 .hero-img {
     width: 100%;
     
 }
 
 
-
-
-
 .homepage-body h1 {
     
-    color: white;
+    color: black;
     margin: auto    ;
 }
 
@@ -25,23 +23,45 @@
     
 }
 
-.rectangle {
-    background-color: #F44336;
-    width: 13px;
-    height: 46px;
-}
+
 
 .title{
     display: flex;
+    margin-top: 75px;
     
 }
 
-.homepage-body p {
-    font-size: 20px;
-    line-height: 170%;
-/* or 34px */
-
+.title h1 {
+    font-size: 58px;
     text-align: center;
-    color: #FFFFFF;
-    margin: 1rem;
+    line-height: 60px;
+    text-transform: uppercase;
+    font-weight: bold;
+    
+}
+
+.row p {
+    margin-top: 15px;
+    text-align: center;
+    font-size: 18px;
+}
+
+.btn-lg {
+    padding: 15px 65px;
+    font-size: 24px;
+}
+.features{
+    margin-top: 50px;
+    padding: 20px;
+}
+
+.features h2 {
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.feature-card {
+    padding: 10px;
+    margin-bottom: 50px;
 }

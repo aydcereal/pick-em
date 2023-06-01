@@ -1,6 +1,6 @@
 import closedIcon from '../images/Property 1=Closed.png'
 import openIcon from '../images/Property 1=Open.png'
-import logo from '../images/logos/pickEmLogoR.png'
+import logo from '../images/logos/blackLogo.png'
 import classes from './Navbar.css'
 
 const navbar = () => {
