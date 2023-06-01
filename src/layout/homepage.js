@@ -1,31 +1,62 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import classes from './homepage.css'
 import Navbar from './navbar'
-import heroImg from '../images/Pick ems hero.png'
+import heroImg from '../images/hero.png'
+import HamburgerMenu from './hamburgerMenu';
+
 import React from 'react'
 
 
 const homepage = () => {
     return <React.Fragment>
             <Navbar/>
-            <div  >
-            <div className='hero'>
-                <img className='hero-img' src={heroImg}/>
-                <div className='countdown-timer' >
-                    <h1>Submission deadline</h1>
-                    <h1>01: 08: 37: 45</h1>
-                </div>
-            </div>
-            <div className='homepage-body'>
+            
+            <div className='container'>
+            
+            <div className=' homepage-body'>
                 <div className='row'>
-                    <div className='col-12 col-sm-6'>
-                            <div className='title'>
-                                <div className='rectangle'></div>
-                                <h1>Welcome to pick em bets</h1>
-                                
-                            </div>
-                            
+
+                <div className='col-12 col-sm-6'>
+                <img className='hero-img' src={heroImg}/>
+
+            </div>
+                <div className='col-12 col-sm-6'>
+                    <div className='title'>
+                        <h1>Welcome to pick em bets</h1>
+
+                    </div>
+                        <p>your premier destination for weekly football picks and exciting wagers! Join us now to play alongside your friends and family, as you make informed bets on your favorite teams. Sign up today and embark on a thrilling journey of football and friendly competition!</p>
+                            <p>
+                                <a className='btn btn-lg btn-danger'>Sign Up</a>
+                            </p>
                         
+                    </div>
+                    
+                </div>
+                <div className='row features row-cols-2 row-cols-md-3  '>
+                    <div className='col feature-card' >
+                        <h2>Effortless Setup</h2>
+                        <p>Get your pool up and running within minutes, effortlessly inviting members to join. </p>
+                    </div>
+                    <div className='col feature-card ' >
+                        <h2>Configuration Options</h2>
+                        <p>Tailor your pool with a wide range of scoring systems and customizable settings as the administrator.</p>
+                    </div>
+                    <div className='col feature-card ' >
+                        <h2>Online Pick Sheets</h2>
+                        <p>Members can easily make their picks using our user-friendly and foolproof online pick sheets.</p>
+                    </div>
+                    <div className='col feature-card ' >
+                        <h2>Automatic Deadlines</h2>
+                        <p>Picks are securely locked down at the start of each week, ensuring fair play and timely submissions.</p>
+                    </div>
+                    <div className='col feature-card ' >
+                        <h2>Real-time Updates</h2>
+                        <p>Stay on top of the action with dynamic standings and reports that are updated as games conclude.</p>
+                    </div>
+                    <div className='col feature-card ' >
+                        <h2>Private Message Board</h2>
+                        <p>Foster a sense of community, post rules, engage in friendly banter, and communicate with other members.</p>
                     </div>
                 </div>
             </div>
