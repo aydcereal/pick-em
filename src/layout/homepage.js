@@ -1,20 +1,17 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import classes from './homepage.css'
 import Navbar from './navbar'
-import heroImg from '../images/Pick ems hero.png'
+import heroImg from '../images/cartoon hero.png'
 import React from 'react'
 
 
 const homepage = () => {
     return <React.Fragment>
             <Navbar/>
-            <div  >
+            <div className='container'  >
             <div className='hero'>
                 <img className='hero-img' src={heroImg}/>
-                <div className='countdown-timer' >
-                    <h1>Submission deadline</h1>
-                    <h1>01: 08: 37: 45</h1>
-                </div>
+                
             </div>
             <div className='homepage-body'>
                 <div className='row'>
@@ -24,6 +21,7 @@ const homepage = () => {
                                 <h1>Welcome to pick em bets</h1>
                                 
                             </div>
+                            <p>your premier destination for weekly football picks and exciting wagers! Join us now to play alongside your friends and family, as you make informed bets on your favorite teams. Sign up today and embark on a thrilling journey of football and friendly competition!</p>
                             
                         
                     </div>
