@@ -1,15 +1,21 @@
-import closedIcon from '../images/Property 1=Closed.png'
-import openIcon from '../images/Property 1=Open.png'
+
 import logo from '../images/logos/blackLogo.png'
 import classes from './Navbar.css'
 
-const navbar = () => {
-    return (
-        <div className='navbar'>
-            <img className='navLogo' src={logo}/>
-            <img src={closedIcon}/>
-        </div>
-    )
+import MobileNavigation from './mobileNavigation'
+import Navigation from './navigation'
+
+const Navbar = () => {
+    return<div className='navbar '>
+    <img className='navLogo' src={logo}/>
+   
+        <Navigation/>
+        <MobileNavigation/>
+    
+    
+    
+</div>
 }
 
-export default navbar
+
+export default Navbar;

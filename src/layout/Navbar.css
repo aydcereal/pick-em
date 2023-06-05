@@ -1,18 +1,43 @@
-body {
-    background-color: white;
-}
-
-.navLogo {
-    height: 64px;
-    width: 103px;
-    
+.nav-btn {
+    padding: 14px 23px;
+    font-size: 12px;
+    text-transform: uppercase;
+    float: right;
     
 }
 
-.navbar {
-    padding: 20px ;
+.nav-link {
+    text-decoration: none;
+    text-transform: uppercase;
+    padding: 24px;
+    font-weight: bold;
+    
+}
+
+.navbar-nav {
+    list-style: none;
+    display: flex;
+    flex-direction: row;
+    justify-content: right;
+}
+
+.navbar{
+    padding: 16px;
+    text-align: center;
+}
+
+.navigation{
+    padding: 20px;
     display: flex;
     flex-wrap: inherit;
     align-items: center;
     justify-content: space-between;
 }
+
+@media(max-width: 990px){
+    .navigation{
+        display: none;
+    }
+}
+
+

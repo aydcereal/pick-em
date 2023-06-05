@@ -1,0 +1,50 @@
+body {
+    background-color: white;
+}
+
+.navLogo {
+    height: 64px;
+    width: 103px;
+    
+    
+}
+
+
+
+.mobile-navigation {
+    
+    display: none;
+    flex-wrap: inherit;
+    align-items: center;
+   
+}
+
+
+@media (max-width: 990px) {
+    .mobile-navigation{
+        display: flex;
+        align-items: center;
+    }
+    .hamburger{
+        cursor: pointer;
+    }
+
+    .navbar nav ul{
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 152px;
+        margin: auto;
+        right: 0;
+        left: 0;
+        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.08);
+        max-width: 550px;
+        background-color: #ffffff;
+        border: solid 1px #eeeeee;
+
+    }
+    .navbar nav .nav-link{
+        border-bottom: solid 1px #e5e5e5 ;
+    }
+   
+}
