@@ -63,3 +63,22 @@
     padding: 10px;
     margin-bottom: 50px;
 }
+
+
+.pageTitle{
+    display: flex;
+    justify-content: center;
+    margin-top: 55px;
+    
+}
+
+.pageTitle h1{
+    font-weight: bold;
+    font-size: 40px;
+}
+
+.signInButtons {
+    display: flex;
+    justify-content: center;
+    margin: 40px;
+}

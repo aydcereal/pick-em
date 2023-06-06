@@ -19,7 +19,7 @@ const MobileNavbar = () => {
         <nav className='mobile-navigation '>
             {open && <Navlinks/>}
             {open ? closedHambueger: hamburgerIcon}
-            <a className='btn btn-lg btn-danger nav-btn'>Login</a>
+            <a href='/login' className='btn btn-lg btn-danger nav-btn'>Login</a>
         </nav>
     )
 }

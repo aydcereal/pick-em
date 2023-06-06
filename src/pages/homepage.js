@@ -1,9 +1,8 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import classes from './homepage.css'
-import MobileNavbar from './mobileNavigation'
 import heroImg from '../images/hero.png'
-import HamburgerMenu from './hamburgerMenu';
-import Navbar from './navbar';
+
+import Navbar from '../components/navbar'
 
 import React from 'react'
 
