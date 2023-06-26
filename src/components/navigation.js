@@ -1,4 +1,5 @@
 import Navlinks from "./navLinks";
+import { NavLink } from "react-router-dom";
 
 
 const Navigation = () => {
@@ -8,7 +9,7 @@ const Navigation = () => {
             
             
         <Navlinks/>
-        <div className="test"><a className='btn btn-lg btn-danger nav-btn'>Login</a></div>
+        <NavLink  className='btn btn-lg btn-danger nav-btn' to='/login' >Login</NavLink>
         
         
         </nav>

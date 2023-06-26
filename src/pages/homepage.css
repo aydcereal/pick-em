@@ -66,19 +66,28 @@
 
 
 .pageTitle{
-    display: flex;
-    justify-content: center;
-    margin-top: 55px;
+    padding: 24px;
+    margin-top: 50px;
+    text-align: center;
     
 }
 
 .pageTitle h1{
     font-weight: bold;
     font-size: 40px;
+    margin: 2rem auto;
+    text-align: center;
+
 }
+
+
 
 .signInButtons {
     display: flex;
     justify-content: center;
     margin: 40px;
+}
+
+.callout{
+    margin-bottom: 50px;
 }

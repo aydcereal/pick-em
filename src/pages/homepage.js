@@ -1,15 +1,13 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import classes from './homepage.css'
 import heroImg from '../images/hero.png'
-
-import Navbar from '../components/navbar'
-
 import React from 'react'
+import { Link } from 'react-router-dom';
 
 
 const homepage = () => {
     return <React.Fragment>
-            <Navbar/>
+           
            
             
             <div className='container'>
@@ -26,9 +24,9 @@ const homepage = () => {
                         <h1>Welcome to pick em bets</h1>
 
                     </div>
-                        <p>your premier destination for weekly football picks and exciting wagers! Join us now to play alongside your friends and family, as you make informed bets on your favorite teams. Sign up today and embark on a thrilling journey of football and friendly competition!</p>
+                        <p className='callout' >your premier destination for weekly football picks and exciting wagers! Join us now to play alongside your friends and family, as you make informed bets on your favorite teams. Sign up today and embark on a thrilling journey of football and friendly competition!</p>
                             <p>
-                                <a className='btn btn-lg btn-danger'>Sign Up</a>
+                                <Link to='/signup' className='btn btn-lg btn-danger'>Sign Up</Link>
                             </p>
                         
                     </div>
