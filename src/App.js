@@ -4,7 +4,9 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Homepage from './pages/homepage';
 import Login from './pages/login';
 import Signup from './pages/signUp';
+import ChoosePassword from './pages/choosePassword';
 import RootLayout from './pages/Root';
+import SignupRoot from './pages/SignupRoot';
 import ErrorPage from './pages/Error';
 
 const router = createBrowserRouter([
@@ -12,9 +14,15 @@ const router = createBrowserRouter([
    element:<RootLayout/>,
    errorElement: <ErrorPage />,
    children: [
-      {path: '/', element: <Homepage/>},
+      {index: true, element: <Homepage/>},
       {path: '/login', element: <Login/>},
-      {path: '/signup', element: <Signup/>}]  }
+      {path: '/signup', element: <SignupRoot/>,
+        children: [
+        {path: '', element:<Signup/>},
+        {path:'password', element:<ChoosePassword/>}
+      ]},
+      
+    ]}
   
 ])
 
