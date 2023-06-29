@@ -1,12 +1,37 @@
-import React from "react"
+import React, {useContext, useState} from "react"
 import classes from './signUp.css'
 import GoogleButton from "react-google-button";
+import AuthContext from "../context/signup-context";
 
 
 
 
 
-export default function choosePassword() {
+export default function ChoosePassword() {
+
+    const {email} = useContext(AuthContext)
+    console.log(email);
+
+    const [enteredPassword, SetEnteredPassword] = useState('')
+    const [enteredConfirmedPassword, SetConfirmedPassword] = useState('')
+
+    const enteredPasswordHandler = (e) => {
+        SetEnteredPassword(e.target.value)
+        console.log(enteredPassword);
+    }
+
+    const confirmedPasswordHandler = (e) => {
+        SetConfirmedPassword(e.target.value)
+        console.log(enteredConfirmedPassword);
+    }
+
+    const continueHandler = (e) => {
+        e.preventDefault()
+        console.log(enteredPassword, enteredConfirmedPassword, email);
+        
+    }
+
+    
 
     const emailInputFocusHandler = event => {
         console.log('focused');
@@ -23,14 +48,28 @@ export default function choosePassword() {
                 <form className="layout-form">
                     <div className="layout-row" >
                         <label htmlFor='email' className="label-style">Password</label>
-                        <input  className='input-style'onFocus={emailInputFocusHandler} id="password" name="password" type="password" required />              
+                        <input  
+                            className='input-style' 
+                            onChange={enteredPasswordHandler}
+                            onFocus={emailInputFocusHandler} 
+                            id="password" 
+                            name="password" 
+                            type="password" 
+                            required />              
                     </div>
                     <div className="layout-row" >
                         <label htmlFor='email' className="label-style">Confirm Password</label>
-                        <input  className='input-style'onFocus={emailInputFocusHandler} id="confirm-password" name="confirm-password" type="password" required />              
+                        <input  
+                        className='input-style' 
+                        onChange={confirmedPasswordHandler}
+                        onFocus={emailInputFocusHandler} 
+                        id="confirm-password" 
+                        name="confirm-password" 
+                        type="password" 
+                        required />              
                     </div>
                     <div className="layout-row-button" >
-                        <button className="layout-button" type="submit" >Continue</button>              
+                        <button onClick={continueHandler} className="layout-button" type="submit" >Continue</button>              
                     </div>
                    
                     
