@@ -41,6 +41,7 @@ body {
         max-width: 550px;
         background-color: #ffffff;
         border: solid 1px #eeeeee;
+        z-index: 1;
 
     }
     .navbar nav .nav-link{

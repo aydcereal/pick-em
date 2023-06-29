@@ -22,11 +22,11 @@ export default function choosePassword() {
                 
                 <form className="layout-form">
                     <div className="layout-row" >
-                        <label for='email' className="label-style">Password</label>
+                        <label htmlFor='email' className="label-style">Password</label>
                         <input  className='input-style'onFocus={emailInputFocusHandler} id="password" name="password" type="password" required />              
                     </div>
                     <div className="layout-row" >
-                        <label for='email' className="label-style">Confirm Password</label>
+                        <label htmlFor='email' className="label-style">Confirm Password</label>
                         <input  className='input-style'onFocus={emailInputFocusHandler} id="confirm-password" name="confirm-password" type="password" required />              
                     </div>
                     <div className="layout-row-button" >
