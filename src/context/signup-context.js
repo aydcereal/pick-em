@@ -1,14 +1,5 @@
-// import React from "react";
-
-// const SignUpContext = React.createContext({
-//     enteredEmail: 'Test'
-// })
-
-
-// export default SignUpContext;
-
-
 import { createContext, useState } from 'react';
+import {auth} from '../firebase'
 
 const AuthContext = createContext();
 
