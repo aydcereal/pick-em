@@ -41,7 +41,8 @@ export default function Signup() {
         console.log(email);;
       }
 
-      const continueHandler = () => {
+      const submitHandler = (e) => {
+        e.preventDefault()
         navigate('password')
       }
     
@@ -69,7 +70,7 @@ export default function Signup() {
                 <div className="signInButtons" >
                     <GoogleButton onClick={() => {console.log('Google button clicked')}} />
                 </div>
-                <form className="layout-form">
+                <form onSubmit={submitHandler} className="layout-form">
                     <div className="layout-row" >
                         <label htmlFor='email' className={emailLabelHandler }>Email</label>
                         <input  
@@ -83,7 +84,7 @@ export default function Signup() {
                             required />              
                     </div>
                     <div className="layout-row-button" >
-                        <Link onClick={continueHandler} className="layout-button" type="submit" >Continue</Link>              
+                        <Link className="layout-button" type="submit" >Continue</Link>              
                     </div>
                     
                     
