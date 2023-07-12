@@ -45,17 +45,18 @@ export const AuthProvider = ({ children }) => {
   }
 
   useEffect(() => {
+    console.log('Inside useEffect')
     const unsubscribe =  auth.onAuthStateChanged(user => {
       setCurrentUser(user)
     })
 
       return unsubscribe
-  } ,[])
+  } ,[email, password])
 
-  // const value = {
-  //   currentUser,
-  //   signUp
-  // }
+  const value = {
+    currentUser,
+    signUp
+  }
 
   
 
