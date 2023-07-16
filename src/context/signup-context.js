@@ -6,6 +6,14 @@ const AuthContext = createContext();
 export const AuthProvider = ({ children }) => {
   const [email, setEmail] = useState('');
 
+  function login (email, password)  {
+    return auth.creaeUserWithEmailAndPassword(email, password)
+  }
+
+  auth.onAuthStateChanged(user => {
+    setCurre
+  })
+
   const updateEmail = (newEmail) => {
     setEmail(newEmail);
   };
