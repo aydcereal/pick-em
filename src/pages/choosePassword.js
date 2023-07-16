@@ -9,25 +9,28 @@ import AuthContext from "../context/signup-context";
 
 export default function ChoosePassword() {
 
-    const {email} = useContext(AuthContext)
-    console.log(email);
+    const {email, updatePassword, signUp} = useContext(AuthContext)
+    ;
 
     const [enteredPassword, SetEnteredPassword] = useState('')
     const [enteredConfirmedPassword, SetConfirmedPassword] = useState('')
 
     const enteredPasswordHandler = (e) => {
         SetEnteredPassword(e.target.value)
-        console.log(enteredPassword);
+        ;
     }
 
     const confirmedPasswordHandler = (e) => {
         SetConfirmedPassword(e.target.value)
-        console.log(enteredConfirmedPassword);
+        ;
     }
 
     const continueHandler = (e) => {
         e.preventDefault()
-        console.log(enteredPassword, enteredConfirmedPassword, email);
+        
+        updatePassword(enteredPassword)
+        signUp()
+
         
     }
 
