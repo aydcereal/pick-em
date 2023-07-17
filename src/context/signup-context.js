@@ -20,14 +20,6 @@ export const AuthProvider = ({ children }) => {
   
 
 
-  function login (email, password)  {
-    return auth.creaeUserWithEmailAndPassword(email, password)
-  }
-
-  auth.onAuthStateChanged(user => {
-    setCurre
-  })
-
   const updateEmail = (newEmail) => {
     setEmail(newEmail);
   };
