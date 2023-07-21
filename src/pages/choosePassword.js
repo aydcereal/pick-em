@@ -27,7 +27,7 @@ export default function ChoosePassword() {
 
     const continueHandler = (e) => {
         e.preventDefault()
-        
+        console.log(email, enteredPassword);
         updatePassword(enteredPassword)
         signUp()
 

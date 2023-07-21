@@ -20,12 +20,14 @@ export const AuthProvider = ({ children }) => {
   
 
 
-  function login (email, password)  {
-    return auth.creaeUserWithEmailAndPassword(email, password)
-  }
+ function login(email, password) {
+  return auth.createUserWithEmailAndPassword(email, password);
+}
+
+
 
   auth.onAuthStateChanged(user => {
-    setCurre
+   
   })
 
   const updateEmail = (newEmail) => {
@@ -38,18 +40,19 @@ export const AuthProvider = ({ children }) => {
   }
 
   const signUp = () => {
-    
+
+    console.log('sign up called ' + email + " " + password);
     createUserWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
-      // Signed in 
-      const user = userCredential.user;
-      // ...
-    })
-    .catch((error) => {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      // ..
-    });
+      .then((userCredential) => {
+        // Signed in 
+        const user = userCredential.user;
+        // ...
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        // ..
+      });
   }
 
   useEffect(() => {
@@ -68,7 +71,7 @@ export const AuthProvider = ({ children }) => {
 
   
 
-     (
+     return (
     <AuthContext.Provider value={{ email, updateEmail, updatePassword, signUp }}>
       {children}
     </AuthContext.Provider>

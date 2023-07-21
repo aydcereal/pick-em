@@ -31,7 +31,7 @@ export default function Signup() {
 
     
       const { email, updateEmail} = useContext(AuthContext)
-      console.log(email);
+      ;
       
       
     
@@ -42,6 +42,7 @@ export default function Signup() {
       }
 
       const submitHandler = (e) => {
+        console.log('submit handler');
         e.preventDefault()
         navigate('password')
       }
@@ -84,7 +85,7 @@ export default function Signup() {
                             required />              
                     </div>
                     <div className="layout-row-button" >
-                        <Link className="layout-button" type="submit" >Continue</Link>              
+                        <button className="layout-button" type="submit" >Continue</button>              
                     </div>
                     
                     
