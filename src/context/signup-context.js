@@ -40,6 +40,7 @@ export const AuthProvider = ({ children }) => {
     .catch((error) => {
       const errorCode = error.code;
       const errorMessage = error.message;
+      console.log("Sign-up Error:", errorCode, errorMessage)
       // ..
     });
   }
@@ -60,7 +61,7 @@ export const AuthProvider = ({ children }) => {
 
   
 
-     (
+    return  (
     <AuthContext.Provider value={{ email, updateEmail, updatePassword, signUp }}>
       {children}
     </AuthContext.Provider>
