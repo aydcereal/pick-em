@@ -30,19 +30,19 @@ export const AuthProvider = ({ children }) => {
   }
 
   const signUp = () => {
-    
+
+    console.log('sign up called ' + email + " " + password);
     createUserWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
-      // Signed in 
-      const user = userCredential.user;
-      // ...
-    })
-    .catch((error) => {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      console.log("Sign-up Error:", errorCode, errorMessage)
-      // ..
-    });
+      .then((userCredential) => {
+        // Signed in 
+        const user = userCredential.user;
+        // ...
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        // ..
+      });
   }
 
   useEffect(() => {
@@ -61,7 +61,7 @@ export const AuthProvider = ({ children }) => {
 
   
 
-    return  (
+     return (
     <AuthContext.Provider value={{ email, updateEmail, updatePassword, signUp }}>
       {children}
     </AuthContext.Provider>

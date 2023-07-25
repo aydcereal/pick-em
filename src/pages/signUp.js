@@ -31,7 +31,7 @@ export default function Signup() {
 
     
       const { email, updateEmail} = useContext(AuthContext)
-      console.log(email);
+      ;
       
       
     
@@ -42,6 +42,7 @@ export default function Signup() {
       }
 
       const submitHandler = (e) => {
+        console.log('submit handler');
         e.preventDefault()
         navigate('password')
       }
