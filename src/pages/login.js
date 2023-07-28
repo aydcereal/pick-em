@@ -1,10 +1,10 @@
 
 import React, { useContext, useState } from "react"
-import { Form, Button, Card } from "react-bootstrap"
 import classes from './signUp.css'
 import GoogleButton from "react-google-button";
-import { Link, useNavigate } from "react-router-dom";
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth"
+import {useNavigate } from "react-router-dom";
+import AuthContext from "../context/auth-context";
+
 
 
 
@@ -21,6 +21,8 @@ const Login = () => {
     let [focusHandler, SetFocusHandler] = useState(false)
     let [enteredEmail, SetEnteredEmail] = useState('')
     let [enteredPassword, SetEnteredPassword] = useState('')
+    
+    const {updateEmail, updatePassword, login} = useContext(AuthContext);
    
     const emailLabelHandler = focusHandler ? 'label-style-pressed' : 'label-style'
 
@@ -31,17 +33,20 @@ const Login = () => {
     
       const emailInputHandler = (e) => {
         SetEnteredEmail(e.target.value)
-        console.log(e.target.value);;
+        ;;
       }
 
       const passwordInputHandler = (e) => {
         SetEnteredPassword(e.target.value)
-        console.log(e.target.value);;
+       ;;
       }
 
       const submitHandler = (e) => {
-        console.log(enteredEmail + " " + enteredPassword);
+        
         e.preventDefault()
+        updateEmail(enteredEmail)
+        updatePassword(enteredPassword)
+        login()
         
       }
     
@@ -60,17 +65,6 @@ const Login = () => {
     }
 
 
-    const auth = getAuth();
-signInWithEmailAndPassword(auth, enteredEmail, enteredPassword)
-  .then((userCredential) => {
-    // Signed in 
-    const user = userCredential.user;
-    // ...
-  })
-  .catch((error) => {
-    const errorCode = error.code;
-    const errorMessage = error.message;
-  });
 
 
 

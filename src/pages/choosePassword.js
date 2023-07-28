@@ -1,13 +1,17 @@
 import React, {useContext, useState} from "react"
 import classes from './signUp.css'
 import GoogleButton from "react-google-button";
-import AuthContext from "../context/signup-context";
+import AuthContext from "../context/auth-context";
+import { useNavigate } from "react-router-dom";
 
 
 
 
 
 export default function ChoosePassword() {
+
+
+    const navigate = useNavigate()
 
     const {email, updatePassword, signUp} = useContext(AuthContext)
     ;
@@ -30,6 +34,8 @@ export default function ChoosePassword() {
         console.log(email, enteredPassword);
         updatePassword(enteredPassword)
         signUp()
+        navigate('dashboard')
+        
 
         
     }
