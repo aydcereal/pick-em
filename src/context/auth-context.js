@@ -48,20 +48,22 @@ export const AuthProvider = ({ children }) => {
   }
 
 
-  const signUp = () => {
+  const signUp = (email, password) => {
 
-    console.log('sign up called ' + email + " " + password);
-    createUserWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        // Signed in 
-        const user = userCredential.user;
-        // ...
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        // ..
-      });
+    return new Promise((resolve, reject) => {
+      createUserWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+          const user = userCredential.user;
+          console.log(user);
+          resolve(user);
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          console.log(error + errorMessage);
+          reject(error);
+        });
+    });
   }
 
   useEffect(() => {

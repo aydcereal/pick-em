@@ -47,7 +47,7 @@ const Login = () => {
       navigate('/dashboard'); // Change '/dashboard' to your desired next page
     } catch (error) {
       console.log('Login error:', error);
-      if (error.code === 'auth/user-not-found') {
+      if (error.code === 'auth/user-not-found' || error.code === 'auth/wrong-password') {
         setError('Invalid email or password');
       } else {
         setError(error.message);
