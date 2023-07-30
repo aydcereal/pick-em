@@ -4,6 +4,7 @@ import { AuthProvider } from './context/auth-context';
 import Homepage from './pages/homepage';
 import Login from './pages/login';
 import Signup from './pages/signUp';
+import Dashboard from './pages/dashboard';
 import ChoosePassword from './pages/choosePassword';
 import RootLayout from './pages/Root';
 import SignupRoot from './pages/SignupRoot';
@@ -17,6 +18,7 @@ const router = createBrowserRouter([
    children: [
       {index: true, element: <Homepage/>},
       {path: '/login', element: <Login/>},
+      {path: '/dashboard', element: <Dashboard/>},
       {path: '/signup', element: <SignupRoot/>,
         children: [
         {path: '', element:<Signup/>},

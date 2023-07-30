@@ -1,54 +1,67 @@
-
-import React, { useContext, useState } from "react"
+import React, { useContext, useState, useEffect } from "react";
 import classes from './signUp.css'
 import GoogleButton from "react-google-button";
-import {useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import AuthContext from "../context/auth-context";
 
-
-
-
-
-
-
-
 const Login = () => {
+  let [focusHandler, SetFocusHandler] = useState(false);
+  let [enteredEmail, SetEnteredEmail] = useState('');
+  let [enteredPassword, SetEnteredPassword] = useState('');
+  const [error, setError] = useState('')
 
+  const { updateEmail, updatePassword, login, currentUser } = useContext(AuthContext);
+  const emailLabelHandler = focusHandler ? 'label-style-pressed' : 'label-style';
 
+  const navigate = useNavigate();
 
+  const emailInputHandler = (e) => {
+    SetEnteredEmail(e.target.value);
+  };
 
+  const passwordInputHandler = (e) => {
+    SetEnteredPassword(e.target.value);
+  };
 
-    let [focusHandler, SetFocusHandler] = useState(false)
-    let [enteredEmail, SetEnteredEmail] = useState('')
-    let [enteredPassword, SetEnteredPassword] = useState('')
-    
-    const {updateEmail, updatePassword, login} = useContext(AuthContext);
-   
-    const emailLabelHandler = focusHandler ? 'label-style-pressed' : 'label-style'
+  const isValidEmail = (email) => {
+    // Basic email format validation using a regular expression
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
 
-
-    const navigate = useNavigate()
-
-
-    
-      const emailInputHandler = (e) => {
-        SetEnteredEmail(e.target.value)
-        ;;
+  const submitHandler = async (e) => {
+    e.preventDefault();
+  
+    if (!isValidEmail(enteredEmail)) {
+      console.log('Invalid email format');
+      setError('Invalid email format');
+      // Handle the invalid email format error, show feedback to the user if needed
+      return;
+    }
+  
+    try {
+      const user = await login(enteredEmail, enteredPassword);
+      console.log('Login successful:', user);
+      setError('');
+      // Now you can navigate to the desired page after successful login
+      navigate('/dashboard'); // Change '/dashboard' to your desired next page
+    } catch (error) {
+      console.log('Login error:', error);
+      if (error.code === 'auth/user-not-found') {
+        setError('Invalid email or password');
+      } else {
+        setError(error.message);
       }
+      // Handle the login error if needed
+    }
+  };
 
-      const passwordInputHandler = (e) => {
-        SetEnteredPassword(e.target.value)
-       ;;
-      }
-
-      const submitHandler = (e) => {
-        
-        e.preventDefault()
-        updateEmail(enteredEmail)
-        updatePassword(enteredPassword)
-        login()
-        
-      }
+  useEffect(() => {
+    if (currentUser) {
+      console.log(currentUser);  
+      navigate('/dashboard'); // Change '/dashboard' to your desired next page after successful login
+    }
+  }, [currentUser, navigate]);
     
 
 
@@ -74,6 +87,7 @@ const Login = () => {
 
             <div className="layout-body">
                 <h1 className="pageTitle">Login</h1>
+                {error && <p>{error}</p>}
                 <div className="signInButtons" >
                     <GoogleButton onClick={() => {console.log('Google button clicked')}} />
                 </div>
@@ -114,6 +128,5 @@ const Login = () => {
         
     </React.Fragment>
 }
-
 
 export default Login;

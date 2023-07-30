@@ -12,7 +12,7 @@ const auth = getAuth(app);
 
 export const AuthProvider = ({ children }) => {
 
-  const [currentUser, setCurrentUser] = useState()
+  const [currentUser, setCurrentUser] = useState(null)
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('')
@@ -30,18 +30,21 @@ export const AuthProvider = ({ children }) => {
   }
 
 
-  const login = () =>{
-    signInWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        // Signed in
-          const user = userCredential.user
+  const login = (email, password) => {
+    return new Promise((resolve, reject) => {
+      signInWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+          const user = userCredential.user;
           console.log(user);
-      })
-      .catch((error) =>{
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        console.log(error + errorMessage);
+          resolve(user);
         })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          console.log(error + errorMessage);
+          reject(error);
+        });
+    });
   }
 
 
@@ -72,13 +75,17 @@ export const AuthProvider = ({ children }) => {
 
   const value = {
     currentUser,
-    signUp
+    signUp,
+    login,
+    updateEmail, 
+    updatePassword, 
+    email
   }
 
   
 
      return (
-    <AuthContext.Provider value={{ email, updateEmail, updatePassword, signUp, login }}>
+    <AuthContext.Provider value={value}>
       {children}
     </AuthContext.Provider>
   );
