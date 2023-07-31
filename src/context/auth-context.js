@@ -3,6 +3,7 @@ import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } f
 import {app} from '../firebase'
 
 
+
 const AuthContext = createContext();
 const auth = getAuth(app);
 
@@ -11,6 +12,8 @@ const auth = getAuth(app);
 
 
 export const AuthProvider = ({ children }) => {
+
+  
 
   const [currentUser, setCurrentUser] = useState(null)
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -80,6 +83,7 @@ export const AuthProvider = ({ children }) => {
   const handleLogout = () => {
     auth.signOut()
       .then(() => {
+       
         // Sign-out successful.
       })
       .catch((error) => {
