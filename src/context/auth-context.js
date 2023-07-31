@@ -13,6 +13,7 @@ const auth = getAuth(app);
 export const AuthProvider = ({ children }) => {
 
   const [currentUser, setCurrentUser] = useState(null)
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('')
@@ -69,16 +70,30 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     console.log('Inside useEffect')
     const unsubscribe =  auth.onAuthStateChanged(user => {
-      setCurrentUser(user)
+      setCurrentUser(user);
+      setIsAuthenticated(!!user);
     })
 
       return unsubscribe
   } ,[email, password])
 
+  const handleLogout = () => {
+    auth.signOut()
+      .then(() => {
+        // Sign-out successful.
+      })
+      .catch((error) => {
+        // An error happened.
+      });
+  };
+
+
   const value = {
     currentUser,
+    isAuthenticated,
     signUp,
     login,
+    handleLogout,
     updateEmail, 
     updatePassword, 
     email
