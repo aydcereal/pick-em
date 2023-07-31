@@ -9,22 +9,31 @@ import Navigation from './navigation'
 import { useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 
+
 const Navbar = () => {
     const { isAuthenticated, handleLogout } = useContext(AuthContext);
     const [showAlert, setShowAlert] = useState(false);
+    const [shouldHide, setShouldHide] = useState(true);
+
+   
   
     const navigate = useNavigate();
   
     const logoutHandler = () => {
+      console.log('Log out handler called');
       navigate("/");
       setShowAlert(true);
-      setTimeout(() => setShowAlert(false), 7000);
+      setShouldHide(false)
+      setTimeout(() => {
+        setShowAlert(false);
+        setTimeout(() => setShouldHide(true), 5000);
+      }, 5000);
     };
   
     return (
       <div className="navbar">
-        <div className={`alert-container ${showAlert ? "" : "hidden"}`}>
-          <div className="alert" onAnimationEnd={() => setShowAlert(false)}>
+        <div className={`alert-container ${shouldHide ? 'hidden' : ''}`}>
+          <div className={`alert ${!showAlert ? 'fade-out' : ''}`}>
             <img src={checkMark} />
             <p>You have been signed out</p>
           </div>
@@ -36,7 +45,7 @@ const Navbar = () => {
           onLogout={handleLogout}
           logoutHandler={logoutHandler}
         />
-        <MobileNavigation isAuthenticated={isAuthenticated} onLogout={handleLogout} />
+        <MobileNavigation  />
       </div>
     );
   };
