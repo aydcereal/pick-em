@@ -42,7 +42,7 @@ export default function Signup() {
       }
 
       const submitHandler = (e) => {
-        console.log('submit handler');
+        
         e.preventDefault()
         navigate('password')
       }
@@ -68,9 +68,7 @@ export default function Signup() {
 
             <div className="layout-body">
                 <h1 className="pageTitle">Sign Up</h1>
-                <div className="signInButtons" >
-                    <GoogleButton onClick={() => {console.log('Google button clicked')}} />
-                </div>
+               
                 <form onSubmit={submitHandler} className="layout-form">
                     <div className="layout-row" >
                         <label htmlFor='email' className={emailLabelHandler }>Email</label>

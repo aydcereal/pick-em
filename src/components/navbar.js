@@ -45,7 +45,11 @@ const Navbar = () => {
           onLogout={handleLogout}
           logoutHandler={logoutHandler}
         />
-        <MobileNavigation  />
+        <MobileNavigation 
+          isAuthenticated={isAuthenticated}
+          onLogout={handleLogout}
+          logoutHandler={logoutHandler}
+            />
       </div>
     );
   };

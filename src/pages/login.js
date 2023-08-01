@@ -33,7 +33,7 @@ const Login = () => {
     e.preventDefault();
   
     if (!isValidEmail(enteredEmail)) {
-      console.log('Invalid email format');
+      
       setError('Invalid email format');
       // Handle the invalid email format error, show feedback to the user if needed
       return;
@@ -41,12 +41,12 @@ const Login = () => {
   
     try {
       const user = await login(enteredEmail, enteredPassword);
-      console.log('Login successful:', user);
+      
       setError('');
       // Now you can navigate to the desired page after successful login
       navigate('/dashboard'); // Change '/dashboard' to your desired next page
     } catch (error) {
-      console.log('Login error:', error);
+      
       if (error.code === 'auth/user-not-found' || error.code === 'auth/wrong-password') {
         setError('Invalid email or password');
       } else {
@@ -58,7 +58,7 @@ const Login = () => {
 
   useEffect(() => {
     if (currentUser) {
-      console.log(currentUser);  
+      
       navigate('/dashboard'); // Change '/dashboard' to your desired next page after successful login
     }
   }, [currentUser, navigate]);
@@ -88,9 +88,7 @@ const Login = () => {
             <div className="layout-body">
                 <h1 className="pageTitle">Login</h1>
                 {error && <p>{error}</p>}
-                <div className="signInButtons" >
-                    <GoogleButton onClick={() => {console.log('Google button clicked')}} />
-                </div>
+                
                 <form onSubmit={submitHandler} className="layout-form">
                     <div className="layout-row" >
                         <label htmlFor='email' className={emailLabelHandler }>Email</label>

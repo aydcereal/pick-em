@@ -6,7 +6,7 @@ import classes from './MobileNavigation.css';
 import Navlinks from './navLinks';
 import { Link } from 'react-router-dom';
 
-const MobileNavbar = ({ isAuthenticated, onLogout }) => {
+const MobileNavbar = ({ isAuthenticated, onLogout, logoutHandler }) => {
   const [open, setOpen] = useState(false);
 
   function closeHamburger() {
@@ -34,7 +34,10 @@ const MobileNavbar = ({ isAuthenticated, onLogout }) => {
       {open && <Navlinks hamburgerHandler={closeHamburger} />}
       {open ? closedHamburger : hamburgerIcon}
       {isAuthenticated ? (
-        <button onClick={onLogout} className="btn btn-lg btn-danger nav-btn">
+        <button onClick={event => {
+          onLogout(); 
+          logoutHandler();
+      }} className="btn btn-lg btn-danger nav-btn">
           Logout
         </button>
       ) : (

@@ -40,16 +40,14 @@ export default function ChoosePassword() {
         if (!isValidEmail(email)) {
             console.log('Invalid email format');
             setError('Invalid email format');
-            // Handle the invalid email format error, show feedback to the user if needed
+            
             return;
           }
 
           try {
-            const user = await signUp(email, enteredPassword);
-            console.log('Sign Up successful:', user);
+            const userCredential = await signUp(email, enteredPassword);            
             setError('');
-            // Now you can navigate to the desired page after successful login
-            navigate('/dashboard'); // Change '/dashboard' to your desired next page
+            navigate('/signup/user-details'); 
           } catch (error) {
             console.log('Sign Up error:', error);
             if (error.code === 'auth/email-already-in-use') {
@@ -57,7 +55,7 @@ export default function ChoosePassword() {
             } else {
               setError(error.message);
             }
-            // Handle the login error if needed
+           
           }
        
         

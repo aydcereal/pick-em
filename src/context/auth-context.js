@@ -1,11 +1,13 @@
 import { createContext, useEffect, useState } from 'react';
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth"
+import {getDatabase, ref, set} from "firebase/database"
 import {app} from '../firebase'
 
 
 
 const AuthContext = createContext();
 const auth = getAuth(app);
+const db = getDatabase()
 
 
 
@@ -20,6 +22,10 @@ export const AuthProvider = ({ children }) => {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('')
+
+  const saveUserData = (userId, userData) => {
+    set(ref(db, `users/${userId}`), userData);
+  };
 
   
 
@@ -39,7 +45,6 @@ export const AuthProvider = ({ children }) => {
       signInWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
           const user = userCredential.user;
-          console.log(user);
           resolve(user);
         })
         .catch((error) => {
@@ -58,7 +63,7 @@ export const AuthProvider = ({ children }) => {
       createUserWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
           const user = userCredential.user;
-          console.log(user);
+          
           resolve(user);
         })
         .catch((error) => {
@@ -100,7 +105,8 @@ export const AuthProvider = ({ children }) => {
     handleLogout,
     updateEmail, 
     updatePassword, 
-    email
+    email,
+    saveUserData
   }
 
   
