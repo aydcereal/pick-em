@@ -45,6 +45,7 @@
 .navbar{
     padding: 16px;
     text-align: center;
+    max-width: 1224px;
 }
 
 .navigation{
@@ -109,3 +110,18 @@
   }
   
 
+.userMenu {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 28px;
+  text-transform: uppercase;
+  
+}
+
+.userMenu img {
+  width: 15px;
+  height: 15px;
+}
+
+.userMenu:hover {
+  border-bottom: 2px solid rgb(0, 52, 206) ;
+}
