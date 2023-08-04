@@ -5,7 +5,7 @@ import { useState } from "react";
 import { getDatabase, ref, onValue } from "firebase/database";
 import { useEffect } from "react";
 import { useContext } from "react";
-import arrow from '../images/down_arrow.png'
+
 
 
 
@@ -22,42 +22,36 @@ const getUserData = (userId, callback) => {
 
 const Navigation = ({isAuthenticated, onLogout, logoutHandler }) => {
 
-    const { currentUser } = useContext(AuthContext);
-    const [userData, setUserData] = useState(null);
-    
-
-    useEffect(() => {
-        if (currentUser) {
-            console.log(currentUser);
-          getUserData(currentUser.uid, setUserData);
-        }
-      }, [currentUser]);
+   
 
     
     return(
 
-        <nav className="navigation" >
-            
-            
-        <Navlinks/>
-        {isAuthenticated ? (
-            <div onClick={event => {
-                onLogout(); 
-                logoutHandler();
-            }} >
-                <a className="userMenu">
-                {userData && userData.displayName}
-                <img src={arrow}/>
-                </a>
-               
-            </div>
+        <div className="navigation" >
+
+
+          <div className="authentication logged-in">
+          {isAuthenticated ? (
+            <NavLink  className='btn btn-lg btn-danger nav-btn' to='/dashboard' >
+            Dashboard
+            </NavLink>
         ) :<NavLink  className='btn btn-lg btn-danger nav-btn' to='/login' >
             Login
             </NavLink> }
+
+          </div>
+
+          <div className="collapse navbar-collapse">
+          <Navlinks/>
+          </div>
+            
+            
         
         
         
-        </nav>
+        
+        
+        </div>
     )
 }
 

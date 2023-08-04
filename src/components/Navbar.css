@@ -1,127 +1,171 @@
-@keyframes fade {
-    from {
-      opacity: 0;
+  @keyframes fade {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
     }
-    to {
-      opacity: 1;
+
+    @keyframes fadeOut {
+      from {
+        opacity: 1;
+      }
+      to {
+        opacity: 0;
+      }
     }
+    
+
+    
+
+  .nav-btn {
+      padding: 14px 23px;
+      font-size: 12px;
+      text-transform: uppercase;
+      float: right;
+      
   }
 
-  @keyframes fadeOut {
-    from {
-      opacity: 1;
-    }
-    to {
-      opacity: 0;
-    }
+  .nav-link {
+      text-decoration: none;
+      text-transform: uppercase;
+      padding: 24px;
+      font-weight: bold;
+      
   }
-  
+
+  .navbar-nav {
+      list-style: none;
+      display: flex;
+      flex-direction: row;
+      justify-content: right;
+  }
+
+  .navbar{
+    height: 97px;
+    margin-top: 0px;
+    margin-bottom: 22px;
+    padding-top: 30px;
+      
+  }
 
   
 
-.nav-btn {
-    padding: 14px 23px;
-    font-size: 12px;
-    text-transform: uppercase;
-    float: right;
-    
-}
+  .container-wrapper {
+    width: 100%;
+  }
 
-.nav-link {
-    text-decoration: none;
-    text-transform: uppercase;
-    padding: 24px;
-    font-weight: bold;
-    
-}
-
-.navbar-nav {
-    list-style: none;
-    display: flex;
-    flex-direction: row;
-    justify-content: right;
-}
-
-.navbar{
-    padding: 16px;
-    text-align: center;
-    max-width: 1224px;
-}
-
-.navigation{
-    padding: 20px;
+  .container-wrapper .container{
     display: flex;
     flex-wrap: inherit;
     align-items: center;
     justify-content: space-between;
-}
+  }
 
-@media(max-width: 990px){
-    .navigation{
-        display: none;
+  .navigation{
+    vertical-align: baseline;
+    margin-left: auto;
+      
+  }
+
+  @media(max-width: 990px){
+      .navigation{
+          display: none;
+      }
+  }
+
+
+  @media(min-width:992px) {
+    .navbar .authentication.logged-in {
+      display: flex;
+      flex-direction: row-reverse;
+  
     }
-}
+  }
+
+  .navbar .authentication {
+    margin-left: 40px;
+    float: right;
+    margin-top: 15px
+  }
+
+  
 
 
-.alert {
-    display: flex;
-    align-items: center;
-    background-color: black;
+
+  .alert {
+      display: flex;
+      align-items: center;
+      background-color: black;
+      color: black;
+      padding: 10px;
+      margin: 10px;
+      width: 740px;
+      animation: fade 1s linear;
+    }
+
+    .alert.fade-out {
+      animation: fadeOut 1s linear forwards;
+    }
+
+    .alert-container.hidden {
+      display: none;
+      
+    }
+
+    .alert p {
+      color: white;
+      font-weight: 500;
+      font-size: 14px;
+      line-height: 24px;
+      margin: 0;
+      text-align: left;
+    }
+    
+    .alert-container {
+      display: flex;
+      justify-content: center;
+      position: absolute;
+      top: 5rem;
+      left: 0;
+      right: 0;
+      
+    }
+
+    .alert img {
+      width: 20px;
+      height: 20px;
+      margin-right: 10px;
+      
+    }
+    
+    .userMenu {
+      text-decoration: none;
+    }
+
+  .userMenu span {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 28px;
+    text-transform: uppercase;
+    text-decoration: none;
     color: black;
-    padding: 10px;
-    margin: 10px;
-    width: 740px;
-    animation: fade 1s linear;
-  }
-
-  .alert.fade-out {
-    animation: fadeOut 1s linear forwards;
-  }
-
-  .alert-container.hidden {
-    display: none;
     
   }
 
-  .alert p {
-    color: white;
-    font-weight: 500;
-    font-size: 14px;
-    line-height: 24px;
-    margin: 0;
-    text-align: left;
+  .userMenu img {
+    width: 15px;
+    height: 15px;
   }
-  
-  .alert-container {
-    display: flex;
-    justify-content: center;
-    position: absolute;
-    top: 5rem;
-    left: 0;
-    right: 0;
+
+  .userMenu:hover {
+    border-bottom: 2px solid rgb(0, 52, 206) ;
+  }
+
+  .navLogo {
+    display: block;
+    max-height: 65px;
+    max-width: 103px;
     
-  }
-
-  .alert img {
-    width: 20px;
-    height: 20px;
-    margin-right: 10px;
-    
-  }
+}
   
-
-.userMenu {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 28px;
-  text-transform: uppercase;
-  
-}
-
-.userMenu img {
-  width: 15px;
-  height: 15px;
-}
-
-.userMenu:hover {
-  border-bottom: 2px solid rgb(0, 52, 206) ;
-}

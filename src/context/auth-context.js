@@ -76,7 +76,6 @@ export const AuthProvider = ({ children }) => {
   }
 
   useEffect(() => {
-    console.log('Inside useEffect')
     const unsubscribe =  auth.onAuthStateChanged(user => {
       setCurrentUser(user);
       setIsAuthenticated(!!user);
