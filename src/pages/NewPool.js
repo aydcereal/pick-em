@@ -1,4 +1,8 @@
-export default function  Dashboard () {
+
+
+
+
+export default function  NewPool () {
     
 
 
@@ -7,7 +11,7 @@ export default function  Dashboard () {
 
     return (
     <div className="pageTitle">
-      <h1>Dashboard</h1>
+      <h1>Start A New Pool</h1>
      
     </div>
   );

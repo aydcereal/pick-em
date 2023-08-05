@@ -13,6 +13,7 @@ import RootLayout from './pages/Root';
 import SignupRoot from './pages/SignupRoot';
 import ErrorPage from './pages/Error';
 import UserDetailsPage from './pages/UserDetailsPage';
+import NewPool from './pages/NewPool';
 
 
 function ProtectedRoute() {
@@ -32,6 +33,8 @@ const router = createBrowserRouter([
       {path: '/login', element: <Login/>},
       {path: '/dashboard', element: <ProtectedRoute />, children: [{index:
         true, element:<Dashboard />}]},
+      {path: '/pools/start', element: <ProtectedRoute />, children: [{index:
+          true, element:<NewPool />}]},
       {path: '/signup', element: <SignupRoot/>,
         children: [
         {path: '', element:<Signup/>},
