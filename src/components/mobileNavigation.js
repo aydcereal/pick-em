@@ -8,16 +8,22 @@ import { Link, useLocation } from 'react-router-dom';
 import { FontAwesomeIcon  } from '@fortawesome/react-fontawesome';
 import { faUser } from '@fortawesome/free-solid-svg-icons'
 import FlyoutMenu from './FlyoutMenu';
-import { useSelector, useDispatch } from 'react-redux';
-import { setFlyoutHide } from '../redux/store';
 
-const MobileNavbar = ({ isAuthenticated, onLogout, logoutHandler }) => {
-  const [open, setOpen] = useState(false);
-  const location = useLocation()
-  const isDashboard = location.pathname === '/dashboard'
-  const flyoutHide = useSelector((state) => state.flyoutHide)
 
-  const dispatch = useDispatch();
+const MobileNavbar = ({ 
+  isAuthenticated, 
+  onLogout, 
+  logoutHandler, 
+  shouldHide, 
+  handleFlyoutMenuClick }) => {
+  
+    const [open, setOpen] = useState(false);
+    const location = useLocation()
+    const isDashboard = location.pathname === '/dashboard'
+  
+  
+
+  
 
 
 
@@ -49,12 +55,13 @@ const MobileNavbar = ({ isAuthenticated, onLogout, logoutHandler }) => {
       
       {isDashboard ? (
         <div >
-        <a onClick={dispatch(setFlyoutHide(!flyoutHide))} className='btn btn-danger btn-md btn-dash'>
+        <a onClick={handleFlyoutMenuClick} className='btn btn-danger btn-md btn-dash'>
         <FontAwesomeIcon icon={faUser} style={{color: "#fafafa",}} />
         </a>
         <FlyoutMenu 
           onLogout={onLogout}
-          logoutHandler={logoutHandler}  />
+          logoutHandler={logoutHandler}
+          shouldHide={shouldHide}  />
 
       </div>
 

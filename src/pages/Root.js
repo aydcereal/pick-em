@@ -2,7 +2,7 @@ import { Outlet } from "react-router-dom"
 import Navbar from "../components/navbar"
 import { useSelector, useDispatch } from "react-redux"
 import { useNavigate } from "react-router-dom"
-import { setShowAlert, setShouldHide,setFlyoutHide } from "../redux/store"
+import { setShowAlert, setShouldHideAlert } from "../redux/store"
 
 
 
@@ -15,7 +15,7 @@ export default function Root() {
    
 
    const showAlert = useSelector((state) => state.showAlert);
-   const shouldHide = useSelector((state) => state.shouldHide);
+   const shouldHideAlert = useSelector((state) => state.shouldHideAlert);
    
 
    const dispatch = useDispatch();
@@ -25,10 +25,10 @@ export default function Root() {
         console.log('Log out handler called');
         navigate('/');
         dispatch(setShowAlert(true));
-        dispatch(setShouldHide(false));
+        dispatch(setShouldHideAlert(false));
         setTimeout(() => {
           dispatch(setShowAlert(false));;
-          setTimeout(() => dispatch(setShouldHide(true)), 5000);
+          setTimeout(() => dispatch(setShouldHideAlert(true)), 5000);
         }, 5000);
       };
 
@@ -38,7 +38,7 @@ export default function Root() {
       
         <Navbar
           showAlert={showAlert}
-          shouldHide={shouldHide}
+          shouldHideAlert={shouldHideAlert}
           logoutHandler={logoutHandler}
         />
     

@@ -4,8 +4,9 @@ import { useState } from "react";
 import { getDatabase, ref, onValue } from "firebase/database";
 import { useEffect } from "react";
 import { useContext } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link} from "react-router-dom";
 import arrow from '../images/down_arrow.png'
+import FlyoutMenu from "./FlyoutMenu";
 
 import classes from './DashboardNavigation.css'
 
@@ -22,28 +23,19 @@ const getUserData = (userId, callback) => {
   };
 
 
-const DashboardNavigation = ({onLogout, logoutHandler }) => {
+const DashboardNavigation = ({
+  onLogout, 
+  logoutHandler, 
+  shouldHide, 
+  handleFlyoutMenuClick }) => {
 
     const { currentUser } = useContext(AuthContext);
     const [userData, setUserData] = useState('');
-    const [shouldHide, setShouldHide] = useState(true)
+    
 
     
 
-
-    const handleClick = () => {
-      logoutHandler();
-      onLogout();
-
-    }
-
-    const flyoutHandler = () => {
-      setShouldHide(!shouldHide)
-    }
-    
-    
-    
-
+  
     useEffect(() => {
         if (currentUser) {
           getUserData(currentUser.uid, setUserData);
@@ -64,26 +56,16 @@ const DashboardNavigation = ({onLogout, logoutHandler }) => {
             <div>
               <div>
                 <a className="userMenu">
-                  <span onClick={flyoutHandler}>{userData.displayName}</span>
+                  <span onClick={handleFlyoutMenuClick}>{userData.displayName}</span>
                   <img src={arrow}/>
                 </a> 
               </div>
-              <div className={`FlyoutContainer container ${shouldHide ? 'hidden' : ''}`} >
-                <div className="gCnJAE"> 
-                  <div className="jZdOJn">
-                    <div className="iyZekZ">
-                      <h3 className="eiPLGK">{userData.displayName}</h3>
-                      <div className="kuExIK"> 
-                      <Link to='/edit-account'>Edit account</Link>
-                      <Link onClick={handleClick}>Sign Out</Link>
-
-                      </div>
-                    </div>
-                  </div>
-
-                </div>
-
-              </div>
+              <FlyoutMenu 
+                onLogout={onLogout}
+                logoutHandler={logoutHandler}
+                shouldHide={shouldHide} 
+                
+              />
 
 
             </div>

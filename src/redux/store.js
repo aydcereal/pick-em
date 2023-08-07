@@ -3,8 +3,8 @@ import { configureStore, createSlice } from "@reduxjs/toolkit"
 
 const initialState = {
     showAlert: false,
-    shouldHide: true,
-    flyoutHide: true
+    shouldHideAlert: true,
+    
 };
 
 
@@ -15,17 +15,15 @@ const slice = createSlice({
         setShowAlert: (state, action) => {
             state.showAlert = action.payload
         },
-        setShouldHide: (state, action) => {
-            state.shouldHide = action.payload
+        setShouldHideAlert: (state, action) => {
+            state.shouldHideAlert = action.payload
         },
-        setFlyoutHide: (state, action) => {
-            state.flyoutHide = action.payload
-        }
+        
     }
 })
 
 
-export const {setShowAlert, setShouldHide, setFlyoutHide} = slice.actions;
+export const {setShowAlert, setShouldHideAlert} = slice.actions;
 
 const store = configureStore({
     reducer: slice.reducer

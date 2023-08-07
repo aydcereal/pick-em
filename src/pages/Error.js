@@ -4,13 +4,13 @@ import { useSelector,  } from "react-redux"
 export default function Error() {
 
     const showAlert = useSelector((state) => state.showAlert)
-    const shouldHide = useSelector((state) => state.shouldHide)
+    const shouldHideAlert = useSelector((state) => state.shouldHideAlert)
     
 
     return <>
         <Navbar 
             showAlert={showAlert}
-            shouldHide={shouldHide}
+            shouldHideAlert={shouldHideAlert}
              />
 
         <div className="pageTitle">
