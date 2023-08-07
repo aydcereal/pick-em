@@ -3,6 +3,8 @@ import { createBrowserRouter, RouterProvider,Outlet, Navigate } from 'react-rout
 import { AuthProvider } from './context/auth-context';
 import AuthContext from './context/auth-context';
 import { useContext } from 'react';
+import { Provider } from 'react-redux';
+import store from './redux/store';
 
 import Homepage from './pages/homepage';
 import Login from './pages/login';
@@ -49,7 +51,9 @@ const router = createBrowserRouter([
 
 function App() {
   return <AuthProvider>
-  <RouterProvider router={router}/>
+    <Provider store={store}>
+      <RouterProvider router={router}/>
+    </Provider>
   </AuthProvider>
   
   

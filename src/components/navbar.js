@@ -6,13 +6,16 @@ import checkMark from '../images/checkmark_confirm.png'
 import classes from './Navbar.css'
 import MobileNavigation from './mobileNavigation'
 import Navigation from './navigation'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useLocation } from 'react-router-dom'
+import DashboardNavigation from './DashboardNavigation'
 
 
 
 
 const Navbar = ({ showAlert, shouldHide, logoutHandler }) => {
     const { isAuthenticated, handleLogout } = useContext(AuthContext);
+    const location = useLocation()
+    const isDashboard = location.pathname === '/dashboard'
    
 
   
@@ -24,17 +27,25 @@ const Navbar = ({ showAlert, shouldHide, logoutHandler }) => {
             <NavLink to='/'>
             <img className="navLogo" src={logo} />
             </NavLink>
+
+            {isDashboard ? (
+              <DashboardNavigation 
+                onLogout={handleLogout}
+                logoutHandler={logoutHandler} />
+            ) : (
+              <Navigation
+                isAuthenticated={isAuthenticated}
+                onLogout={handleLogout}
+                logoutHandler={logoutHandler}
+                 /> ) }
            
-            <Navigation
-              isAuthenticated={isAuthenticated}
-              onLogout={handleLogout}
-              logoutHandler={logoutHandler}
-                 /> 
+            
 
             <MobileNavigation 
               isAuthenticated={isAuthenticated}
               onLogout={handleLogout}
               logoutHandler={logoutHandler}
+              
                 />
 
           </div>

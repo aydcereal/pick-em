@@ -5,6 +5,8 @@ import { getDatabase, ref, onValue } from "firebase/database";
 import { useEffect } from "react";
 import { useContext } from "react";
 import { Link, useLocation } from "react-router-dom";
+import {setFlyoutHide } from "../redux/store"
+import { useSelector } from "react-redux";
 import arrow from '../images/down_arrow.png'
 
 import classes from './DashboardNavigation.css'
@@ -22,27 +24,21 @@ const getUserData = (userId, callback) => {
   };
 
 
-const DashboardNavigation = ({onLogout, logoutHandler }) => {
+const FlyoutMenu = ({onLogout, logoutHandler }) => {
 
     const { currentUser } = useContext(AuthContext);
     const [userData, setUserData] = useState('');
-    const [shouldHide, setShouldHide] = useState(true)
+    const shouldHide = useSelector((state) => state.flyoutHide);
 
-    
-
+  
 
     const handleClick = () => {
-      logoutHandler();
-      onLogout();
-
-    }
-
-    const flyoutHandler = () => {
-      setShouldHide(!shouldHide)
-    }
-    
-    
-    
+        logoutHandler();
+        onLogout();
+  
+      }
+  
+     
 
     useEffect(() => {
         if (currentUser) {
@@ -51,24 +47,8 @@ const DashboardNavigation = ({onLogout, logoutHandler }) => {
       }, [currentUser]);
 
 
-     
-
-    
-    return(
-
-        <div className="navigation" >
-
-
-          <div className="authentication logged-in">
-          
-            <div>
-              <div>
-                <a className="userMenu">
-                  <span onClick={flyoutHandler}>{userData.displayName}</span>
-                  <img src={arrow}/>
-                </a> 
-              </div>
-              <div className={`FlyoutContainer container ${shouldHide ? 'hidden' : ''}`} >
+    return (
+        <div className={`FlyoutContainer container ${shouldHide ? 'hidden' : ''}`} >
                 <div className="gCnJAE"> 
                   <div className="jZdOJn">
                     <div className="iyZekZ">
@@ -84,29 +64,8 @@ const DashboardNavigation = ({onLogout, logoutHandler }) => {
                 </div>
 
               </div>
-
-
-            </div>
-
-            
-
-
-       
-          </div>
-
-          <div className="collapse navbar-collapse">
-          <DashboardLinks/>
-          </div>
-            
-            
-        
-        
-        
-        
-        
-        </div>
     )
 }
 
 
-export default DashboardNavigation;
+export default FlyoutMenu

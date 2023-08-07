@@ -4,10 +4,22 @@ import openIcon from '../images/Property 1=Open.png';
 import logo from '../images/logos/blackLogo.png';
 import classes from './MobileNavigation.css';
 import Navlinks from './navLinks';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
+import { FontAwesomeIcon  } from '@fortawesome/react-fontawesome';
+import { faUser } from '@fortawesome/free-solid-svg-icons'
+import FlyoutMenu from './FlyoutMenu';
+import { useSelector, useDispatch } from 'react-redux';
+import { setFlyoutHide } from '../redux/store';
 
 const MobileNavbar = ({ isAuthenticated, onLogout, logoutHandler }) => {
   const [open, setOpen] = useState(false);
+  const location = useLocation()
+  const isDashboard = location.pathname === '/dashboard'
+  const flyoutHide = useSelector((state) => state.flyoutHide)
+
+  const dispatch = useDispatch();
+
+
 
   function closeHamburger() {
     setOpen(false);
@@ -33,21 +45,38 @@ const MobileNavbar = ({ isAuthenticated, onLogout, logoutHandler }) => {
     <nav className="mobile-navigation ">
       {open && <Navlinks hamburgerHandler={closeHamburger} />}
       {open ? closedHamburger : hamburgerIcon}
-      {isAuthenticated ? (
-        <button onClick={event => {
-          onLogout(); 
-          logoutHandler();
-      }} className="btn btn-lg btn-danger nav-btn">
-          Logout
-        </button>
+     
+      
+      {isDashboard ? (
+        <div >
+        <a onClick={dispatch(setFlyoutHide(!flyoutHide))} className='btn btn-danger btn-md btn-dash'>
+        <FontAwesomeIcon icon={faUser} style={{color: "#fafafa",}} />
+        </a>
+        <FlyoutMenu 
+          onLogout={onLogout}
+          logoutHandler={logoutHandler}  />
+
+      </div>
+
       ) : (
-        <Link
-          onClick={closeHamburger}
-          to="/login"
-          className="btn btn-lg btn-danger nav-btn"
-        >
-          Login
-        </Link>
+        isAuthenticated ? (
+          <div >
+            <Link to='/dashboard' className='btn btn-danger btn-md btn-dash'>
+            <FontAwesomeIcon icon={faUser} style={{color: "#fafafa",}} />
+            </Link>
+  
+          </div>
+        ) : (
+          <Link
+            onClick={closeHamburger}
+            to="/login"
+            className="btn btn-lg btn-danger nav-btn"
+          >
+            Login
+          </Link>
+      )
+      
+      
       )}
     </nav>
   );

@@ -1,10 +1,8 @@
 import Navlinks from "./navLinks";
 import { NavLink, useNavigate } from "react-router-dom";
-import AuthContext from "../context/auth-context";
-import { useState } from "react";
+
+
 import { getDatabase, ref, onValue } from "firebase/database";
-import { useEffect } from "react";
-import { useContext } from "react";
 
 
 
