@@ -1,8 +1,14 @@
 import { Outlet } from "react-router-dom"
 import Navbar from "../components/navbar"
-import { useSelector, useDispatch } from "react-redux"
 import { useNavigate } from "react-router-dom"
 import { setShowAlert, setShouldHideAlert } from "../redux/store"
+import { useDispatch } from "react-redux"
+import SignoutAlert from "../components/SignoutAlert"
+import AuthContext from '../context/auth-context'
+import { useContext } from "react"
+import { useLocation } from "react-router-dom"
+import DashboardNavbar from "../components/DashboardNavbar"
+import { useState } from "react"
 
 
 
@@ -10,12 +16,23 @@ import { setShowAlert, setShouldHideAlert } from "../redux/store"
 
 export default function Root() {
 
+    const { isAuthenticated, handleLogout } = useContext(AuthContext);
+    const [shouldHide, setShouldHide] = useState(true)
+    const location = useLocation()
+    const isHome = location.pathname === '/'
+
     const navigate = useNavigate();
+
+    
+
+
+  const handleFlyoutMenuClick = () => {
+    setShouldHide(!shouldHide);
+  }
 
    
 
-   const showAlert = useSelector((state) => state.showAlert);
-   const shouldHideAlert = useSelector((state) => state.shouldHideAlert);
+   
    
 
    const dispatch = useDispatch();
@@ -35,12 +52,26 @@ export default function Root() {
 
     return (
     <>
-      
-        <Navbar
-          showAlert={showAlert}
-          shouldHideAlert={shouldHideAlert}
-          logoutHandler={logoutHandler}
+        <SignoutAlert />
+        {isHome ? 
+          (
+            <Navbar
+                logoutHandler={logoutHandler}
+                isAuthenticated={isAuthenticated}
+                handleLogout={handleLogout}
+                shouldHide={shouldHide}
+                handleFlyoutMenuClick={handleFlyoutMenuClick}
         />
+          ): <DashboardNavbar 
+               logoutHandler={logoutHandler}
+               isAuthenticated={isAuthenticated}
+               handleLogout={handleLogout}
+               shouldHide={shouldHide}
+               handleFlyoutMenuClick={handleFlyoutMenuClick}
+              />
+        }
+        
+
     
 
       <Outlet />

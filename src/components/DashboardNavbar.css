@@ -1,0 +1,39 @@
+.AppHeader__HeaderWrapper{
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    z-index: 8997;
+    background-color: rgb(255, 255, 255);
+}
+
+.Container__HeaderContainer{
+    height: 80px;
+    display: flex;
+    -webkit-box-align: stretch;
+    align-items: stretch;
+    -webkit-box-pack: center;
+    justify-content: center;
+    box-shadow: rgba(0, 0, 0, 0.08) 0px 1px 3px;
+}
+
+.Container__HeaderContent {
+    width: 100%;
+    max-width: 1224px;
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    margin: 0px 16px;
+}
+
+.Container__HeaderLeftSlot{
+    width: calc(25%);
+    height: 100%;
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: start;
+    justify-content: flex-start;
+}

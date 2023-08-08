@@ -1,32 +1,19 @@
 
-import { useContext } from 'react'
-import AuthContext from '../context/auth-context'
+
+
 import logo from '../images/logos/blackLogo.png'
-import checkMark from '../images/checkmark_confirm.png'
 import classes from './Navbar.css'
 import MobileNavigation from './mobileNavigation'
 import Navigation from './navigation'
-import { NavLink, useLocation } from 'react-router-dom'
-import DashboardNavigation from './DashboardNavigation'
-import { useState } from 'react'
+import { NavLink } from 'react-router-dom'
 
 
 
 
-const Navbar = ({ showAlert, shouldHideAlert, logoutHandler }) => {
-    const { isAuthenticated, handleLogout } = useContext(AuthContext);
-    const location = useLocation()
-    const isDashboard = location.pathname === '/dashboard'
-
-    const [shouldHide, setShouldHide] = useState(true)
 
 
-  const handleFlyoutMenuClick = () => {
-    setShouldHide(!shouldHide);
-  }
-   
-
-  
+const Navbar = ({ logoutHandler, isAuthenticated, handleLogout, shouldHide, handleFlyoutMenuClick }) => {
+    
     return (
       <header className="navbar navbar-expand-lg navbar-light header__root">
         <div className='container-wrapper'>
@@ -35,22 +22,12 @@ const Navbar = ({ showAlert, shouldHideAlert, logoutHandler }) => {
             <NavLink to='/'>
             <img className="navLogo" src={logo} />
             </NavLink>
-
-            {isDashboard ? (
-              <DashboardNavigation 
-                onLogout={handleLogout}
-                logoutHandler={logoutHandler}
-                shouldHide={shouldHide}
-                handleFlyoutMenuClick={handleFlyoutMenuClick}
-                 />
-            ) : (
-              <Navigation
+            
+            <Navigation
                 isAuthenticated={isAuthenticated}
                 onLogout={handleLogout}
                 logoutHandler={logoutHandler}
-                 /> ) }
-           
-            
+                 /> 
 
             <MobileNavigation 
               isAuthenticated={isAuthenticated}
@@ -65,13 +42,9 @@ const Navbar = ({ showAlert, shouldHideAlert, logoutHandler }) => {
 
         </div>
 
-        <div className={`alert-container ${shouldHideAlert ? 'hidden' : ''}`}>
-          <div className={`alert ${!showAlert ? 'fade-out' : ''}`}>
-            <img src={checkMark} />
-            <p>You have been signed out</p>
-          </div>
-        </div>    
-     
+        
+
+       
       </header>
     );
   };

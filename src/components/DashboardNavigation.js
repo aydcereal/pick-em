@@ -4,7 +4,6 @@ import { useState } from "react";
 import { getDatabase, ref, onValue } from "firebase/database";
 import { useEffect } from "react";
 import { useContext } from "react";
-import { Link} from "react-router-dom";
 import arrow from '../images/down_arrow.png'
 import FlyoutMenu from "./FlyoutMenu";
 
@@ -49,10 +48,7 @@ const DashboardNavigation = ({
     return(
 
         <div className="navigation" >
-
-
           <div className="authentication logged-in">
-          
             <div>
               <div>
                 <a className="userMenu">
@@ -63,29 +59,13 @@ const DashboardNavigation = ({
               <FlyoutMenu 
                 onLogout={onLogout}
                 logoutHandler={logoutHandler}
-                shouldHide={shouldHide} 
-                
+                shouldHide={shouldHide}                
               />
-
-
             </div>
-
-            
-
-
-       
           </div>
-
           <div className="collapse navbar-collapse">
           <DashboardLinks/>
           </div>
-            
-            
-        
-        
-        
-        
-        
         </div>
     )
 }

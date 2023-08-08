@@ -21,7 +21,7 @@ const getUserData = (userId, callback) => {
   };
 
 
-const FlyoutMenu = ({onLogout, logoutHandler, shouldHide }) => {
+const FlyoutMenu = ({handleLogout, logoutHandler, shouldHide }) => {
 
     const { currentUser } = useContext(AuthContext);
     const [userData, setUserData] = useState('');
@@ -31,7 +31,7 @@ const FlyoutMenu = ({onLogout, logoutHandler, shouldHide }) => {
 
     const handleClick = () => {
         logoutHandler();
-        onLogout();
+        handleLogout();
   
       }
 
