@@ -69,7 +69,7 @@ const DashboardNavbar = ({ logoutHandler, isAuthenticated, handleLogout, shouldH
 
                         <span className="MediaQuery__MobileOnly">
                             <button className="components__UserMenuTriggerMobile">
-                            <FontAwesomeIcon icon={faUser} style={{color: "#fafafa",}} />
+                            <FontAwesomeIcon className="icon" icon={faUser} style={{color: "#fafafa",}} />
                             </button>
                         </span>
                         
