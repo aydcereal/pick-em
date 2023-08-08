@@ -10,6 +10,9 @@ import { NavLink } from "react-router-dom";
 import logo from '../images/logos/blackLogo.png'
 import classes from './DashboardNavbar.css'
 
+import { FontAwesomeIcon  } from '@fortawesome/react-fontawesome';
+import { faUser } from '@fortawesome/free-solid-svg-icons'
+
 
 
 const db = getDatabase();
@@ -54,20 +57,39 @@ const DashboardNavbar = ({ logoutHandler, isAuthenticated, handleLogout, shouldH
                     <div className="Container__HeaderMiddleSlot">
                     <DashboardLinks/>
                     </div>
-                    <div className="Container__HeaderRightSlot">
-                        <a className="userMenu">
-                        <span onClick={handleFlyoutMenuClick}>{userData.displayName}</span>
-                        <img src={arrow}/>
+                    <div onClick={handleFlyoutMenuClick} className="Container__HeaderRightSlot">
+                        <div className="UserPanel__UserPanelContainer">
+                            <span className="MediaQuery__DesktopAndTablet">
+                                <a className="userMenu">
+                                    <span >{userData.displayName}</span>
+                                    <img src={arrow}/>
+                                </a> 
+                            </span>
+                        </div>
+
+                        <span className="MediaQuery__MobileOnly">
+                            <button className="components__UserMenuTriggerMobile">
+                            <FontAwesomeIcon icon={faUser} style={{color: "#fafafa",}} />
+                            </button>
+                        </span>
+                        
                         <FlyoutMenu 
                             handleLogout={handleLogout}
                             logoutHandler={logoutHandler}
                             shouldHide={shouldHide}                
                         />
-                        </a> 
+                        
+                        
                     </div>
                 </div>
             </div> 
+
+
+            
+
+          
         </div>
+        
     )
 }
 
