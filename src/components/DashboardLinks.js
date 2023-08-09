@@ -1,6 +1,6 @@
 import { NavLink } from "react-router-dom";
 
-const DashboardLinks = (props) => {
+const DashboardLinks = () => {
     return<ul className='SecondaryNav HeaderNav'>
     <li  className='SecondaryNavItem'>
         <NavLink 

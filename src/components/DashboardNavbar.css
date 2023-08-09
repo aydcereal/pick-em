@@ -85,7 +85,7 @@
     color: rgb(93, 98, 104);
 }
 
-.active {
+.SecondaryNav .active {
     color: black;
     border-bottom-color: blue;
     border-bottom-style: solid;
