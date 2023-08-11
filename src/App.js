@@ -19,7 +19,7 @@ import UserDetailsPage from './pages/UserDetailsPage';
 import NewPool from './pages/NewPool';
 import Connections from './pages/connections';
 
-
+console.log(process.env.REACT_APP_FIREBASE_API_KEY);
 
 
 
