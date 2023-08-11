@@ -1,3 +1,4 @@
+
 import './App.css';
 import { createBrowserRouter, RouterProvider,Outlet, Navigate } from 'react-router-dom';
 import { AuthProvider } from './context/auth-context';
@@ -17,6 +18,9 @@ import ErrorPage from './pages/Error';
 import UserDetailsPage from './pages/UserDetailsPage';
 import NewPool from './pages/NewPool';
 import Connections from './pages/connections';
+
+
+
 
 
 function ProtectedRoute() {

@@ -8,6 +8,8 @@ import { Link } from 'react-router-dom';
 
 const Homepage = () => {
 
+   
+
     
 
     return <React.Fragment>
@@ -26,6 +28,7 @@ const Homepage = () => {
                 <div className='col-12 col-sm-6'>
                     <div className='title'>
                         <h1>Welcome to pick em bets</h1>
+                        
 
                     </div>
                         <p className='callout' >your premier destination for weekly football picks and exciting wagers! Join us now to play alongside your friends and family, as you make informed bets on your favorite teams. Sign up today and embark on a thrilling journey of football and friendly competition!</p>

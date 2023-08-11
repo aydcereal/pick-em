@@ -1,4 +1,6 @@
-import styled from 'styled-components';
+import  styled  from "styled-components";
+
+
 
 const PageContainer = styled.div`
   box-sizing: border-box;
