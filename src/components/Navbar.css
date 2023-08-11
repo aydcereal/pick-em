@@ -18,7 +18,15 @@
     
 
     
-
+  .container {
+    width: 100%;
+    padding-right: var(--bs-gutter-x,.75rem);
+    padding-left: var(--bs-gutter-x,.75rem);
+    margin-right: auto;
+    margin-left: auto;
+    padding-bottom: 0;
+    padding-top: 0;
+  }
   .nav-btn {
       padding: 14px 23px;
       font-size: 12px;
