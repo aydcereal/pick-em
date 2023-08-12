@@ -1,24 +1,30 @@
-import  styled  from "styled-components";
+import styled from "styled-components/macro";
+import { css } from 'styled-components';
 
+
+const ComponentsContainer = css`
+  background-color: rgb(250, 250, 250);
+`;
 
 
 const PageContainer = styled.div`
   box-sizing: border-box;
   width: 100%;
   min-height: -webkit-fill-available;
-  display: flex;
+  ${'' /* display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: center; */}
   position: relative;
   padding-bottom: 254px;
   padding-top: 80px;
+  ${ComponentsContainer }
   
 `;
 
 
-const ComponentsContainer = styled.div`
-  background-color: rgb(250, 250, 250);
-`;
+
+
+
 
 
 const ComponentsContent1 = styled.div`
@@ -77,6 +83,7 @@ grid-auto-flow: column;
 
 
 const StartPoolButton = styled.a`
+color: rgb(255, 255, 255);
 font-family: Inter, sans-serif;
 font-weight:700 ;
 font-size :12px ;
@@ -93,9 +100,15 @@ user-select :none ;
 text-decoration :none ;
 width :auto ;
 text-align :center ;
-background-color :rgb(0,52,206) ;
-padding :0px22px ;
+background-color : rgb(220,53,69) ;
+padding :0px 22px ;
 height :48px ;
+
+&:hover {
+    background-color: rgb(189,33,48);
+    color: rgb(255, 255, 255);
+    text-decoration: none;
+  }
 `;
 
 
@@ -103,7 +116,6 @@ height :48px ;
 export default function Dashboard() {
   return (
     <PageContainer>
-      <ComponentsContainer>
         <ComponentsContent1>
           <ComponentsContent2>
             <HeadingContainer>
@@ -125,7 +137,6 @@ export default function Dashboard() {
             </HeadingContainer>
           </ComponentsContent2>
         </ComponentsContent1>
-      </ComponentsContainer>
     </PageContainer>
   );
 }
