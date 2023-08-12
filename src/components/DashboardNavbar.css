@@ -76,7 +76,7 @@
 }
 
 .SecondaryNavLink:hover {
-    border-bottom-color: rgb(0, 52, 206);
+    border-bottom-color: rgb(220,53,69);
     border-bottom-style: solid;
 }
 
@@ -87,7 +87,7 @@
 
 .SecondaryNav .active {
     color: black;
-    border-bottom-color: blue;
+    border-bottom-color: rgb(220,53,69);
     border-bottom-style: solid;
   }
 
@@ -95,7 +95,7 @@
 
 .SecondaryNavLink:hover:not(:disabled) {
     color: rgb(8, 10, 13);
-    border-bottom-color: rgb(0, 52, 206);
+    border-bottom-color: rgb(220,53,69);
 }
 
 .UserPanel__UserPanelContainer{
@@ -129,7 +129,7 @@
     user-select: none;
     text-decoration: none;
     text-align: center;
-    background-color: rgb(0, 52, 206);
+    background-color: rgb(220,53,69);
     height: 48px;
     width: 48px;
     padding: 0px;
