@@ -145,6 +145,16 @@ export const SecondaryActions = styled.div `
     }
 `
 
+export const SecondaryActionsPartContainer = styled.div`
+  -webkit-box-flex: 1;
+  flex-grow: 1;
+  display: flex;  
+`
+
+export const dashboardSortSelectSortDropdown = styled.div `
+  position: relative;
+`
+
 
 export const SecondaryNav = styled.ul`
     height: 48px;
@@ -179,6 +189,7 @@ export const SecondaryNavLink = styled(NavLink)`
     text-decoration: none;
     height: 100%;
     border-bottom-color: transparent;
+    color: rgb(93, 98, 104);
     
 
     &:visited {
@@ -195,4 +206,43 @@ export const SecondaryNavLink = styled(NavLink)`
     color: rgb(8, 10, 13);
     border-bottom-color: rgb(220,53,69);
 }
+`
+
+
+export const SortButton = styled.button `
+  position: relative;
+  padding: 0px;
+  text-transform: none;
+  color: rgb(93, 98, 104);
+  font-family: Inter, sans-serif;
+    font-weight: 700;
+    font-size: 12px;
+    line-height: 24px;
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+    border: 2px solid transparent;
+    border-radius: 8px;
+    cursor: pointer;
+    user-select: none;
+    text-decoration: none;
+    width: auto;
+    text-align: center;
+    background-color: transparent;
+    height: 32px;
+  
+`
+
+
+
+export const SortContainer = styled.div `
+  font-family: Inter, sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 24px;
+  -webkit-box-flex: 1;
+  flex-grow: 1;
+  padding: 0px 8px;
 `

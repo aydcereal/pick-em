@@ -1,5 +1,4 @@
-import { Link } from "react-router-dom";
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+
 import {
    PageContainer, 
    ComponentsContent1, 
@@ -15,8 +14,15 @@ import {
    SecondaryActions,
    SecondaryNav,
    SecondaryNavItem,
-   SecondaryNavLink
+   SecondaryNavLink,
+   SecondaryActionsPartContainer,
+   dashboardSortSelectSortDropdown,
+   SortButton,
+   SortContainer
    } from "../components/Components.styled";
+
+   import { useLocation } from "react-router-dom";
+   import MyPools from "./MyPools";
 
 
 
@@ -55,7 +61,16 @@ export default function Dashboard() {
 
               </NavigationContainer>
               <SecondaryActions>
+                <SecondaryActionsPartContainer>
+                  <dashboardSortSelectSortDropdown>
+                    <SortButton>
+                      <SortButton>
+                        Sort by Start Date
+                      </SortButton>
 
+                    </SortButton>
+                  </dashboardSortSelectSortDropdown>
+                </SecondaryActionsPartContainer>
               </SecondaryActions>
 
             </ToolbarContainer>
