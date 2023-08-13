@@ -63,6 +63,14 @@ export const MediaQueryDesktopAndTablet = styled.span`
 }
 `;
 
+export const MediaQueryDesktopOnly = styled.span `
+
+
+  @media (min-width: 1024px){
+    display: none;
+  }
+`
+
 
 export const ComponentsActions = styled.div`
 display: grid;
@@ -137,10 +145,10 @@ export const NavigationContainer = styled.div`
 export const SecondaryActions = styled.div `
     display: flex;
     -webkit-box-align: center;
-    align-items: center
+    align-items: center;
 
 
-    @media(max-width 600px){
+    @media (max-width: 600px){
         padding-top: 16px;
     }
 `
@@ -149,10 +157,13 @@ export const SecondaryActionsPartContainer = styled.div`
   -webkit-box-flex: 1;
   flex-grow: 1;
   display: flex;  
+  align-items: center
 `
 
-export const dashboardSortSelectSortDropdown = styled.div `
+export const DashboardSortSelectSortDropdown = styled.div `
   position: relative;
+  display: flex;
+  align-items: center;
 `
 
 
@@ -210,11 +221,11 @@ export const SecondaryNavLink = styled(NavLink)`
 
 
 export const SortButton = styled.button `
-  position: relative;
-  padding: 0px;
-  text-transform: none;
-  color: rgb(93, 98, 104);
-  font-family: Inter, sans-serif;
+    position: relative;
+    padding: 0px;
+    text-transform: none;
+    color: rgb(93, 98, 104);
+    font-family: Inter, sans-serif;
     font-weight: 700;
     font-size: 12px;
     line-height: 24px;
@@ -238,11 +249,35 @@ export const SortButton = styled.button `
 
 
 export const SortContainer = styled.div `
-  font-family: Inter, sans-serif;
-  font-weight: 500;
-  font-size: 14px;
-  line-height: 24px;
-  -webkit-box-flex: 1;
-  flex-grow: 1;
-  padding: 0px 8px;
+height: 100%;
+padding-right: 8px;
+display: flex;
+-webkit-box-align: center;
+align-items: center;
 `
+
+export const arrowContainer = styled.div `
+  display: flex;
+`
+
+export const DisplayStyleButton = styled.div `
+  display: flex;
+  margin: 0px 32px;
+
+  `
+  
+
+
+  export const DashboardDisplayStyleSwitcherCardsButton = styled.button `
+    border: 2px solid transparent;
+    border-radius: 8px;
+    text-decoration: none;
+    background-color: transparent;
+    text-align: center;
+
+    &:visited {
+      color: rgb(93, 98, 104);
+      text-decoration: none;
+    }
+  `
+
