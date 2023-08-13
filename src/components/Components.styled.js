@@ -78,7 +78,7 @@ grid-auto-flow: column;
 `;
 
 
-export const StartPoolButton = styled.a`
+export const StartPoolButton = styled(NavLink)`
 color: rgb(255, 255, 255);
 font-family: Inter, sans-serif;
 font-weight:700 ;
@@ -152,17 +152,47 @@ export const SecondaryNav = styled.ul`
 `
 
 export const SecondaryNavItem = styled.li`
-    :not(:last-child){
+    &:not(:last-child){
         margin-right: 32px;
     }
 `
 
 export const SecondaryNavLink = styled(NavLink)`
-color: rgb(8, 10, 13);
-text-decoration: none;
-cursor: pointer;
+    background: none;
+    border-width: 0px 0px 2px;
+    border-top-style: initial;
+    border-right-style: initial;
+    border-left-style: initial;
+    border-top-color: initial;
+    border-right-color: initial;
+    border-left-color: initial;
+    border-image: initial;
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    border-bottom-style: solid;
+    font-family: Inter, sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 12px;
+    cursor: pointer;
+    text-decoration: none;
+    height: 100%;
+    border-bottom-color: transparent;
+    
 
-:active {
-  color: red;
+    &:visited {
+      color: rgb(93, 98, 104);
+      text-decoration: none;
+    }
+
+    &:active {
+    color: rgb(8, 10, 13);
+    border-bottom-color: rgb(220,53,69);
+    }
+
+&:hover:not(:disabled) {
+    color: rgb(8, 10, 13);
+    border-bottom-color: rgb(220,53,69);
 }
 `

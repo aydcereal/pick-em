@@ -19,7 +19,7 @@ import UserDetailsPage from './pages/UserDetailsPage';
 import NewPool from './pages/NewPool';
 import Connections from './pages/connections';
 
-console.log(process.env.REACT_APP_FIREBASE_API_KEY);
+
 
 
 
@@ -40,6 +40,9 @@ const router = createBrowserRouter([
       {path: '/login', element: <Login/>},
       {path: '/dashboard', element: <ProtectedRoute />, children: [{index:
         true, element:<Dashboard />}]},
+      {path: '/dashboard/my-pools', element: <ProtectedRoute />, children: [{index:
+        true, element:<Dashboard />}]},
+
       {path: '/pools/start', element: <ProtectedRoute />, children: [{index:
           true, element:<NewPool />}]},
       {path: '/connections', element: <ProtectedRoute />, children: [{index:

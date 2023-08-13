@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import {
    PageContainer, 
    ComponentsContent1, 
@@ -32,7 +33,7 @@ export default function Dashboard() {
                     <PrimaryActionsContainer>
                       <StartPoolButton
                         data-test-id="dashboardStartAPoolButton"
-                        href="/pools/start"
+                        to="/pools/start"
                       >
                         Start A Pool
                       </StartPoolButton>
@@ -46,6 +47,9 @@ export default function Dashboard() {
                 <SecondaryNav>
                   <SecondaryNavItem>
                     <SecondaryNavLink to='/dashboard/my-pools'>My pools</SecondaryNavLink>
+                  </SecondaryNavItem>
+                  <SecondaryNavItem>
+                    <SecondaryNavLink to='/dashboard/join-a-pool'>Join A Pool</SecondaryNavLink>
                   </SecondaryNavItem>
                 </SecondaryNav>
 
