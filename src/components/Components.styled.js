@@ -66,7 +66,7 @@ export const MediaQueryDesktopAndTablet = styled.span`
 export const MediaQueryDesktopOnly = styled.span `
 
 
-  @media (min-width: 1024px){
+  @media (max-width: 1024px){
     display: none;
   }
 `
@@ -256,7 +256,7 @@ display: flex;
 align-items: center;
 `
 
-export const arrowContainer = styled.div `
+export const ArrowContainer = styled.div `
   display: flex;
 `
 
@@ -274,10 +274,22 @@ export const DisplayStyleButton = styled.div `
     text-decoration: none;
     background-color: transparent;
     text-align: center;
+    fill: black;
 
     &:visited {
       color: rgb(93, 98, 104);
       text-decoration: none;
     }
   `
+
+
+  export const StyledSVG = styled.svg`
+  path, rect {
+    fill: ${props => props.color};
+  }
+
+  &:active path, &:active rect {
+    fill: ${props => props.activeColor};
+  }
+`;
 
