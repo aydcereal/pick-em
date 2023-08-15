@@ -293,3 +293,63 @@ export const DisplayStyleButton = styled.div `
   }
 `;
 
+
+
+export const SearchInputContainer = styled.div`
+    width: 270px;
+    margin-left: 8px; 
+`
+
+export const SearchInputInnerContainer = styled.div `
+    position: relative;
+    height: 48px;
+    background: rgb(240, 242, 245);
+    border: 2px solid transparent;
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    border-radius: 8px;
+    font-family: Inter, sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 28px;
+    color: rgb(8, 10, 13);
+`
+
+
+export const IconWrapper = styled.div `
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+    padding: 12px 4px 12px 12px;
+`
+
+export const InputContainer = styled.div `
+    height: 100%;
+    display: flex;
+    -webkit-box-flex: 1;
+    flex-grow: 1;
+`
+
+
+export const SearchPoolInput = styled.input `
+position: relative;
+    font-family: Inter, sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 28px;
+    color: rgb(8, 10, 13);
+    border: 0px;
+    background: transparent;
+    display: block;
+    outline: none;
+    padding: 8px 16px 8px 0px;
+    width: 50px;
+    height: 100%;
+    -webkit-box-flex: 1;
+    flex-grow: 1;
+    min-height: auto;
+    resize: none;
+`
