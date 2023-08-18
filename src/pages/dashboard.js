@@ -32,10 +32,9 @@ import {
 
    } from "../components/Components.styled";
 
-   import { useLocation } from "react-router-dom";
-   import MyPools from "./MyPools";
-   import Arrow from '../images/down_arrow.png'
+   import PoolCardContainer from "../components/PoolCardContainer";
 
+   
    
 
 
@@ -148,6 +147,8 @@ export default function Dashboard() {
 
             </ToolbarContainer>
           </ComponentsContent2>
+
+        <PoolCardContainer></PoolCardContainer>
         </ComponentsContent1>
     </PageContainer>
   );
