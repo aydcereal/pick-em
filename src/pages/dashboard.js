@@ -129,18 +129,6 @@ export default function Dashboard() {
                       </SearchInputContainer>
                     </MediaQueryDesktopOnly>
 
-
-                    
-
-                    
-                    
-
-
-                 
-                    
-                     
-                    
-                    
                   </DashboardSortSelectSortDropdown>
                 </SecondaryActionsPartContainer>
               </SecondaryActions>

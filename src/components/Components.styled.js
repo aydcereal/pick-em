@@ -10,14 +10,16 @@ export const ComponentsContainer = css`
 
 export const PageContainer = styled.div`
   box-sizing: border-box;
-  width: 100%;
-  min-height: -webkit-fill-available;
-  ${'' /* display: flex;
-  align-items: center;
-  justify-content: center; */}
-  position: relative;
-  padding-bottom: 254px;
-  padding-top: 80px;
+    width: 100%;
+    min-height: -webkit-fill-available;
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+    position: relative;
+    padding-bottom: 254px;
+    padding-top: 80px;
   ${ComponentsContainer }
   
 `;
@@ -31,7 +33,7 @@ export const ComponentsContent1 = styled.div`
 export const ComponentsContent2 = styled.div`
   width: 1224px;
   align-self: flex-start;
-  margin: 40px auto 0px;
+  margin: 40px 40px 0px;
 
   @media (max-width: 1304px) {
     width: 100%;
@@ -42,9 +44,10 @@ export const ComponentsContent2 = styled.div`
 
 
 export const HeadingContainer = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+      display: flex;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    align-items: flex-end;
 `;
 
 
