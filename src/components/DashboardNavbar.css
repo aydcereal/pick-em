@@ -38,6 +38,18 @@
     justify-content: flex-start;
 }
 
+.Container__HeaderMiddleSlot{
+    display: flex;
+    height: 100%;
+    width: calc(50%);
+    -webkit-box-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    align-items: center;
+
+    
+}
+
 
 .SecondaryNav{
     height: 80px;
@@ -142,6 +154,11 @@
 
 
 @media (max-width: 600px){
+
+    .Container__HeaderMiddleSlot{
+        display: none;
+    }
+
     .MediaQuery__MobileOnly{
         display: inline;
     }
@@ -150,3 +167,4 @@
         display: none;
     }
 }
+

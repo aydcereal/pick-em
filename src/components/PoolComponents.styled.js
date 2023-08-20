@@ -9,6 +9,12 @@ import { NavLink } from "react-router-dom";
 
 export const MainContainer = styled.div `
     margin-top: 32px;
+
+    @media (max-width: 1304px){
+        width: 100vw;
+        padding: 0px 16px 16px;
+        margin: 0px;
+    }
 `
 
 
@@ -18,11 +24,17 @@ export const SectionItems = styled.ul `
     -webkit-box-pack: justify;
     justify-content: space-between;
     flex-wrap: wrap;
+
+    
 `
 
 export const SectionItem = styled.li `
     margin-bottom: 16px;
     width: calc(50% - 8px);
+
+    @media (max-width: 900px){
+        width:100%;
+    }
 `
 
 export const PoolCardDefaultContainer = styled.div `
@@ -101,4 +113,25 @@ export const Category = styled.div`
     font-size: 14px;
     line-height: 24px;
     color: rgb(93, 98, 104);
+`
+
+export const BottomContainer = styled.div `
+    padding: 20px 0px 20px 20px;
+    display: flex;
+    justify-content: space-between;
+    
+`
+
+export const BottomContainerSlot = styled.div `
+    display: flex;
+    align-items:center;
+`
+
+export const ActionsContainer = styled.div `
+    display: grid;
+    grid-auto-flow: column;
+    margin: 0px 8px;
+    gap: 8px;
+    
+    
 `

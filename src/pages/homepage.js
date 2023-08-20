@@ -1,4 +1,4 @@
-import 'bootstrap/dist/css/bootstrap.min.css';
+
 import classes from './homepage.css'
 import heroImg from '../images/hero.png'
 import React from 'react'

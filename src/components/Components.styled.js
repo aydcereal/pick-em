@@ -27,6 +27,7 @@ export const PageContainer = styled.div`
 
 export const ComponentsContent1 = styled.div`
   align-self: flex-start;
+  width: 100%;
 `;
 
 
@@ -48,6 +49,8 @@ export const HeadingContainer = styled.div`
     -webkit-box-pack: justify;
     justify-content: space-between;
     align-items: flex-end;
+
+    
 `;
 
 
@@ -57,6 +60,10 @@ export const Heading = styled.h1`
   font-size: 64px;
   line-height: 56px;
   text-transform: uppercase;
+
+  @media (max-width: 600px){
+      font-size: 48px;
+    }
 `;
 
 
