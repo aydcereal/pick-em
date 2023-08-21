@@ -2,6 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './reset.css';
+import classes from './pages/homepage.css'
+
+
 import App from './App';  
 
 

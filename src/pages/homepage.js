@@ -1,5 +1,5 @@
 
-import classes from './homepage.css'
+
 import heroImg from '../images/hero.png'
 import React from 'react'
 import { Link } from 'react-router-dom';
