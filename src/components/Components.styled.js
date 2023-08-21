@@ -9,12 +9,13 @@ export const ComponentsContainer = css`
 
 
 export const PageContainer = styled.div`
-  box-sizing: border-box;
+    box-sizing: border-box;
     width: 100%;
     min-height: -webkit-fill-available;
     display: flex;
+    flex-direction: row;
     -webkit-box-align: center;
-    align-items: center;
+    align-items: center;  
     -webkit-box-pack: center;
     justify-content: center;
     position: relative;
@@ -24,17 +25,27 @@ export const PageContainer = styled.div`
   
 `;
 
+export const Body = styled.div `
+    display: flex;
+    flex-direction: column;
+    -webkit-box-align: center;
+    align-items: center;
+    max-width: 840px;
+    width: 100%;
+    padding: 16px;
+`
+
 
 export const ComponentsContent1 = styled.div`
   align-self: flex-start;
-  width: 100%;
+  
 `;
 
 
 export const ComponentsContent2 = styled.div`
   width: 1224px;
   align-self: flex-start;
-  margin: 40px 40px 0px;
+  margin: 40px auto 0px;
 
   @media (max-width: 1304px) {
     width: 100%;
