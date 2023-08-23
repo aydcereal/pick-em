@@ -50,7 +50,28 @@ h1 {
 .poolRegister .settings select.form-select {
 
     padding: 30px 38px 10px 25px;
+    font-family: Inter, sans-serif;
+    font-weight: bold;
+    font-size: 16px;
+    margin-bottom: 8px;
+    background-color: #f0f2f5;
 }
+
+.popover-header {
+   
+    font-size: 20px;
+    font-family:  "Bebas Neue", sans-serif;
+    background-color: white;
+    border: none;
+    padding-bottom: 0px;
+    
+  }
+  
+  .popover-body {
+   
+    padding-top: 0px;
+    font-size: 14px;
+  }
 
 @media (min-width: 992px){
     h1{
