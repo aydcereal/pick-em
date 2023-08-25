@@ -1,6 +1,6 @@
 import classes from './newPool.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faQuestionCircle } from '@fortawesome/free-solid-svg-icons';
+import { faQuestionCircle, faLock, faLockOpen } from '@fortawesome/free-solid-svg-icons';
 import { Popover,PopoverHeader, PopoverBody, } from 'reactstrap';
 import { useState } from 'react';
 
@@ -16,6 +16,8 @@ export default function  NewPool () {
   const [formatPopoverOpen, setFormatPopoverOpen] = useState(false)
   const [pointsPopoverOpen, setPointsPopoverOpen] = useState(false)
   const [startingWeekPopoverOpen, setStartingWeekPopoverOpen] = useState(false)
+  const [visibilityPopoverOpen, setVisibilityPopoverOpen] = useState(false)
+  const [lockIcon, setLockIcon] = useState(faLock)
 
   const nameToggle = () => {
     
@@ -32,6 +34,22 @@ export default function  NewPool () {
 
   const startingWeekToggle = () => {
     setStartingWeekPopoverOpen(!startingWeekPopoverOpen)
+  }
+
+  const visibilityToggle = () => {
+    setVisibilityPopoverOpen(!visibilityPopoverOpen)
+  }
+
+
+  
+
+  const updateIcon = () => {
+    if (lockIcon === faLock){
+     setLockIcon(faLockOpen)
+    }else {
+      setLockIcon(faLock)
+    }
+    
   }
 
    
@@ -66,12 +84,14 @@ export default function  NewPool () {
                 <input type="text" name="pool_name" id='pool_name' className='form-control'></input>
                 
                 <div>
-                <label className='col-sm-2' htmlFor='pool_name'>Pool Format</label>
+                <label className='col-sm-2' htmlFor='pool_format'>Pool Format</label>
                 <span className="fa-help" id="poolFormatHelp" tabIndex="0">
                   <FontAwesomeIcon
                     icon={faQuestionCircle}
                     style={{ color: '#5d6268' }}
                   />
+
+                 
                 </span> 
                 <Popover
                   
@@ -103,7 +123,7 @@ export default function  NewPool () {
                 </div>
 
                 <div>
-                <label className='col-sm-2' htmlFor='pool_name'>Point Spreads</label>
+                <label className='col-sm-2' htmlFor='pool_points'>Point Spreads</label>
                 <span className="fa-help" id="poolPointsHelp" tabIndex="0">
                   <FontAwesomeIcon
                     icon={faQuestionCircle}
@@ -133,7 +153,7 @@ export default function  NewPool () {
                 </div>
 
                 <div>
-                <label className='col-sm-2' htmlFor='pool_name'>Starting Week</label>
+                <label className='col-sm-2' htmlFor='pwd'>Starting Week</label>
                 <span className="fa-help" id="startingWeekHelp" tabIndex="0">
                   <FontAwesomeIcon
                     icon={faQuestionCircle}
@@ -158,42 +178,62 @@ export default function  NewPool () {
                 <select name="starting_week" class="form-select">
         	
                     <option value="1">Week 1</option>
-                    
                     <option value="2">Week 2</option>
-                    
-                    <option value="3">Week 3</option>
-                    
+                    <option value="3">Week 3</option>                    
                     <option value="4">Week 4</option>
-                    
                     <option value="5">Week 5</option>
-                    
-                    <option value="6">Week 6</option>
-                    
-                    <option value="7">Week 7</option>
-                    
-                    <option value="8">Week 8</option>
-                    
-                    <option value="9">Week 9</option>
-                    
-                    <option value="10">Week 10</option>
-                    
-                    <option value="11">Week 11</option>
-                    
-                    <option value="12">Week 12</option>
-                    
-                    <option value="13">Week 13</option>
-                    
-                    <option value="14">Week 14</option>
-                    
-                    <option value="15">Week 15</option>
-                    
-                    <option value="16">Week 16</option>
-                    
-                    <option value="17">Week 17</option>
-                    
-                    <option value="18">Week 18</option>
-                    
+                    <option value="6">Week 6</option>                    
+                    <option value="7">Week 7</option>                    
+                    <option value="8">Week 8</option>                    
+                    <option value="9">Week 9</option>                    
+                    <option value="10">Week 10</option>                    
+                    <option value="11">Week 11</option>                    
+                    <option value="12">Week 12</option>                    
+                    <option value="13">Week 13</option>                    
+                    <option value="14">Week 14</option>                    
+                    <option value="15">Week 15</option>                    
+                    <option value="16">Week 16</option>                    
+                    <option value="17">Week 17</option>                    
+                    <option value="18">Week 18</option>                    
                 </select>
+                </div>
+
+                <div className='visibility'>
+                <label className='col-sm-2' htmlFor='pool_visibility'>Pool Visibility</label>
+                <span className="fa-help" id="poolVisibilityHelp" tabIndex="0">
+                  <FontAwesomeIcon
+                    icon={faQuestionCircle}
+                    style={{ color: '#5d6268' }}
+                  />
+                </span> 
+                <Popover
+                  
+                  placement="right"
+                  isOpen={visibilityPopoverOpen}
+                  target="poolVisibilityHelp"
+                  toggle={visibilityToggle}
+                  trigger="focus"
+                >
+                  <PopoverHeader>Pool visibility</PopoverHeader>
+                  <PopoverBody>
+                  This controls who can see your pool and who is allowed to join it.
+                  </PopoverBody>
+                  
+                  
+                </Popover>
+                <div>
+                  <FontAwesomeIcon
+                      className='fas'
+                      icon={lockIcon}
+                      style={{ color: 'black' }}
+                    />
+
+                  <select class="form-select" id="selectVisibility" name="visibility" onChange={updateIcon}>
+                      <option value="0">Private</option>
+                      <option value="1">Public</option>
+                  </select>
+                </div>
+                
                 </div>
             </div>
             </div>
