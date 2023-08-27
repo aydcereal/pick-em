@@ -84,8 +84,42 @@ h1 {
     padding-left: 44px !important;
 }
 
-@media (min-width: 992px){
-    .container h1{
-        margin-top: 100px;
-    }
+.poolRegister .btn {
+    margin-top: 28px;
+    margin-bottom: 28px;
+    max-width: 600px;
+    width: 100%;
+    font-family: Inter, sans-serif;
+    font-size: 12px;
+    font-weight: bold;
+    text-transform: uppercase;
+    
+    
+
 }
+.container h1{
+    margin-top: 100px;
+}
+
+.small-text {
+    color: #5D6268;
+    font-size: 12px;
+    font-weight: 500;
+    font-family: 'Inter', sans-serif;
+    
+}
+
+.text-ul {
+    padding-left: 2rem;
+    padding-top: 5px;
+    list-style: disc ;
+    line-height: 1.5;
+    
+    
+}
+
+@media (max-width: 576px){
+.poolRegister .settings {
+    max-width: 87%;
+}}
+

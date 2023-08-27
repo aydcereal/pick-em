@@ -3,6 +3,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faQuestionCircle, faLock, faLockOpen } from '@fortawesome/free-solid-svg-icons';
 import { Popover,PopoverHeader, PopoverBody, } from 'reactstrap';
 import { useState } from 'react';
+import { app } from '../firebase';
+import firebase from 'firebase/compat/app';
+import 'firebase/compat/database';
+
+
+const database = app.database();
 
 
 
@@ -18,6 +24,38 @@ export default function  NewPool () {
   const [startingWeekPopoverOpen, setStartingWeekPopoverOpen] = useState(false)
   const [visibilityPopoverOpen, setVisibilityPopoverOpen] = useState(false)
   const [lockIcon, setLockIcon] = useState(faLock)
+  const [privatePool, setPrivatePool] = useState(true)
+
+  const [poolName, setPoolName] = useState('');
+  const [poolFormat, setPoolFormat] = useState(0);
+  const [pointSpreads, setPointSpreads] = useState(0);
+  const [startingWeek, setStartingWeek] = useState(1);
+  const [poolVisibility, setPoolVisibility] = useState('');
+
+
+  
+
+  
+
+
+
+  const handleSubmit = (event) =>{
+    event.preventDefault();
+
+   
+
+    database.ref('pools').push(
+      {
+        poolName: poolName,
+        poolFormat: poolFormat,
+        pointSpreads: pointSpreads,
+        startingWeek: startingWeek,
+        poolVisibility: poolVisibility
+      }
+    )
+  }
+
+
 
   const nameToggle = () => {
     
@@ -43,12 +81,16 @@ export default function  NewPool () {
 
   
 
-  const updateIcon = () => {
+  const handlePoolVisibilityChange = (event) => {
     if (lockIcon === faLock){
      setLockIcon(faLockOpen)
+     setPrivatePool(false)
+     
     }else {
       setLockIcon(faLock)
+      setPrivatePool(true)
     }
+    setPoolVisibility(event.target.value)
     
   }
 
@@ -58,7 +100,7 @@ export default function  NewPool () {
     return (
     <div className="content-area">
       <div className="container">
-        <form className="form-horizontal">
+        <form onSubmit={handleSubmit} className="form-horizontal">
           <div className="poolRegister">
             <div className="step">
             <h1>Set up your New Pool</h1>
@@ -81,7 +123,7 @@ export default function  NewPool () {
                   <PopoverHeader>Pool Name</PopoverHeader>
                   <PopoverBody>A title for your pool</PopoverBody>
                 </Popover>
-                <input type="text" name="pool_name" id='pool_name' className='form-control'></input>
+                <input value={poolName} onChange={(event) => setPoolName(event.target.value)} type="text" name="pool_name" id='pool_name' className='form-control'></input>
                 
                 <div>
                 <label className='col-sm-2' htmlFor='pool_format'>Pool Format</label>
@@ -113,7 +155,7 @@ export default function  NewPool () {
                   </PopoverBody>
                   
                 </Popover>
-                <select name="formatId" id="formatId" className="form-select form-control">
+                <select value={poolFormat} onChange={(event) => setPoolFormat(event.target.value)} name="formatId" id="formatId" className="form-select form-control">
 		
                   <option value="1">Standard Pick 'em</option>
                   <option value="2">Pick 'em with Best Bets</option>
@@ -145,7 +187,7 @@ export default function  NewPool () {
                   
                   
                 </Popover>
-                <select name="spread_option" class="form-select">
+                <select value={pointSpreads} onChange={(event) => setPointSpreads(event.target.value)} name="spread_option" class="form-select">
                     <option value="0">Not used in making picks</option>
                     <option value="2">Used in making picks, set by RunYourPool</option>
                     <option value="1">Used in making picks, manually set by Commish</option>
@@ -175,7 +217,7 @@ export default function  NewPool () {
                   
                   
                 </Popover>
-                <select name="starting_week" class="form-select">
+                <select value={startingWeek} onChange={(event) => setStartingWeek(event.target.value)} name="starting_week" class="form-select">
         	
                     <option value="1">Week 1</option>
                     <option value="2">Week 2</option>
@@ -228,13 +270,39 @@ export default function  NewPool () {
                       style={{ color: 'black' }}
                     />
 
-                  <select class="form-select" id="selectVisibility" name="visibility" onChange={updateIcon}>
+                  <select 
+                    value={poolVisibility} 
+                    class="form-select" id="selectVisibility" 
+                    name="visibility" 
+                    onChange={handlePoolVisibilityChange}>
+                      
                       <option value="0">Private</option>
                       <option value="1">Public</option>
                   </select>
                 </div>
                 
                 </div>
+                <button type="submit" class="btn btn-danger btn-lg" >
+                  Create a Pool
+                </button>
+                {privatePool ? <div id="txtPrivate" >
+                  <div class="small-text">Private pools</div>
+                  <ul class="small-text text-ul">
+                    <li>Users may only join from your direct invite </li>
+                    <li>You must accept any user that asks to join via your invite link</li>
+                    <li>Your pool will not automatically be visible to your connections</li>
+                  </ul>
+              </div>:(
+                  <div id="txtPublic" class="small-text">
+                  <div class="small-text">Public pools</div>
+                  <ul class="small-text small-text text-ul">
+                    <li>Visible to your connections and 1st connections of pool members</li>
+                    <li>Option to promote to other RunYourPool members</li>
+                    <li>You must accept any user that asks to join.</li>
+                  </ul>
+                </div>
+              ) }
+                
             </div>
             </div>
           </div>
