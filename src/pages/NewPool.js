@@ -4,8 +4,9 @@ import { faQuestionCircle, faLock, faLockOpen } from '@fortawesome/free-solid-sv
 import { Popover,PopoverHeader, PopoverBody, } from 'reactstrap';
 import { useState } from 'react';
 import { app } from '../firebase';
-import firebase from 'firebase/compat/app';
 import 'firebase/compat/database';
+import AuthContext from '../context/auth-context';
+import { useContext } from 'react';
 
 
 const database = app.database();
@@ -32,6 +33,13 @@ export default function  NewPool () {
   const [startingWeek, setStartingWeek] = useState(1);
   const [poolVisibility, setPoolVisibility] = useState('');
 
+  const {currentUser} = useContext(AuthContext);
+
+  const currentUserID = currentUser && currentUser.uid;
+
+
+ 
+
 
   
 
@@ -50,11 +58,13 @@ export default function  NewPool () {
         poolFormat: poolFormat,
         pointSpreads: pointSpreads,
         startingWeek: startingWeek,
-        poolVisibility: poolVisibility
+        poolVisibility: poolVisibility,
+        creator: currentUserID
       }
     )
   }
 
+  
 
 
   const nameToggle = () => {

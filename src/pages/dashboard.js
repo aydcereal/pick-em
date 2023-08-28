@@ -33,13 +33,51 @@ import {
    } from "../components/Components.styled";
 
    import PoolCardContainer from "../components/PoolCardContainer";
+   import AuthContext from "../context/auth-context";
+   import { useContext, useState } from "react";
+   import { app } from '../firebase';
+   import 'firebase/compat/database';  
+   import { useEffect } from "react";
 
    
-   
+   const database = app.database();
 
 
 
 export default function Dashboard() {
+
+  const authContext = useContext(AuthContext);
+  const [pools, setPools] = useState([])
+
+  
+
+  const currentUser = authContext && authContext.currentUser;
+
+  const currentUserID = currentUser && currentUser.uid;
+
+  
+
+
+  useEffect(() => {
+    database.ref('pools').orderByChild('creator').equalTo(currentUserID).on('value', (snapshot) => {
+      const newPools = [];
+      snapshot.forEach((childSnapshot) => {
+        const pool = childSnapshot.val();
+        pool.key = childSnapshot.key;
+        newPools.push(pool);
+      });
+
+      setPools(newPools);
+      
+    });
+  }, [currentUserID]);
+  
+
+
+
+
+
+
   return (
     <PageContainer>
         <ComponentsContent1>
@@ -136,7 +174,7 @@ export default function Dashboard() {
             </ToolbarContainer>
           </ComponentsContent2>
 
-        <PoolCardContainer></PoolCardContainer>
+        <PoolCardContainer pools={pools}></PoolCardContainer>
         </ComponentsContent1>
     </PageContainer>
   );

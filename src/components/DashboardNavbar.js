@@ -61,7 +61,7 @@ const DashboardNavbar = ({ logoutHandler, isAuthenticated, handleLogout, shouldH
                         <div className="UserPanel__UserPanelContainer">
                             <span className="MediaQuery__DesktopAndTablet">
                                 <a className="userMenu">
-                                    <span >{userData.displayName}</span>
+                                    <span >{'test'}</span>
                                     <img src={arrow}/>
                                 </a> 
                             </span>

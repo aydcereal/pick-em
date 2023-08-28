@@ -50,14 +50,15 @@ const FlyoutMenu = ({handleLogout, logoutHandler, shouldHide }) => {
         <div className={`FlyoutContainer container ${shouldHide ? 'hidden' : ''}`} >
                 <div className="gCnJAE"> 
                   <div className="jZdOJn">
-                    <div className="iyZekZ">
-                      <h3 className="eiPLGK">{userData.displayName}</h3>
-                      <div className="kuExIK"> 
-                      <Link to='/edit-account'>Edit account</Link>
-                      <Link onClick={handleClick}>Sign Out</Link>
-
+                    {userData && (
+                      <div className="iyZekZ">
+                        <h3 className="eiPLGK">{'test'}</h3>
+                        <div className="kuExIK">
+                          <Link to='/edit-account'>Edit account</Link>
+                          <Link onClick={handleClick}>Sign Out</Link>
+                        </div>
                       </div>
-                    </div>
+)}
                   </div>
 
                 </div>
