@@ -52,7 +52,7 @@ const FlyoutMenu = ({handleLogout, logoutHandler, shouldHide }) => {
                   <div className="jZdOJn">
                     {userData && (
                       <div className="iyZekZ">
-                        <h3 className="eiPLGK">{'test'}</h3>
+                        <h3 className="eiPLGK">{userData.displayName}</h3>
                         <div className="kuExIK">
                           <Link to='/edit-account'>Edit account</Link>
                           <Link onClick={handleClick}>Sign Out</Link>

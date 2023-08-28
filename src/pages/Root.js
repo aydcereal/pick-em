@@ -19,7 +19,7 @@ export default function Root() {
     const { isAuthenticated, handleLogout } = useContext(AuthContext);
     const [shouldHide, setShouldHide] = useState(true)
     const location = useLocation()
-    const isHome = location.pathname === '/'
+    const isDashboard = location.pathname === '/dashboard'
 
     const navigate = useNavigate();
 
@@ -53,7 +53,7 @@ export default function Root() {
     return (
     <>
         <SignoutAlert />
-        {isHome ? 
+        {!isDashboard ? 
           (
             <Navbar
                 logoutHandler={logoutHandler}

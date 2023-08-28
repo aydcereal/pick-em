@@ -31,6 +31,7 @@ export const SectionItems = styled.ul `
 export const SectionItem = styled.li `
     margin-bottom: 16px;
     width: calc(50% - 8px);
+    
 
     @media (max-width: 900px){
         width:100%;
@@ -43,6 +44,12 @@ export const PoolCardDefaultContainer = styled.div `
     box-shadow: rgba(0, 0, 0, 0.08) 0px 1px 3px;
     position: relative;
     transition: box-shadow 100ms ease-in-out 0s;
+
+    &:hover {
+        box-shadow: 0px 20px 48px rgba(0,0,0,0.1);
+    }
+
+
 `
 
 export const TopContainer = styled(NavLink) `
