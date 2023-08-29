@@ -18,7 +18,7 @@ import ErrorPage from './pages/Error';
 import UserDetailsPage from './pages/UserDetailsPage';
 import NewPool from './pages/NewPool';
 import Connections from './pages/connections';
-
+import ApiTest from './pages/ApiTest';
 
 
 
@@ -38,6 +38,7 @@ const router = createBrowserRouter([
    children: [
       {index: true, element: <Homepage/>},
       {path: '/login', element: <Login/>},
+      {path: '/test', element: <ApiTest/>},
       {path: '/dashboard', element: <ProtectedRoute />, children: [{index:
         true, element:<Dashboard />}]},
       {path: '/dashboard/my-pools', element: <ProtectedRoute />, children: [{index:
