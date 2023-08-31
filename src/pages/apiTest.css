@@ -1,0 +1,29 @@
+.homeBox {
+    background-color: #f0f0f0;
+    border: solid 1px #dddddd;
+    width: 46%;
+    cursor: hand;
+    cursor: pointer;
+    margin-bottom: 5px;
+    padding: 5px;
+    border-radius: 6px;
+    float: right;
+    padding-right: 20px;
+}
+
+.awayBox {
+    background-color: #f0f0f0;
+    border: solid 1px #dddddd;
+    width: 46%;
+    cursor: hand;
+    cursor: pointer;
+    margin-bottom: 5px;
+    padding: 5px;
+    border-radius: 6px;
+    float: left;
+    padding-right: 20px;
+}
+
+.homeBox, .awayBox {
+    width: 49.5%;
+}
