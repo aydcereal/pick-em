@@ -27,3 +27,30 @@
 .homeBox, .awayBox {
     width: 49.5%;
 }
+
+
+.homeBox img, .awayBox img {
+    max-width: 65px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.teamName {
+    display: inline;
+    font-size: 15px;
+}
+
+.teamRecord {
+    color: #888888;
+    font-size: 11px;
+}
+
+.teamLocation{
+    color: #888888;
+    font-size: 11px;
+    display: block;
+}
+
+.h {
+    max-width: 65px;
+}

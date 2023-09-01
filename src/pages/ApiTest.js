@@ -1,9 +1,33 @@
 import React, { useState, useEffect } from 'react';
 import teamNameMapping from '../components/TeamNameMapping';
 import classes from './apiTest.css'
+import logo from '../images/team logos/1.png'
+
+const getTeamLogo = teamId => {
+  return import(`../images/team logos/${teamId}.png`)
+    .then(module => module.default)
+    .catch(error => {
+      console.error(`Error importing image for team ${teamId}:`, error);
+      return null;
+    });
+};
+
+
 
 const ApiTest = () => {
   const [matches, setMatches] = useState([]);
+  const [teamLogos, setTeamLogos] = useState({});
+
+  useEffect(() => {
+    matches.forEach(match => {
+      getTeamLogo(match.team1Id).then(logo => {
+        setTeamLogos(logos => ({ ...logos, [match.team1Id]: logo }));
+      });
+      getTeamLogo(match.team2Id).then(logo => {
+        setTeamLogos(logos => ({ ...logos, [match.team2Id]: logo }));
+      });
+    });
+  }, [matches]);
 
   useEffect(() => {
     const API_ENDPOINT_URL = "https://site.api.espn.com/apis/site/v2/sports/football/nfl/scoreboard?seasontype=2&week=1&dates=2023";
@@ -23,12 +47,20 @@ const ApiTest = () => {
           competitions.forEach(competition => {
             const competitors = competition.competitors;
             if (competitors.length === 2) {
-              const team1 = teamNameMapping[competitors[1].team.abbreviation] || competitors[1].team.abbreviation;
-              const team2 = teamNameMapping[competitors[0].team.abbreviation] || competitors[0].team.abbreviation;
-              const record1 = competitors[1].records[0].summary;
-              const record2 = competitors[0].records[0].summary;
-
-              matchData.push({ team1, record1, team2, record2} );
+                const team1Abbr = competitors[1].team.abbreviation;
+                const team2Abbr = competitors[0].team.abbreviation;
+        
+                const team1Info = teamNameMapping[team1Abbr] || { name: team1Abbr, id: -1 };
+                const team2Info = teamNameMapping[team2Abbr] || { name: team2Abbr, id: -1 };
+        
+                const team1 = team1Info.name;
+                const team2 = team2Info.name;
+                const record1 = competitors[1].records[0].summary;
+                const record2 = competitors[0].records[0].summary;
+                const team1Id = team1Info.id;
+                const team2Id = team2Info.id;
+        
+                matchData.push({ team1, record1, team1Id, team2, record2,team2Id });
             }
           });
 
@@ -61,21 +93,53 @@ const ApiTest = () => {
           <tr>
               <td>
               
-                <div key={index} id={`${match.team1}`} className="awayBox">
+                <div key={match.team1Id} id={"box"+`${match.team1Id}`} className="awayBox">
                   <table cellSpacing='0' cellPadding='0'>
                     <tbody>
                       <tr>
                         <td style={{ display: 'none' }}>
                           <input></input>
                         </td>
+                        <td>
+                        <img className='h' src={teamLogos[match.team1Id]} alt={`${match.team1} Logo`} />
+                        
+                          
+                        </td>
+                        <td>
+                          <span className="teamName">{match.team1}</span>
+                          <span className="teamAbbr"></span>
+                          <span className="teamRecord">{match.record1}</span>
+                          <span className="teamLocation">Away</span>
+                        </td>
                       </tr>
                     </tbody>
                   </table>
                   
-                  {match.team1}{match.record1}
+                  
                   
                   </div>
-                <div key={index} id={`${match.team2}`} className="homeBox">{match.team2}{match.record2}</div>
+                <div key={match.team2Id} id={"box"+`${match.team2Id}`} className="homeBox">
+                <table cellSpacing='0' cellPadding='0'>
+                    <tbody>
+                      <tr>
+                        <td style={{ display: 'none' }}>
+                          <input></input>
+                        </td>
+                        <td>
+                        <img className='h' src={teamLogos[match.team2Id]} alt={`${match.team2} Logo`} />
+                          
+                          
+                        </td>
+                        <td>
+                          <span className="teamName">{match.team2}</span>
+                          <span className="teamAbbr"></span>
+                          <span className="teamRecord">{match.record2}</span>
+                          <span className="teamLocation">Home</span>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  </div>
               
               </td>
             </tr>
@@ -85,13 +149,7 @@ const ApiTest = () => {
       </table>
 
 
-      <ul>
-        {matches.map((match, index) => (
-          <li key={index}>
-            {match.team1}{match.record1} vs {match.team2}{match.record2}
-          </li>
-        ))}
-      </ul>
+    
       </form>
       </div>
     </div>
