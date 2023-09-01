@@ -75,8 +75,42 @@ const ApiTest = () => {
             if (competitors.length === 2) {
                 const team1Abbr = competitors[1].team.abbreviation;
                 const team2Abbr = competitors[0].team.abbreviation;
+                
                 const date = new Date(event.date)
-                const dateString = date.toLocaleString()
+                const fullDate = event.date
+
+                const daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+                const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+
+                const dayOfWeek = daysOfWeek[date.getUTCDay()];
+                const month = months[date.getUTCMonth()];
+                const day = date.getUTCDate();
+
+                const dateString = `${dayOfWeek}, ${month}, ${day}`
+
+                matchData.sort((a, b) => {
+                  const dateA = new Date(a.fullDate);
+                  const dateB = new Date(b.fullDate);
+                  return dateA - dateB;
+                });
+
+                const groupedData = {};
+                matchData.forEach((match) => {
+                  const date = match.fullDate.split('T')[0];
+                  if (!groupedData[date]) {
+                    groupedData[date] = [];
+                  }
+                  groupedData[date].push(match);
+                });
+
+                for (const date in groupedData) {
+                  console.log(`Date: ${date}`);
+                  groupedData[date].forEach((match) => {
+                    console.log(`  ${match.team1} vs ${match.team2}`);
+                  });
+                }
+               
+                
         
                 const team1Info = teamNameMapping[team1Abbr] || { name: team1Abbr, id: -1 };
                 const team2Info = teamNameMapping[team2Abbr] || { name: team2Abbr, id: -1 };
@@ -88,7 +122,7 @@ const ApiTest = () => {
                 const team1Id = team1Info.id;
                 const team2Id = team2Info.id;
         
-                matchData.push({ team1, record1, team1Id, team2, record2,team2Id, dateString });
+                matchData.push({ team1, record1, team1Id, team2, record2,team2Id, dateString,fullDate });
             }
           });
 
@@ -136,7 +170,7 @@ const ApiTest = () => {
                         <td>
                           <span className="teamName">{match.team1}</span>
                           <span className="teamAbbr"></span>
-                          <span className="teamRecord">({match.record1})</span>
+                          <span className="teamRecord">({match.dateString})</span>
                           <span className="teamLocation">Away</span>
                         </td>
                       </tr>
