@@ -12,6 +12,32 @@ const getTeamLogo = teamId => {
     });
 };
 
+function EventList({events}){
+
+  function groupEventsByDate(events) {
+    return events.reduce((result, event) => {
+      const date = event.dateString; 
+      if (!result[date]) {
+        result[date] = [];
+      }
+      result[date].push(event);
+      return result;
+    }, {});
+  }
+  
+  function sortDates(dates) {
+    return dates.sort((a, b) => new Date(a) - new Date(b));
+  }
+
+  const groupedEvents = groupEventsByDate(events);
+
+  // Step 2: Get unique and sorted dates
+  const eventDates = sortDates(Object.keys(groupedEvents));
+
+}
+
+
+
 
 
 const ApiTest = () => {
@@ -49,6 +75,8 @@ const ApiTest = () => {
             if (competitors.length === 2) {
                 const team1Abbr = competitors[1].team.abbreviation;
                 const team2Abbr = competitors[0].team.abbreviation;
+                const date = new Date(event.date)
+                const dateString = date.toLocaleString()
         
                 const team1Info = teamNameMapping[team1Abbr] || { name: team1Abbr, id: -1 };
                 const team2Info = teamNameMapping[team2Abbr] || { name: team2Abbr, id: -1 };
@@ -60,7 +88,7 @@ const ApiTest = () => {
                 const team1Id = team1Info.id;
                 const team2Id = team2Info.id;
         
-                matchData.push({ team1, record1, team1Id, team2, record2,team2Id });
+                matchData.push({ team1, record1, team1Id, team2, record2,team2Id, dateString });
             }
           });
 
@@ -108,7 +136,7 @@ const ApiTest = () => {
                         <td>
                           <span className="teamName">{match.team1}</span>
                           <span className="teamAbbr"></span>
-                          <span className="teamRecord">{match.record1}</span>
+                          <span className="teamRecord">({match.record1})</span>
                           <span className="teamLocation">Away</span>
                         </td>
                       </tr>
@@ -133,7 +161,7 @@ const ApiTest = () => {
                         <td>
                           <span className="teamName">{match.team2}</span>
                           <span className="teamAbbr"></span>
-                          <span className="teamRecord">{match.record2}</span>
+                          <span className="teamRecord">({match.record2})</span>
                           <span className="teamLocation">Home</span>
                         </td>
                       </tr>
@@ -149,7 +177,7 @@ const ApiTest = () => {
       </table>
 
 
-    
+      <EventList events={matches} />
       </form>
       </div>
     </div>
