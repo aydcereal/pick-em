@@ -12,47 +12,25 @@ const getTeamLogo = teamId => {
     });
 };
 
-function EventList({events}){
-
-  function groupEventsByDate(events) {
-    return events.reduce((result, event) => {
-      const date = event.dateString; 
-      if (!result[date]) {
-        result[date] = [];
-      }
-      result[date].push(event);
-      return result;
-    }, {});
-  }
-  
-  function sortDates(dates) {
-    return dates.sort((a, b) => new Date(a) - new Date(b));
-  }
-
-  const groupedEvents = groupEventsByDate(events);
-
-  // Step 2: Get unique and sorted dates
-  const eventDates = sortDates(Object.keys(groupedEvents));
-
-}
-
-
-
-
 
 const ApiTest = () => {
   const [matches, setMatches] = useState([]);
   const [teamLogos, setTeamLogos] = useState({});
+  
 
   useEffect(() => {
-    matches.forEach(match => {
-      getTeamLogo(match.team1Id).then(logo => {
-        setTeamLogos(logos => ({ ...logos, [match.team1Id]: logo }));
-      });
-      getTeamLogo(match.team2Id).then(logo => {
-        setTeamLogos(logos => ({ ...logos, [match.team2Id]: logo }));
+
+    matches.forEach(date => {
+      date.items.forEach(match => {
+        getTeamLogo(match.team1Id).then(logo => {
+          setTeamLogos(logos => ({ ...logos, [match.team1Id]: logo }));
+        });
+        getTeamLogo(match.team2Id).then(logo => {
+          setTeamLogos(logos => ({ ...logos, [match.team2Id]: logo }));
+        });
       });
     });
+
   }, [matches]);
 
   useEffect(() => {
@@ -77,40 +55,19 @@ const ApiTest = () => {
                 const team2Abbr = competitors[0].team.abbreviation;
                 
                 const date = new Date(event.date)
-                const fullDate = event.date
+
 
                 const daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
                 const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
-                const dayOfWeek = daysOfWeek[date.getUTCDay()];
-                const month = months[date.getUTCMonth()];
-                const day = date.getUTCDate();
+                const dayOfWeek = daysOfWeek[date.getDay()];
+                
+                const month = months[date.getMonth()];
+                const day = date.getDate();
 
                 const dateString = `${dayOfWeek}, ${month}, ${day}`
-
-                matchData.sort((a, b) => {
-                  const dateA = new Date(a.fullDate);
-                  const dateB = new Date(b.fullDate);
-                  return dateA - dateB;
-                });
-
-                const groupedData = {};
-                matchData.forEach((match) => {
-                  const date = match.fullDate.split('T')[0];
-                  if (!groupedData[date]) {
-                    groupedData[date] = [];
-                  }
-                  groupedData[date].push(match);
-                });
-
-                for (const date in groupedData) {
-                  console.log(`Date: ${date}`);
-                  groupedData[date].forEach((match) => {
-                    console.log(`  ${match.team1} vs ${match.team2}`);
-                  });
-                }
-               
                 
+
         
                 const team1Info = teamNameMapping[team1Abbr] || { name: team1Abbr, id: -1 };
                 const team2Info = teamNameMapping[team2Abbr] || { name: team2Abbr, id: -1 };
@@ -122,13 +79,61 @@ const ApiTest = () => {
                 const team1Id = team1Info.id;
                 const team2Id = team2Info.id;
         
-                matchData.push({ team1, record1, team1Id, team2, record2,team2Id, dateString,fullDate });
+                matchData.push({ team1, record1, team1Id, team2, record2,team2Id, dateString });
             }
           });
 
         });
 
-        setMatches(matchData);
+        
+
+        const customDateSort = (a, b) => {
+          // Convert date strings to JavaScript Date objects
+          const dateA = new Date(a.dateString.replace(/,/g, ''));
+          const dateB = new Date(b.dateString.replace(/,/g, ''));
+        
+          // Compare the Date objects
+          if (dateA < dateB) return -1;
+          if (dateA > dateB) return 1;
+          return 0;
+        };
+        matchData.sort(customDateSort); // Sort the array by date
+        console.log(matchData); // Display the sorted matchData array
+
+        const groupedData = matchData.reduce((result, item) => {
+          const dateString = item.dateString;
+          
+          // If there's no array for this dateString in the result object, create one
+          if (!result[dateString]) {
+            result[dateString] = [];
+          }
+          
+          // Push the current item into the array for this dateString
+          result[dateString].push(item);
+          
+          return result;
+        }, {});
+        
+        // Convert the groupedData object back to an array of objects
+        const groupedArray = Object.keys(groupedData).map(dateString => ({
+          dateString: dateString,
+          items: groupedData[dateString]
+        }));
+        
+        
+
+        
+        
+        setMatches(groupedArray); 
+        console.log(matches);
+        
+
+      
+
+
+
+       
+        
       })
       .catch(error => {
         console.error("Error fetching data:", error);
@@ -151,7 +156,20 @@ const ApiTest = () => {
              </div>
             </td>
           </tr>
-          {matches.map((match, index) =>(
+          
+           {matches.map((match) => (<>
+              <tr key={match.dateString}>
+                <td>
+                  <div className="day">
+                    {matches && matches.length > 0 ? (
+                      <div className="day">{match.dateString}</div>
+                    ) : (
+                      <div>No matches available</div>
+                    )}
+                  </div>
+                </td>
+              </tr>
+              {match.items.map((match, index) =>(
           <tr>
               <td>
               
@@ -170,7 +188,7 @@ const ApiTest = () => {
                         <td>
                           <span className="teamName">{match.team1}</span>
                           <span className="teamAbbr"></span>
-                          <span className="teamRecord">({match.dateString})</span>
+                          <span className="teamRecord">({match.record1})</span>
                           <span className="teamLocation">Away</span>
                         </td>
                       </tr>
@@ -206,12 +224,86 @@ const ApiTest = () => {
               </td>
             </tr>
             ))}
+              </>
+            ))}
+
+
+            
+
+
+
+
+          {/* <tr>
+               <td>
+                <div className="day">{matches && matches.length > 0 ? (
+                  <div className="day">{matches[0].dateString}</div>
+                ) : (
+                  <div>No matches available</div>
+                )}</div>
+                 </td>
+								
+                 </tr>
+          {matches.map((match, index) =>(
+          <tr>
+              <td>
+              
+                <div key={match.team1Id} id={"box"+`${match.team1Id}`} className="awayBox">
+                  <table cellSpacing='0' cellPadding='0'>
+                    <tbody>
+                      <tr>
+                        <td style={{ display: 'none' }}>
+                          <input></input>
+                        </td>
+                        <td>
+                        <img className='h' src={teamLogos[match.team1Id]} alt={`${match.team1} Logo`} />
+                        
+                          
+                        </td>
+                        <td>
+                          <span className="teamName">{match.team1}</span>
+                          <span className="teamAbbr"></span>
+                          <span className="teamRecord">({match.record1})</span>
+                          <span className="teamLocation">Away</span>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  
+                  
+                  
+                  </div>
+                <div key={match.team2Id} id={"box"+`${match.team2Id}`} className="homeBox">
+                <table cellSpacing='0' cellPadding='0'>
+                    <tbody>
+                      <tr>
+                        <td style={{ display: 'none' }}>
+                          <input></input>
+                        </td>
+                        <td>
+                        <img className='h' src={teamLogos[match.team2Id]} alt={`${match.team2} Logo`} />
+                          
+                          
+                        </td>
+                        <td>
+                          <span className="teamName">{match.team2}</span>
+                          <span className="teamAbbr"></span>
+                          <span className="teamRecord">({match.record2})</span>
+                          <span className="teamLocation">Home</span>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  </div>
+              
+              </td>
+            </tr>
+            ))} */}
 
         </tbody>
       </table>
 
 
-      <EventList events={matches} />
+     
       </form>
       </div>
     </div>
