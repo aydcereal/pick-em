@@ -16,6 +16,22 @@ const getTeamLogo = teamId => {
 const ApiTest = () => {
   const [matches, setMatches] = useState([]);
   const [teamLogos, setTeamLogos] = useState({});
+  const [selections, setSelections] = useState({});
+
+  const handleSelection = (matchId, teamId) => {
+    setSelections(prevSelections => ({
+      ...prevSelections,
+      [matchId]: teamId
+    }));
+  };
+
+  const handleSubmit = (event) => {
+    // Submit the selections
+    event.preventDefault()
+    console.log(selections);
+  };
+
+  let indexCounter = 1;
   
 
   useEffect(() => {
@@ -143,7 +159,7 @@ const ApiTest = () => {
   return (
     <div className='container'>
       <div className='col-md-7'>
-        <form>
+        <form onSubmit={handleSubmit}>
       <h1>NFL Match Schedule</h1>
 
       <table border='0' cellPadding='0' cellSpacing='0' style={{ width: '100%' }} id='picksheetTable'>
@@ -177,8 +193,13 @@ const ApiTest = () => {
                   <table cellSpacing='0' cellPadding='0'>
                     <tbody>
                       <tr>
-                        <td style={{ display: 'none' }}>
-                          <input></input>
+                        <td style={{display:'none'}}>
+                            <input 
+                              style={{display:'none'}} 
+                              type="radio" name={indexCounter} 
+                              value={match.team1Id}
+                              onChange={() => {handleSelection(indexCounter, match.team1id)}}
+                              />
                         </td>
                         <td>
                         <img className='h' src={teamLogos[match.team1Id]} alt={`${match.team1} Logo`} />
@@ -202,8 +223,13 @@ const ApiTest = () => {
                 <table cellSpacing='0' cellPadding='0'>
                     <tbody>
                       <tr>
-                        <td style={{ display: 'none' }}>
-                          <input></input>
+                      <td style={{display:'none'}}>
+                            <input 
+                              style={{display:'none'}} 
+                              type="radio" name={indexCounter} 
+                              value={match.team2Id}
+                              onChange={() => {handleSelection(indexCounter, match.team2id)}}
+                              />
                         </td>
                         <td>
                         <img className='h' src={teamLogos[match.team2Id]} alt={`${match.team2} Logo`} />
@@ -222,87 +248,25 @@ const ApiTest = () => {
                   </div>
               
               </td>
+              <div style={{display:'none'}}>
+              {indexCounter++}
+              </div>
+              
             </tr>
+                
             ))}
+            
               </>
             ))}
 
 
-            
 
-
-
-
-          {/* <tr>
-               <td>
-                <div className="day">{matches && matches.length > 0 ? (
-                  <div className="day">{matches[0].dateString}</div>
-                ) : (
-                  <div>No matches available</div>
-                )}</div>
-                 </td>
-								
-                 </tr>
-          {matches.map((match, index) =>(
-          <tr>
-              <td>
-              
-                <div key={match.team1Id} id={"box"+`${match.team1Id}`} className="awayBox">
-                  <table cellSpacing='0' cellPadding='0'>
-                    <tbody>
-                      <tr>
-                        <td style={{ display: 'none' }}>
-                          <input></input>
-                        </td>
-                        <td>
-                        <img className='h' src={teamLogos[match.team1Id]} alt={`${match.team1} Logo`} />
-                        
-                          
-                        </td>
-                        <td>
-                          <span className="teamName">{match.team1}</span>
-                          <span className="teamAbbr"></span>
-                          <span className="teamRecord">({match.record1})</span>
-                          <span className="teamLocation">Away</span>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                  
-                  
-                  
-                  </div>
-                <div key={match.team2Id} id={"box"+`${match.team2Id}`} className="homeBox">
-                <table cellSpacing='0' cellPadding='0'>
-                    <tbody>
-                      <tr>
-                        <td style={{ display: 'none' }}>
-                          <input></input>
-                        </td>
-                        <td>
-                        <img className='h' src={teamLogos[match.team2Id]} alt={`${match.team2} Logo`} />
-                          
-                          
-                        </td>
-                        <td>
-                          <span className="teamName">{match.team2}</span>
-                          <span className="teamAbbr"></span>
-                          <span className="teamRecord">({match.record2})</span>
-                          <span className="teamLocation">Home</span>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                  </div>
-              
-              </td>
-            </tr>
-            ))} */}
+          
 
         </tbody>
       </table>
 
-
+                <button className='btn'>Submit</button>
      
       </form>
       </div>
