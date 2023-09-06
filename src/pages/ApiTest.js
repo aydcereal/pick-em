@@ -16,6 +16,7 @@ const getTeamLogo = teamId => {
 const ApiTest = () => {
   const [matches, setMatches] = useState([]);
   const [teamLogos, setTeamLogos] = useState({});
+  let itemCounter = 1;
   
 
   useEffect(() => {
@@ -140,6 +141,7 @@ const ApiTest = () => {
       });
   }, []);
 
+     
   return (
     <div className='container'>
       <div className='col-md-7'>
@@ -157,148 +159,94 @@ const ApiTest = () => {
             </td>
           </tr>
           
-           {matches.map((match) => (<>
-              <tr key={match.dateString}>
-                <td>
-                  <div className="day">
-                    {matches && matches.length > 0 ? (
-                      <div className="day">{match.dateString}</div>
-                    ) : (
-                      <div>No matches available</div>
-                    )}
-                  </div>
-                </td>
-              </tr>
-              {match.items.map((match, index) =>(
-          <tr>
-              <td>
-              
-                <div key={match.team1Id} id={"box"+`${match.team1Id}`} className="awayBox">
-                  <table cellSpacing='0' cellPadding='0'>
-                    <tbody>
-                      <tr>
-                        <td style={{ display: 'none' }}>
-                          <input></input>
-                        </td>
-                        <td>
-                        <img className='h' src={teamLogos[match.team1Id]} alt={`${match.team1} Logo`} />
-                        
-                          
-                        </td>
-                        <td>
-                          <span className="teamName">{match.team1}</span>
-                          <span className="teamAbbr"></span>
-                          <span className="teamRecord">({match.record1})</span>
-                          <span className="teamLocation">Away</span>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                  
-                  
-                  
-                  </div>
-                <div key={match.team2Id} id={"box"+`${match.team2Id}`} className="homeBox">
-                <table cellSpacing='0' cellPadding='0'>
-                    <tbody>
-                      <tr>
-                        <td style={{ display: 'none' }}>
-                          <input></input>
-                        </td>
-                        <td>
-                        <img className='h' src={teamLogos[match.team2Id]} alt={`${match.team2} Logo`} />
-                          
-                          
-                        </td>
-                        <td>
-                          <span className="teamName">{match.team2}</span>
-                          <span className="teamAbbr"></span>
-                          <span className="teamRecord">({match.record2})</span>
-                          <span className="teamLocation">Home</span>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                  </div>
-              
-              </td>
-            </tr>
-            ))}
-              </>
-            ))}
+          {matches.map((match, matchIndex) => (
+  <>
+    <tr key={match.dateString}>
+      <td>
+        <div className="day">
+          {matches && matches.length > 0 ? (
+            <div className="day">{match.dateString}</div>
+          ) : (
+            <div>No matches available</div>
+          )}
+        </div>
+      </td>
+    </tr>
+    {match.items.map((match, itemIndex) => (
+      <tr>
+        <td>
+          <div key={match.team1Id} id={"box" + `${match.team1Id}`} className="awayBox">
+            <table cellSpacing="0" cellPadding="0">
+              <tbody>
+                <tr>
+                  <td style={{ display: "none" }}>
+                    <input
+                      style={{ display: "none" }}
+                      type="radio"
+                      name={itemCounter}
+                    ></input>
+                  </td>
+                  <td>
+                    <img
+                      className="h"
+                      src={teamLogos[match.team1Id]}
+                      alt={`${match.team1} Logo`}
+                    />
+                  </td>
+                  <td>
+                    <span className="teamName">{match.team1}</span>
+                    <span className="teamAbbr"></span>
+                    <span className="teamRecord">({match.record1})</span>
+                    <span className="teamLocation">Away</span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
 
+           
+          </div>
+          <div key={match.team2Id} id={"box" + `${match.team2Id}`} className="homeBox">
+            <table cellSpacing="0" cellPadding="0">
+              <tbody>
+                <tr>
+                  <td style={{ display: "none" }}>
+                  
+                    <input
+                      style={{ display: "none" }}
+                      type="radio"
+                      name={itemCounter}
+                    ></input>
+                  </td>
+                  <td>
+                    <img
+                      className="h"
+                      src={teamLogos[match.team2Id]}
+                      alt={`${match.team2} Logo`}
+                    />
+                  </td>
+                  <td>
+                    <span className="teamName">{match.team2}</span>
+                    <span className="teamAbbr"></span>
+                    <span className="teamRecord">({match.record2})</span>
+                    <span className="teamLocation">Home</span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
 
+            {/* Increment the counter here */}
             
+          </div>
+        </td>
+        {itemCounter++}
+      </tr>
 
+      
+    ))}
+  </>
+))}
 
-
-
-          {/* <tr>
-               <td>
-                <div className="day">{matches && matches.length > 0 ? (
-                  <div className="day">{matches[0].dateString}</div>
-                ) : (
-                  <div>No matches available</div>
-                )}</div>
-                 </td>
-								
-                 </tr>
-          {matches.map((match, index) =>(
-          <tr>
-              <td>
-              
-                <div key={match.team1Id} id={"box"+`${match.team1Id}`} className="awayBox">
-                  <table cellSpacing='0' cellPadding='0'>
-                    <tbody>
-                      <tr>
-                        <td style={{ display: 'none' }}>
-                          <input></input>
-                        </td>
-                        <td>
-                        <img className='h' src={teamLogos[match.team1Id]} alt={`${match.team1} Logo`} />
-                        
-                          
-                        </td>
-                        <td>
-                          <span className="teamName">{match.team1}</span>
-                          <span className="teamAbbr"></span>
-                          <span className="teamRecord">({match.record1})</span>
-                          <span className="teamLocation">Away</span>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                  
-                  
-                  
-                  </div>
-                <div key={match.team2Id} id={"box"+`${match.team2Id}`} className="homeBox">
-                <table cellSpacing='0' cellPadding='0'>
-                    <tbody>
-                      <tr>
-                        <td style={{ display: 'none' }}>
-                          <input></input>
-                        </td>
-                        <td>
-                        <img className='h' src={teamLogos[match.team2Id]} alt={`${match.team2} Logo`} />
-                          
-                          
-                        </td>
-                        <td>
-                          <span className="teamName">{match.team2}</span>
-                          <span className="teamAbbr"></span>
-                          <span className="teamRecord">({match.record2})</span>
-                          <span className="teamLocation">Home</span>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                  </div>
-              
-              </td>
-            </tr>
-            ))} */}
-
+         
         </tbody>
       </table>
 
