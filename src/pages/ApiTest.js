@@ -3,6 +3,7 @@ import teamNameMapping from '../components/TeamNameMapping';
 import classes from './apiTest.css'
 import logo from '../images/team logos/1.png'
 
+
 const getTeamLogo = teamId => {
   return import(`../images/team logos/${teamId}.png`)
     .then(module => module.default)
@@ -48,6 +49,8 @@ const ApiTest = () => {
     });
 
   }, [matches]);
+
+  const [selected, setSelected] = useState({});
 
   useEffect(() => {
     const API_ENDPOINT_URL = "https://site.api.espn.com/apis/site/v2/sports/football/nfl/scoreboard?seasontype=2&week=1&dates=2023";
@@ -156,6 +159,7 @@ const ApiTest = () => {
       });
   }, []);
 
+
      
   return (
     <div className='container'>
@@ -186,31 +190,48 @@ const ApiTest = () => {
                   </div>
                 </td>
               </tr>
-              {match.items.map((match, index) =>(
+              {match.items.map((item, index) =>(
           <tr>
               <td>
               
-                <div key={match.team1Id} id={"box"+`${match.team1Id}`} className="awayBox">
+              <div
+               onClick={() => {
+                          setSelected((prevSelected) => ({
+                            ...prevSelected,
+                            [indexCounter]: item.team1Id
+                          }));
+                        }}
+                        key={item.team1Id}
+                        id={"box" + `${item.team1Id}`}
+                        data-index={indexCounter}
+                        className={`homeBox ${selected[indexCounter] && selected[indexCounter] === item.team1Id ? 'selected' : ''}`}
+                      >
+
                   <table cellSpacing='0' cellPadding='0'>
                     <tbody>
                       <tr>
-                        <td style={{display:'none'}}>
-                            <input 
-                              style={{display:'none'}} 
-                              type="radio" name={indexCounter} 
-                              value={match.team1Id}
-                              onChange={() => {handleSelection(indexCounter, match.team1id)}}
-                              />
+                        <td >
+                          <input
+                            type="radio"
+                            name={indexCounter}
+                            value={item.team1Id}
+                            data-index={indexCounter}
+                            onChange={(event) => {
+                              const dataIndex = event.target.getAttribute('data-index');
+                              console.log("onchange triggered " + dataIndex + " " + item.team1Id);
+                              handleSelection(dataIndex, item.team1Id);
+                            }}
+                          />
                         </td>
                         <td>
-                        <img className='h' src={teamLogos[match.team1Id]} alt={`${match.team1} Logo`} />
+                        <img className='h' src={teamLogos[item.team1Id]} alt={`${item.team1} Logo`} />
                         
                           
                         </td>
                         <td>
-                          <span className="teamName">{match.team1}</span>
+                          <span className="teamName">{item.team1}</span>
                           <span className="teamAbbr"></span>
-                          <span className="teamRecord">({match.record1})</span>
+                          <span className="teamRecord">({item.record1})</span>
                           <span className="teamLocation">Away</span>
                         </td>
                       </tr>
@@ -220,27 +241,44 @@ const ApiTest = () => {
                   
                   
                   </div>
-                <div key={match.team2Id} id={"box"+`${match.team2Id}`} className="homeBox">
+                  <div
+                    onClick={() => {
+                      setSelected((prevSelected) => ({
+                        ...prevSelected,
+                        [indexCounter]: item.team2Id
+                      }));
+                    }}
+                    key={item.team2Id}
+                    id={"box" + `${item.team2Id}`}
+                    data-index={indexCounter}
+                    className={`homeBox ${selected[indexCounter] && selected[indexCounter] === item.team2Id ? 'selected' : ''}`}
+                  >
+
                 <table cellSpacing='0' cellPadding='0'>
                     <tbody>
                       <tr>
-                      <td style={{display:'none'}}>
-                            <input 
-                              style={{display:'none'}} 
-                              type="radio" name={indexCounter} 
-                              value={match.team2Id}
-                              onChange={() => {handleSelection(indexCounter, match.team2id)}}
-                              />
+                      <td >
+                        <input
+                          type="radio"
+                          name={indexCounter}
+                          value={item.team2Id}
+                          data-index={indexCounter}
+                          onChange={(event) => {
+                            const dataIndex = event.target.getAttribute('data-index');
+                            console.log("onchange triggered " + dataIndex + " " + item.team2Id);
+                            handleSelection(dataIndex, item.team2Id);
+                          }}
+                        />
                         </td>
                         <td>
-                        <img className='h' src={teamLogos[match.team2Id]} alt={`${match.team2} Logo`} />
+                        <img className='h' src={teamLogos[item.team2Id]} alt={`${item.team2} Logo`} />
                           
                           
                         </td>
                         <td>
-                          <span className="teamName">{match.team2}</span>
+                          <span className="teamName">{item.team2}</span>
                           <span className="teamAbbr"></span>
-                          <span className="teamRecord">({match.record2})</span>
+                          <span className="teamRecord">({item.record2})</span>
                           <span className="teamLocation">Home</span>
                         </td>
                       </tr>
