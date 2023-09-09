@@ -4,6 +4,9 @@ import classes from './apiTest.css'
 import logo from '../images/team logos/1.png'
 
 
+
+
+
 const getTeamLogo = teamId => {
   return import(`../images/team logos/${teamId}.png`)
     .then(module => module.default)
@@ -14,43 +17,15 @@ const getTeamLogo = teamId => {
 };
 
 
+
+
+
 const ApiTest = () => {
-  const [matches, setMatches] = useState([]);
+  const [matchData, setMatchData] = useState([]);
   const [teamLogos, setTeamLogos] = useState({});
   const [selections, setSelections] = useState({});
-
-  const handleSelection = (matchId, teamId) => {
-    setSelections(prevSelections => ({
-      ...prevSelections,
-      [matchId]: teamId
-    }));
-  };
-
-  const handleSubmit = (event) => {
-    // Submit the selections
-    event.preventDefault()
-    console.log(selections);
-  };
-
-  let indexCounter = 1;
   
 
-  useEffect(() => {
-
-    matches.forEach(date => {
-      date.items.forEach(match => {
-        getTeamLogo(match.team1Id).then(logo => {
-          setTeamLogos(logos => ({ ...logos, [match.team1Id]: logo }));
-        });
-        getTeamLogo(match.team2Id).then(logo => {
-          setTeamLogos(logos => ({ ...logos, [match.team2Id]: logo }));
-        });
-      });
-    });
-
-  }, [matches]);
-
-  const [selected, setSelected] = useState({});
 
   useEffect(() => {
     const API_ENDPOINT_URL = "https://site.api.espn.com/apis/site/v2/sports/football/nfl/scoreboard?seasontype=2&week=1&dates=2023";
@@ -60,15 +35,33 @@ const ApiTest = () => {
     fetch(API_ENDPOINT_URL)
       .then(response => response.json())
       .then(data => {
+        if (!data || !Array.isArray(data.events)) {
+          console.error("Data structure is not as expected");
+          return;
+        }
         const events = data.events || [];
 
-        const matchData = [];
+        console.log(events);
+        
+
+      
+
+        
+        
 
         events.forEach(event => {
+
+          if (!event || !Array.isArray(event.competitions)) {
+            console.error("Event structure is not as expected");
+            return;
+          }
+
           const competitions = event.competitions || [];
+          console.log(competitions);
 
           competitions.forEach(competition => {
             const competitors = competition.competitors;
+            console.log(competitors);
             if (competitors.length === 2) {
                 const team1Abbr = competitors[1].team.abbreviation;
                 const team2Abbr = competitors[0].team.abbreviation;
@@ -98,66 +91,83 @@ const ApiTest = () => {
                 const team1Id = team1Info.id;
                 const team2Id = team2Info.id;
         
-                matchData.push({ team1, record1, team1Id, team2, record2,team2Id, dateString });
+                setMatchData(prevMatches => {
+                  // Check if an item with the same properties already exists
+                  const itemExists = prevMatches.some(
+                    item =>
+                      item.team1 === team1 &&
+                      item.record1 === record1 &&
+                      item.team1Id === team1Id &&
+                      item.team2 === team2 &&
+                      item.record2 === record2 &&
+                      item.team2Id === team2Id &&
+                      item.dateString === dateString
+                  );
+                
+                  // Only add the new item if it doesn't already exist
+                  if (!itemExists) {
+                    return [...prevMatches, { team1, record1, team1Id, team2, record2,team2Id, dateString }];
+                  } else {
+                    return prevMatches;
+                  }
+                });
+               
             }
           });
 
         });
 
-        
-
-        const customDateSort = (a, b) => {
-          // Convert date strings to JavaScript Date objects
-          const dateA = new Date(a.dateString.replace(/,/g, ''));
-          const dateB = new Date(b.dateString.replace(/,/g, ''));
-        
-          // Compare the Date objects
-          if (dateA < dateB) return -1;
-          if (dateA > dateB) return 1;
-          return 0;
-        };
-        matchData.sort(customDateSort); // Sort the array by date
-        console.log(matchData); // Display the sorted matchData array
-
-        const groupedData = matchData.reduce((result, item) => {
-          const dateString = item.dateString;
-          
-          // If there's no array for this dateString in the result object, create one
-          if (!result[dateString]) {
-            result[dateString] = [];
-          }
-          
-          // Push the current item into the array for this dateString
-          result[dateString].push(item);
-          
-          return result;
-        }, {});
-        
-        // Convert the groupedData object back to an array of objects
-        const groupedArray = Object.keys(groupedData).map(dateString => ({
-          dateString: dateString,
-          items: groupedData[dateString]
-        }));
-        
-        
-
-        
-        
-        setMatches(groupedArray); 
-        console.log(matches);
-        
-
-      
-
-
-
        
-        
+
       })
       .catch(error => {
         console.error("Error fetching data:", error);
       });
   }, []);
+
+  
+
+  
+
+  
+
+  const handleSelection = (matchId, teamId) => {
+    setSelections(prevSelections => ({
+      ...prevSelections,
+      [matchId]: teamId
+    }));
+  };
+
+  const handleSubmit = (event) => {
+    // Submit the selections
+    event.preventDefault()
+    console.log(selections);
+  };
+
+  let indexCounter = 1;
+  
+
+  
+
+  const [selected, setSelected] = useState({});
+
+  
+
+
+  useEffect(() => {
+
+    matchData.forEach(date => {
+      date.items.forEach(match => {
+        getTeamLogo(match.team1Id).then(logo => {
+          setTeamLogos(logos => ({ ...logos, [match.team1Id]: logo }));
+        });
+        getTeamLogo(match.team2Id).then(logo => {
+          setTeamLogos(logos => ({ ...logos, [match.team2Id]: logo }));
+        });
+      });
+    });
+
+  }, [matchData]);
 
 
      
@@ -178,11 +188,11 @@ const ApiTest = () => {
             </td>
           </tr>
           
-           {matches.map((match) => (<>
+           {matchData.map((match, index) => (<>
               <tr key={match.dateString}>
                 <td>
                   <div className="day">
-                    {matches && matches.length > 0 ? (
+                    {matchData && matchData.length > 0 ? (
                       <div className="day">{match.dateString}</div>
                     ) : (
                       <div>No matches available</div>
@@ -190,21 +200,14 @@ const ApiTest = () => {
                   </div>
                 </td>
               </tr>
-              {match.items.map((item, index) =>(
-          <tr>
-              <td>
               
-              <div
-               onClick={() => {
-                          setSelected((prevSelected) => ({
-                            ...prevSelected,
-                            [indexCounter]: item.team1Id
-                          }));
-                        }}
-                        key={item.team1Id}
-                        id={"box" + `${item.team1Id}`}
-                        data-index={indexCounter}
-                        className={`homeBox ${selected[indexCounter] && selected[indexCounter] === item.team1Id ? 'selected' : ''}`}
+                <tr>
+                  <td>
+                  
+                  <div
+                        key={match.team1Id}
+                        id={"box" + `${match.team1Id}`}
+                        className={`homeBox`}
                       >
 
                   <table cellSpacing='0' cellPadding='0'>
@@ -213,25 +216,21 @@ const ApiTest = () => {
                         <td >
                           <input
                             type="radio"
-                            name={indexCounter}
-                            value={item.team1Id}
-                            data-index={indexCounter}
-                            onChange={(event) => {
-                              const dataIndex = event.target.getAttribute('data-index');
-                              console.log("onchange triggered " + dataIndex + " " + item.team1Id);
-                              handleSelection(dataIndex, item.team1Id);
-                            }}
+                            name={index}
+                            value={match.team1Id}
+                            
+                            
                           />
                         </td>
                         <td>
-                        <img className='h' src={teamLogos[item.team1Id]} alt={`${item.team1} Logo`} />
+                        <img className='h' src={teamLogos[match.team1Id]} alt={`${match.team1} Logo`} />
                         
                           
                         </td>
                         <td>
-                          <span className="teamName">{item.team1}</span>
+                          <span className="teamName">{match.team1}</span>
                           <span className="teamAbbr"></span>
-                          <span className="teamRecord">({item.record1})</span>
+                          <span className="teamRecord">({match.record1})</span>
                           <span className="teamLocation">Away</span>
                         </td>
                       </tr>
@@ -242,16 +241,11 @@ const ApiTest = () => {
                   
                   </div>
                   <div
-                    onClick={() => {
-                      setSelected((prevSelected) => ({
-                        ...prevSelected,
-                        [indexCounter]: item.team2Id
-                      }));
-                    }}
-                    key={item.team2Id}
-                    id={"box" + `${item.team2Id}`}
-                    data-index={indexCounter}
-                    className={`homeBox ${selected[indexCounter] && selected[indexCounter] === item.team2Id ? 'selected' : ''}`}
+                    
+                    key={match.team2Id}
+                    id={"box" + `${match.team2Id}`}
+                    
+                    className={`homeBox`}
                   >
 
                 <table cellSpacing='0' cellPadding='0'>
@@ -260,25 +254,20 @@ const ApiTest = () => {
                       <td >
                         <input
                           type="radio"
-                          name={indexCounter}
-                          value={item.team2Id}
-                          data-index={indexCounter}
-                          onChange={(event) => {
-                            const dataIndex = event.target.getAttribute('data-index');
-                            console.log("onchange triggered " + dataIndex + " " + item.team2Id);
-                            handleSelection(dataIndex, item.team2Id);
-                          }}
+                          name={index}
+                          value={match.team2Id}
+                          
                         />
                         </td>
                         <td>
-                        <img className='h' src={teamLogos[item.team2Id]} alt={`${item.team2} Logo`} />
+                        <img className='h' src={teamLogos[match.team2Id]} alt={`${match.team2} Logo`} />
                           
                           
                         </td>
                         <td>
-                          <span className="teamName">{item.team2}</span>
+                          <span className="teamName">{match.team2}</span>
                           <span className="teamAbbr"></span>
-                          <span className="teamRecord">({item.record2})</span>
+                          <span className="teamRecord">({match.record2})</span>
                           <span className="teamLocation">Home</span>
                         </td>
                       </tr>
@@ -286,14 +275,14 @@ const ApiTest = () => {
                   </table>
                   </div>
               
-              </td>
-              <div style={{display:'none'}}>
-              {indexCounter++}
-              </div>
-              
-            </tr>
+                    </td>
+                    <div style={{display:'none'}}>
+                    {indexCounter++}
+                    </div>
+                    
+                  </tr>
                 
-            ))}
+            
             
               </>
             ))}
