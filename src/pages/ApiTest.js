@@ -7,6 +7,8 @@ import logo from '../images/team logos/1.png'
 
 
 
+
+
 const getTeamLogo = teamId => {
   return import(`../images/team logos/${teamId}.png`)
     .then(module => module.default)
@@ -24,11 +26,13 @@ const ApiTest = () => {
   const [matchData, setMatchData] = useState([]);
   const [teamLogos, setTeamLogos] = useState({});
   const [selections, setSelections] = useState({});
+  const [selectedDivId, setSelectedDivId] = useState(null);
+  let lastDate = ""
   
 
 
   useEffect(() => {
-    const API_ENDPOINT_URL = "https://site.api.espn.com/apis/site/v2/sports/football/nfl/scoreboard?seasontype=2&week=1&dates=2023";
+    const API_ENDPOINT_URL = "https://site.api.espn.com/apis/site/v2/sports/football/nfl/scoreboard?seasontype=2&week=2&dates=2023";
 
     
 
@@ -41,7 +45,7 @@ const ApiTest = () => {
         }
         const events = data.events || [];
 
-        console.log(events);
+        
         
 
       
@@ -57,11 +61,11 @@ const ApiTest = () => {
           }
 
           const competitions = event.competitions || [];
-          console.log(competitions);
+          
 
           competitions.forEach(competition => {
             const competitors = competition.competitors;
-            console.log(competitors);
+           
             if (competitors.length === 2) {
                 const team1Abbr = competitors[1].team.abbreviation;
                 const team2Abbr = competitors[0].team.abbreviation;
@@ -126,7 +130,10 @@ const ApiTest = () => {
   }, []);
 
   
+  
 
+
+ 
   
 
   
@@ -141,7 +148,30 @@ const ApiTest = () => {
   const handleSubmit = (event) => {
     // Submit the selections
     event.preventDefault()
-    console.log(selections);
+    console.log("selections: ", selections);
+
+    const numberToNameMapping = {};
+
+    for(const key in selections){
+
+        console.log(selections[key]);
+      if(selections.hasOwnProperty(key)){
+        const teamId = selections[key]
+        const teamAbbreviation = Object.keys(teamNameMapping).find(
+          (abbr) => teamNameMapping[abbr].id === teamId
+        )
+
+
+        if(teamAbbreviation) {
+          numberToNameMapping[key] = teamNameMapping[teamAbbreviation].name
+        }
+      }
+
+      
+    }
+
+    console.log("numberToNameMapping: ", numberToNameMapping);
+    
   };
 
   let indexCounter = 1;
@@ -149,29 +179,87 @@ const ApiTest = () => {
 
   
 
-  const [selected, setSelected] = useState({});
+ const [selected, setSelected] = useState([]);
+
+ 
 
   
 
 
   useEffect(() => {
 
-    matchData.forEach(date => {
-      date.items.forEach(match => {
+    matchData.forEach(match => {
+      
         getTeamLogo(match.team1Id).then(logo => {
           setTeamLogos(logos => ({ ...logos, [match.team1Id]: logo }));
         });
         getTeamLogo(match.team2Id).then(logo => {
           setTeamLogos(logos => ({ ...logos, [match.team2Id]: logo }));
         });
-      });
+      
     });
 
   }, [matchData]);
 
+  const sortedMatches = [...matchData].sort ((a,b) =>{
+    const dateA = new Date(a.dateString);
+    const dateB = new Date(b.dateString);
+    return dateA - dateB
+  })
+
+
+ 
+
+ 
+
+  const handleDivClick = (index, teamId) => {
+    
+    
+    
+    setSelected((prevState) => {
+      // Check if the teamId already exists in prevState
+      const existingIndex = prevState.findIndex((item) => item.index === index);
+  
+      if (existingIndex !== -1) {
+        // If it exists, update the item with the new values
+        const updatedItem = {
+          ...prevState[existingIndex],
+        
+          teamId: teamId
+        };
+  
+        // Create a new array with the updated item
+        const newArray = [...prevState];
+      newArray[existingIndex] = updatedItem;
+
+    
+        console.log(selected);
+      return newArray;
+    } else {
+      // If it doesn't exist, add a new item to the array
+      const newItem = {
+        index: index,
+        teamId: teamId,
+      };
+
+      console.log([...prevState, newItem]); // Log the updated array here
+      console.log(selected);
+      return [...prevState, newItem];
+    }
+  });
+};
+
+
+
+
+
+
+
+ 
+
 
      
-  return (
+  return (<>
     <div className='container'>
       <div className='col-md-7'>
         <form onSubmit={handleSubmit}>
@@ -187,105 +275,130 @@ const ApiTest = () => {
              </div>
             </td>
           </tr>
+
           
-           {matchData.map((match, index) => (<>
-              <tr key={match.dateString}>
-                <td>
-                  <div className="day">
-                    {matchData && matchData.length > 0 ? (
-                      <div className="day">{match.dateString}</div>
-                    ) : (
-                      <div>No matches available</div>
-                    )}
-                  </div>
-                </td>
-              </tr>
-              
-                <tr>
-                  <td>
-                  
-                  <div
-                        key={match.team1Id}
-                        id={"box" + `${match.team1Id}`}
-                        className={`homeBox`}
-                      >
+          {sortedMatches.map((match, index) => {
+ 
+  
+            
+            let tempLastDate = lastDate;
+           
 
-                  <table cellSpacing='0' cellPadding='0'>
-                    <tbody>
-                      <tr>
-                        <td >
-                          <input
-                            type="radio"
-                            name={index}
-                            value={match.team1Id}
-                            
-                            
-                          />
-                        </td>
-                        <td>
-                        <img className='h' src={teamLogos[match.team1Id]} alt={`${match.team1} Logo`} />
-                        
-                          
-                        </td>
-                        <td>
-                          <span className="teamName">{match.team1}</span>
-                          <span className="teamAbbr"></span>
-                          <span className="teamRecord">({match.record1})</span>
-                          <span className="teamLocation">Away</span>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                  
-                  
-                  
-                  </div>
-                  <div
+            const isNewDate = match.dateString !== tempLastDate;
+                  if(isNewDate){
+                   
+                    tempLastDate = match.dateString;
+                    lastDate = tempLastDate
                     
-                    key={match.team2Id}
-                    id={"box" + `${match.team2Id}`}
-                    
-                    className={`homeBox`}
-                  >
-
-                <table cellSpacing='0' cellPadding='0'>
-                    <tbody>
-                      <tr>
-                      <td >
-                        <input
-                          type="radio"
-                          name={index}
-                          value={match.team2Id}
-                          
-                        />
-                        </td>
-                        <td>
-                        <img className='h' src={teamLogos[match.team2Id]} alt={`${match.team2} Logo`} />
-                          
-                          
-                        </td>
-                        <td>
-                          <span className="teamName">{match.team2}</span>
-                          <span className="teamAbbr"></span>
-                          <span className="teamRecord">({match.record2})</span>
-                          <span className="teamLocation">Home</span>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                  </div>
-              
-                    </td>
-                    <div style={{display:'none'}}>
-                    {indexCounter++}
-                    </div>
-                    
-                  </tr>
+                  }
+      
+                  return (
+                    <>
+                      {isNewDate && (
+                        <tr key={match.dateString}>
+                          <td>
+                            <div className="day">
+                              {matchData && matchData.length > 0 ? (
+                                <div className="day">{match.dateString}</div>
+                              ) : (
+                                <div>No matches available</div>
+                              )}
+                            </div>
+                          </td>
+                        </tr>
+                      )}
                 
-            
-            
-              </>
-            ))}
+                      <tr>
+                        <td>
+                          <div
+                            key={match.team2Id}
+                            id={"box" + `${match.team2Id}`}
+                            className={`homeBox ${selected.some((element) => element.teamId === match.team2Id) ? 'selected' : ''}`}
+                            onClick={() => handleDivClick(index, match.team2Id)}
+                          >
+
+                                <table cellSpacing='0' cellPadding='0'>
+                                  <tbody>
+                                    <tr>
+                                      <td >
+                                        <input
+                                          type="radio"
+                                          name={index}
+                                          value={match.team2Id}
+                                          onChange={() => handleSelection(index, match.team2Id)}
+                                          
+                                          
+                                        />
+                                      </td>
+                                      <td>
+                                      <img className='h' src={teamLogos[match.team2Id]} alt={`${match.team2} Logo`} />
+                                      
+                                        
+                                      </td>
+                                      <td>
+                                        <span className="teamName">{match.team2}</span>
+                                        <span className="teamAbbr"></span>
+                                        <span className="teamRecord">({match.record2})</span>
+                                        <span className="teamLocation">Home</span>
+                                      </td>
+                                    </tr>
+                                  </tbody>
+                                </table>
+                                
+                                
+                                
+                                </div>
+                                <div
+                                  
+                                  key={match.team1Id}
+                                  id={"box" + `${match.team1Id}`}
+                                  onClick={() => handleDivClick(index, match.team1Id)}
+                                  className={`homeBox ${selected.some((element) => element.teamId === match.team1Id) ? 'selected' : ''}`}
+                                >
+
+                              <table cellSpacing='0' cellPadding='0'>
+                                  <tbody>
+                                    <tr>
+                                    <td >
+                                      <input
+                                        type="radio"
+                                        name={index}
+                                        value={match.team1Id}
+                                        onClick={() => handleSelection(index, match.team1Id)}
+                                        
+                                        
+                                      />
+                                      </td>
+                                      <td>
+                                      <img className='h' src={teamLogos[match.team1Id]} alt={`${match.team1} Logo`} />
+                                        
+                                        
+                                      </td>
+                                      <td>
+                                        <span className="teamName">{match.team1}</span>
+                                        <span className="teamAbbr"></span>
+                                        <span className="teamRecord">({match.record1})</span>
+                                        <span className="teamLocation">Away</span>
+                                      </td>
+                                    </tr>
+                                  </tbody>
+                                </table>
+
+                                </div>
+
+                              </td>
+                                  <div style={{display:"none"}}>
+                                    {indexCounter++}
+                                    
+                                    
+                                    </div>
+                              
+
+                            </tr>
+
+            </>
+          );
+        })}
 
 
 
@@ -299,6 +412,6 @@ const ApiTest = () => {
       </form>
       </div>
     </div>
-  );
+    </>);
 }
 export default ApiTest;
