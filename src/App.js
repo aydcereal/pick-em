@@ -19,6 +19,7 @@ import UserDetailsPage from './pages/UserDetailsPage';
 import NewPool from './pages/NewPool';
 import Connections from './pages/connections';
 import ApiTest from './pages/ApiTest';
+import PoolDetail from './pages/PoolDetail';
 
 
 
@@ -43,6 +44,10 @@ const router = createBrowserRouter([
         true, element:<Dashboard />}]},
       {path: '/dashboard/my-pools', element: <ProtectedRoute />, children: [{index:
         true, element:<Dashboard />}]},
+      
+        { path: '/pools/:poolKey', element: <ProtectedRoute />, children: [
+          { index: true, element: <PoolDetail /> }
+        ]},
 
       {path: '/pools/start', element: <ProtectedRoute />, children: [{index:
           true, element:<NewPool />}]},

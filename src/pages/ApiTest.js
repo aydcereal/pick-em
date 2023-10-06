@@ -32,7 +32,7 @@ const ApiTest = () => {
 
 
   useEffect(() => {
-    const API_ENDPOINT_URL = "https://site.api.espn.com/apis/site/v2/sports/football/nfl/scoreboard?seasontype=2&week=2&dates=2023";
+    const API_ENDPOINT_URL = "https://site.api.espn.com/apis/site/v2/sports/football/nfl/scoreboard?seasontype=2&week=5&dates=2023";
 
     
 

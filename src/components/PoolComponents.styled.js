@@ -142,3 +142,36 @@ export const ActionsContainer = styled.div `
     
     
 `
+
+export const PoolsPoolCardMoreActionsDropdownButton = styled.button`
+  font-family: Inter, sans-serif;
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 24px;
+  text-transform: uppercase;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid transparent;
+  border-radius: 8px;
+  cursor: pointer;
+  user-select: none;
+  text-decoration: none;
+  text-align: center;
+  background-color: transparent;
+  height: 32px;
+  padding: 0px 12px;
+  width: auto;
+  color: rgb(148, 154, 157); /* Default color */
+  transition: color 0.3s ease; /* Add a transition for a smoother effect */
+
+  
+
+  &:hover {
+    background-color: rgb(240, 242, 245);
+    color: rgb(148, 154, 157);
+    text-decoration: none;
+  }
+`;
+
