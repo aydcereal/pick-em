@@ -143,7 +143,7 @@ export const ActionsContainer = styled.div `
     
 `
 
-export const PoolsPoolCardMoreActionsDropdownButton = styled.button`
+export const MoreActionsDropdownButton = styled.button`
   font-family: Inter, sans-serif;
   font-weight: 700;
   font-size: 12px;
@@ -161,7 +161,7 @@ export const PoolsPoolCardMoreActionsDropdownButton = styled.button`
   text-align: center;
   background-color: transparent;
   height: 32px;
-  padding: 0px 12px;
+  padding: 0px 0px;
   width: auto;
   color: rgb(148, 154, 157); /* Default color */
   transition: color 0.3s ease; /* Add a transition for a smoother effect */
