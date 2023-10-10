@@ -25,7 +25,7 @@ const getUserData = (userId, callback) => {
     });
   };
 
-const DashboardNavbar = ({ logoutHandler, isAuthenticated, handleLogout, shouldHide, handleFlyoutMenuClick }) => {
+const DashboardNavbar = ({ logoutHandler, handleLogout, shouldHide, handleFlyoutMenuClick }) => {
 
     const { currentUser } = useContext(AuthContext);
     const [userData, setUserData] = useState('');

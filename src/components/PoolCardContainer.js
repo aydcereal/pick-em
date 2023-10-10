@@ -13,9 +13,10 @@ import {
     BottomContainer,
     BottomContainerSlot,
     ActionsContainer,
-    MoreActionsDropdownButton
-
+    MoreActionsDropdownButton,
+    
 } from "./PoolComponents.styled";
+import FlyoutMoreActions from "./FlyoutMoreActions";
 
 
 
@@ -80,6 +81,8 @@ export default function PoolCardContainer (props) {
                                         <svg   width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 20.125C11.45 20.125 10.9793 19.9293 10.588 19.538C10.196 19.146 10 18.675 10 18.125C10 17.575 10.196 17.104 10.588 16.712C10.9793 16.3207 11.45 16.125 12 16.125C12.55 16.125 13.021 16.3207 13.413 16.712C13.8043 17.104 14 17.575 14 18.125C14 18.675 13.8043 19.146 13.413 19.538C13.021 19.9293 12.55 20.125 12 20.125ZM12 14.125C11.45 14.125 10.9793 13.929 10.588 13.537C10.196 13.1457 10 12.675 10 12.125C10 11.575 10.196 11.104 10.588 10.712C10.9793 10.3207 11.45 10.125 12 10.125C12.55 10.125 13.021 10.3207 13.413 10.712C13.8043 11.104 14 11.575 14 12.125C14 12.675 13.8043 13.1457 13.413 13.537C13.021 13.929 12.55 14.125 12 14.125ZM12 8.125C11.45 8.125 10.9793 7.929 10.588 7.537C10.196 7.14567 10 6.675 10 6.125C10 5.575 10.196 5.10433 10.588 4.713C10.9793 4.321 11.45 4.125 12 4.125C12.55 4.125 13.021 4.321 13.413 4.713C13.8043 5.10433 14 5.575 14 6.125C14 6.675 13.8043 7.14567 13.413 7.537C13.021 7.929 12.55 8.125 12 8.125Z" fill="#949A9D"></path></svg>
                                         </span>
                                     </MoreActionsDropdownButton>
+                                    <FlyoutMoreActions></FlyoutMoreActions>
+                                  
                                     
                                 </ActionsContainer>
                             </BottomContainerSlot>                      
