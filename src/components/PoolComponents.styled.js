@@ -143,6 +143,10 @@ export const ActionsContainer = styled.div `
     
 `
 
+export const ActionsSubContainer = styled.div `
+    position: relative
+`
+
 export const MoreActionsDropdownButton = styled.button`
   font-family: Inter, sans-serif;
   font-weight: 700;
