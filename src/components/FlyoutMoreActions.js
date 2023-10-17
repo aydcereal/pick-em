@@ -3,9 +3,13 @@ import { FlyoutContainer,
          FlyoutListItem} from "./FlyoutMoreActions.styled"
 
 
-const FlyoutMoreActions = ()=> {
+const FlyoutMoreActions = ({shouldHide})=> {
+
+    
+
+       
     return(
-        <FlyoutContainer>
+        <FlyoutContainer className={`FlyoutContainer  ${shouldHide ? 'hidden' : ''}`}>
             <FlyoutSubContainer>
             <FlyoutListItem>Invite Members</FlyoutListItem>
             <FlyoutListItem>Member Management</FlyoutListItem>
