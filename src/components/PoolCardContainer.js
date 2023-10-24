@@ -30,21 +30,32 @@ export default function PoolCardContainer (props) {
     
 
 
-    const storedShouldHideStates = JSON.parse(sessionStorage.getItem("shouldHideStates")) || props.pools.map(() => true);
-    const [shouldHideStates, setShouldHideStates] = useState(storedShouldHideStates);
+    
+    
+    
+    const [shouldHideStates, setShouldHideStates] = useState([]);
+
+    console.log('final '+ shouldHideStates);
 
     useEffect(() => {
-        sessionStorage.setItem("shouldHideStates", JSON.stringify(shouldHideStates));
-    }, [shouldHideStates]);
+        // Initialize the state with the default values after the component has mounted
+        const initialShouldHideStates = Array(props.pools.length).fill(true);
+        setShouldHideStates(initialShouldHideStates);
+      }, [props.pools]);
+
+  
 
     // Function to toggle the state for a specific component
     const handleFlyoutMenuClick = (index) => {
-        console.log(shouldHideStates);
-        setShouldHideStates((prevStates) =>
-            prevStates.map((state, i) => (i === index ? !state : state))
-        );
+        const newShouldHideStates = [... shouldHideStates];
+        newShouldHideStates[index] = !newShouldHideStates[index];
+        setShouldHideStates(newShouldHideStates)
     };
 
+
+    
+
+    
 
     
 
@@ -54,9 +65,12 @@ export default function PoolCardContainer (props) {
         <MainContainer>
             <SectionItems>
                 {props.pools.map((pool, index) => (
+                    
                         
                 <SectionItem key={index}>
+                    
                     <PoolCardDefaultContainer>
+                        
                         
                         <TopContainer to={`/pools/${pool.key}`}>
                             <Container>
@@ -109,7 +123,7 @@ export default function PoolCardContainer (props) {
                                         </span>
                                         
                                     </MoreActionsDropdownButton>
-                                    <FlyoutMoreActions shouldHide={shouldHideStates[index]}></FlyoutMoreActions>
+                                    <FlyoutMoreActions shouldHide={shouldHideStates[index]} poolKey={pool.key}></FlyoutMoreActions>
                                   
                                     </ActionsSubContainer>
                                 </ActionsContainer>
