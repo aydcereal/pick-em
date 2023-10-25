@@ -1,10 +1,9 @@
 import { app } from '../firebase';
 import 'firebase/compat/database';  
 import { useState } from 'react';
-import AuthContext from '../context/auth-context';
-import { useContext } from 'react';
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import ApiTest from './ApiTest';
 
 const firebase = app.database();
 
@@ -42,10 +41,16 @@ const PoolDetail = () => {
 
   // Render your component with the fetched pool data
   return (
-    <div>
-      <h1>{poolData.poolName}</h1>
+    <div className='content-area'>
+      <div className='container'>
+      <h1>Pick Sheet</h1>
+      <h3>Enter Your week 8 picks</h3>
+      
       {/* Render other pool details here */}
+      <ApiTest></ApiTest>
+      </div>
     </div>
+    
   );
 };
 

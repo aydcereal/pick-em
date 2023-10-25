@@ -32,7 +32,7 @@ const ApiTest = () => {
 
 
   useEffect(() => {
-    const API_ENDPOINT_URL = "https://site.api.espn.com/apis/site/v2/sports/football/nfl/scoreboard?seasontype=2&week=5&dates=2023";
+    const API_ENDPOINT_URL = "https://site.api.espn.com/apis/site/v2/sports/football/nfl/scoreboard?seasontype=2&week=8&dates=2023";
 
     
 
@@ -260,10 +260,10 @@ const ApiTest = () => {
 
      
   return (<>
-    <div className='container'>
+    
       <div className='col-md-7'>
         <form onSubmit={handleSubmit}>
-      <h1>NFL Match Schedule</h1>
+      
 
       <table border='0' cellPadding='0' cellSpacing='0' style={{ width: '100%' }} id='picksheetTable'>
         <tbody>
@@ -411,7 +411,7 @@ const ApiTest = () => {
      
       </form>
       </div>
-    </div>
+    
     </>);
 }
 export default ApiTest;
