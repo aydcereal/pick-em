@@ -260,7 +260,7 @@ const ApiTest = () => {
 
      
   return (<>
-    
+    <div className='row'>
       <div className='col-md-7'>
         <form onSubmit={handleSubmit}>
       
@@ -403,14 +403,58 @@ const ApiTest = () => {
 
 
           
-
+          <tr>
+            <td colSpan='3' align='center' style={{paddingTop:'15px'}}>
+              <strong>Tiebreak (combined points in Las Vegas/Detroit game)</strong>
+               : 
+              <input className='form-control' style={{display:'inline-block', width:'60px', textAlign:'center'}} ></input>
+            </td>
+          </tr>
+          <tr>
+            <td colSpan='3' align='center' >
+            <input
+              id="btnSubmit"
+              type="submit"
+              className="btn btn-danger"
+              value="Submit Your Picks"
+              
+             />
+            </td>
+          </tr>
         </tbody>
       </table>
 
-                <button className='btn'>Submit</button>
+                
      
       </form>
       </div>
+      <div className="col-md-4 offset-md-1" style={{ border: '1px solid #eaeaea', borderRadius: '6px', paddingTop: '10px' }}>
+        <h3 style={{marginTop: '0px'}}>Instructions</h3>
+        <ul style={{paddingLeft:'0px', marginLeft:'15px'}} className="rules">
+                	<li>
+                		Make your picks by clicking on a team
+						
+                	</li>
+                <li>
+                
+                		Please submit all picks before the first game of the week (a partial picksheet can not be submitted).
+                
+            	</li>
+                <li>
+                	
+               	 
+                	This week's final pick deadline is <b>Sunday 10/29/2023 1:00 PM ET</b>. After this no picks can be entered/modified.
+                
+                </li>
+                
+                <li>Picks are made straight up (not using the spread), however some members find the point spreads useful in making their picks. <a style={{ fontWeight: 'bold' }}> View this weeks point spreads</a>.</li>
+                
+                <li>You must click the submit button for your picks to be saved.</li>
+                
+                </ul>
+      </div>
+    </div>
+
     
     </>);
 }
