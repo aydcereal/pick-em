@@ -26,7 +26,7 @@ const ApiTest = () => {
   const [matchData, setMatchData] = useState([]);
   const [teamLogos, setTeamLogos] = useState({});
   const [selections, setSelections] = useState({});
-  const [selectedDivId, setSelectedDivId] = useState(null);
+  
   let lastDate = ""
   
 
@@ -65,7 +65,7 @@ const ApiTest = () => {
 
           competitions.forEach(competition => {
             const competitors = competition.competitors;
-           
+           console.log(competitors[1].team.abbreviation);
             if (competitors.length === 2) {
                 const team1Abbr = competitors[1].team.abbreviation;
                 const team2Abbr = competitors[0].team.abbreviation;
@@ -110,9 +110,10 @@ const ApiTest = () => {
                 
                   // Only add the new item if it doesn't already exist
                   if (!itemExists) {
-                    return [...prevMatches, { team1, record1, team1Id, team2, record2,team2Id, dateString }];
+                    return [...prevMatches, { team1, record1, team1Id, team2, record2,team2Id, dateString, team1Abbr, team2Abbr }];
                   } else {
                     return prevMatches;
+                   
                   }
                 });
                
@@ -135,7 +136,7 @@ const ApiTest = () => {
 
  
   
-
+console.log(matchData);
   
 
   const handleSelection = (matchId, teamId) => {
@@ -210,7 +211,7 @@ const ApiTest = () => {
 
  
 
- 
+ console.log(matchData);
 
   const handleDivClick = (index, teamId) => {
     
@@ -337,7 +338,7 @@ const ApiTest = () => {
                                       </td>
                                       <td>
                                         <span className="teamName">{match.team2}</span>
-                                        <span className="teamAbbr"></span>
+                                        <span className="teamAbbr">{match.team2Abbr}</span>
                                         <span className="teamRecord">({match.record2})</span>
                                         <span className="teamLocation">Home</span>
                                       </td>
@@ -376,7 +377,7 @@ const ApiTest = () => {
                                       </td>
                                       <td>
                                         <span className="teamName">{match.team1}</span>
-                                        <span className="teamAbbr"></span>
+                                        <span className="teamAbbr">{match.team1Abbr}</span>
                                         <span className="teamRecord">({match.record1})</span>
                                         <span className="teamLocation">Away</span>
                                       </td>
@@ -411,6 +412,11 @@ const ApiTest = () => {
             </td>
           </tr>
           <tr>
+            <td colspan="3" align="center">
+              <span class="black8">&nbsp;</span>
+            </td>
+          </tr>
+          <tr>
             <td colSpan='3' align='center' >
             <input
               id="btnSubmit"
@@ -421,8 +427,11 @@ const ApiTest = () => {
              />
             </td>
           </tr>
+          
         </tbody>
       </table>
+      <br></br>
+      <br></br>
 
                 
      

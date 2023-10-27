@@ -54,6 +54,10 @@
     font-size: 15px;
 }
 
+.teamAbbr {
+    display: none;
+}
+
 .teamRecord {
     color: #888888;
     font-size: 11px;
@@ -80,4 +84,32 @@
 .rules li {
     padding-bottom: 5px;
     list-style-type: disc;
+}
+
+
+@media(max-width: 767px){
+    .teamName{
+        display: inline;
+    }
+}
+
+
+@media(max-width: 525px){
+    .teamName{
+        display: block;
+    }
+}
+
+
+
+@media(max-width: 464px){
+    .teamName {
+        display: none;
+        
+    }
+    .teamAbbr {
+        display: block;
+        font-weight: bold;
+    }
+    
 }
