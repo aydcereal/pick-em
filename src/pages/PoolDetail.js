@@ -3,13 +3,20 @@ import 'firebase/compat/database';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+
 import ApiTest from './ApiTest';
 
 const firebase = app.database();
 
+
+
 const PoolDetail = () => {
   const { poolKey } = useParams();
   const [poolData, setPoolData] = useState(null);
+  
+  
+ 
+ 
 
   useEffect(() => {
     // Define a function to fetch pool data based on the poolKey
@@ -47,7 +54,7 @@ const PoolDetail = () => {
       <h3>Enter Your week 8 picks</h3>
       
       {/* Render other pool details here */}
-      <ApiTest></ApiTest>
+      <ApiTest poolKey={poolKey}></ApiTest>
       </div>
     </div>
     

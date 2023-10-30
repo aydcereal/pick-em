@@ -1,8 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import AuthContext from '../context/auth-context';
 import teamNameMapping from '../components/TeamNameMapping';
 import classes from './apiTest.css'
 import logo from '../images/team logos/1.png'
+import { app } from '../firebase';
+import 'firebase/compat/database';
 
+
+
+
+const database = app.database();
 
 
 
@@ -22,12 +29,25 @@ const getTeamLogo = teamId => {
 
 
 
-const ApiTest = () => {
+const ApiTest = ({poolKey}) => {
   const [matchData, setMatchData] = useState([]);
   const [teamLogos, setTeamLogos] = useState({});
   const [selections, setSelections] = useState({});
+  const [selected, setSelected] = useState([]);
+  const [tiebreakValue, SetTiebreakvalue] = useState();
+  const { currentUser } = useContext(AuthContext);
+
+  const userId = currentUser.uid;
+
+  
   
   let lastDate = ""
+  
+
+  const tiebreakHandler = (event) => {
+    SetTiebreakvalue(event.target.value)
+   
+  }
   
 
 
@@ -65,7 +85,7 @@ const ApiTest = () => {
 
           competitions.forEach(competition => {
             const competitors = competition.competitors;
-           console.log(competitors[1].team.abbreviation);
+           
             if (competitors.length === 2) {
                 const team1Abbr = competitors[1].team.abbreviation;
                 const team2Abbr = competitors[0].team.abbreviation;
@@ -136,7 +156,7 @@ const ApiTest = () => {
 
  
   
-console.log(matchData);
+
   
 
   const handleSelection = (matchId, teamId) => {
@@ -150,12 +170,13 @@ console.log(matchData);
     // Submit the selections
     event.preventDefault()
     console.log("selections: ", selections);
+    console.log(event.target);
 
     const numberToNameMapping = {};
 
     for(const key in selections){
 
-        console.log(selections[key]);
+       
       if(selections.hasOwnProperty(key)){
         const teamId = selections[key]
         const teamAbbreviation = Object.keys(teamNameMapping).find(
@@ -171,7 +192,16 @@ console.log(matchData);
       
     }
 
-    console.log("numberToNameMapping: ", numberToNameMapping);
+    database.ref('selections').push(
+      {
+        selections:selections,
+        tiebreakValue: tiebreakValue,
+        poolKey:poolKey,
+        userId: userId,
+        
+      }
+    )
+  
     
   };
 
@@ -180,7 +210,7 @@ console.log(matchData);
 
   
 
- const [selected, setSelected] = useState([]);
+ 
 
  
 
@@ -211,7 +241,7 @@ console.log(matchData);
 
  
 
- console.log(matchData);
+ 
 
   const handleDivClick = (index, teamId) => {
     
@@ -408,7 +438,7 @@ console.log(matchData);
             <td colSpan='3' align='center' style={{paddingTop:'15px'}}>
               <strong>Tiebreak (combined points in Las Vegas/Detroit game)</strong>
                : 
-              <input className='form-control' style={{display:'inline-block', width:'60px', textAlign:'center'}} ></input>
+              <input onChange={tiebreakHandler} id='tiebreak' type='text' className='form-control' style={{display:'inline-block', width:'60px', textAlign:'center'}} ></input>
             </td>
           </tr>
           <tr>

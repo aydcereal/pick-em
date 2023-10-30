@@ -35,7 +35,7 @@ export default function PoolCardContainer (props) {
     
     const [shouldHideStates, setShouldHideStates] = useState([]);
 
-    console.log('final '+ shouldHideStates);
+   
 
     useEffect(() => {
         // Initialize the state with the default values after the component has mounted
