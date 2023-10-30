@@ -20,6 +20,7 @@ import NewPool from './pages/NewPool';
 import Connections from './pages/connections';
 import ApiTest from './pages/ApiTest';
 import PoolDetail from './pages/PoolDetail';
+import ManageEntries from './components/ManageEntries';
 
 
 
@@ -40,12 +41,13 @@ const router = createBrowserRouter([
       {index: true, element: <Homepage/>},
       {path: '/login', element: <Login/>},
       {path: '/picks', element: <ApiTest/>},
+      {path: '/selections', element: <ManageEntries/>},
       {path: '/dashboard', element: <ProtectedRoute />, children: [{index:
         true, element:<Dashboard />}]},
       {path: '/dashboard/my-pools', element: <ProtectedRoute />, children: [{index:
         true, element:<Dashboard />}]},
       
-        { path: '/pools/:poolKey', element: <ProtectedRoute />, children: [
+      { path: '/pools/:poolKey', element: <ProtectedRoute />, children: [
           { index: true, element: <PoolDetail /> }
         ]},
 

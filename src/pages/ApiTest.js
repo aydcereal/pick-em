@@ -37,6 +37,9 @@ const ApiTest = ({poolKey}) => {
   const [tiebreakValue, SetTiebreakvalue] = useState();
   const { currentUser } = useContext(AuthContext);
 
+
+  console.log(teamLogos);
+
   const userId = currentUser.uid;
 
   
@@ -237,10 +240,11 @@ const ApiTest = ({poolKey}) => {
     const dateB = new Date(b.dateString);
     return dateA - dateB
   })
+  
 
 
  
-
+console.log(matchData);
  
 
   const handleDivClick = (index, teamId) => {
