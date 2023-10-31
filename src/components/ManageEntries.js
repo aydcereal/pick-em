@@ -1,24 +1,26 @@
     import { useEffect, useState } from 'react';
     import { app } from '../firebase';
     import 'firebase/compat/database';
-    import Team30Logo from '../images/team logos/30.png';
+    import classes from './ManageEntries.css'
+    
     
 
 
     const TeamLogo = ({ teamId }) => {
-        const logoSrc = require(`../images/team logos/${teamId}.png`).default;
+        const logoSrc = (`/images/team logos/${teamId}.png`)
 
+        console.log(logoSrc);
             
         return (
-        <img
+            <img
             src={logoSrc}
             alt={`Team ${teamId} Logo`}
-            
         />
+        
         );
     };
 
-    console.log(TeamLogo(30));
+    
 
     
 
@@ -61,10 +63,12 @@
                     <tr className='pickRow'>
                         <td className='col-md-2 vert-align entry'>
                             <div>Jordy Figueroa</div>
+                            
                         </td>
                         <td className='col-md-7 vert-align text-center pickCell' >
                             {selections.map((item, index)=> (
-                                <span>
+                                <span className='p'>
+                                    
                                     <TeamLogo teamId={item}/>
                                     
                                 

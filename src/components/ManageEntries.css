@@ -1,0 +1,12 @@
+p {
+    padding-left: 4px;
+    padding-right: 4px;
+    display: inline-block;
+    line-height: 14px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.p img {
+    width: 35px;
+}
