@@ -42,6 +42,7 @@
     margin-top: 15px;
     text-align: center;
     font-size: 18px;
+    line-height: 1.5;
 }
 
 .btn-lg {
@@ -94,3 +95,11 @@
     margin-bottom: 50px;
 }
 
+.homepage .callout {
+    font-size: 18px;
+    line-height: 26px;
+    letter-spacing: -0.01em;
+    margin-top: 35px;
+    margin-bottom: 50px;
+    max-width: 500px;
+}

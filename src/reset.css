@@ -78,3 +78,8 @@ body {
     font-size: 14px;
     margin-bottom: 100px;
 }
+
+th {
+    font-weight: bold;
+    text-align: -internal-center;
+}

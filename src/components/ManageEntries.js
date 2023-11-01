@@ -8,8 +8,9 @@
 
     const TeamLogo = ({ teamId }) => {
         const logoSrc = (`/images/team logos/${teamId}.png`)
+        
 
-        console.log(logoSrc);
+        
             
         return (
             <img
@@ -28,7 +29,7 @@
 
     const ManageEntries = () => {
     const [selections, setSelections] = useState([]);
-    
+    const weeks = Array.from({ length: 18 }, (_, index) => `Week ${index + 1}`);
 
 
     
@@ -60,6 +61,27 @@
             <div className='col-md-12'>
             <table className='table-responsive'>
                 <tbody>
+                    <tr className='headerRow'>
+                        <th className='col-md-2 vert-align entry'>
+                            Entry
+                        </th>
+                        <th className='col-md-7 vert-align text-center pickCell'>
+                        
+                        <select className='form-select' name="picks" id="picks">
+                             {weeks.map((week, index) => (
+                             <option key={index} value={week}>
+                                {week}
+                            </option>
+                            
+                                 ))}
+                                     
+                        </select>
+                        <span style={{marginLeft: '5px'}}>Picks</span> 
+                        </th>
+                        <th className='d-none d-md-table-cell'>
+                        Record W-L	
+                        </th>
+                    </tr>
                     <tr className='pickRow'>
                         <td className='col-md-2 vert-align entry'>
                             <div>Jordy Figueroa</div>
@@ -78,11 +100,7 @@
                     </tr>
                 </tbody>
             </table>
-        {/* <ul>
-            {selections.map((item, index) => (
-            <li key={index}>{item}</li>
-            ))}
-        </ul> */}
+       
         </div>
         </div>
     );

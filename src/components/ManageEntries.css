@@ -10,3 +10,17 @@ p {
 .p img {
     width: 35px;
 }
+
+select.form-select {
+    font-family: 'Inter', sans-serif;
+    background-color: #ffffff;
+    border-color: rgb(206, 212, 218);
+    border-width: 1px;
+    border-radius: 8px;
+    font-size: 14px;
+    padding: 14px 16px 14px 10px;
+    font-weight: 600;
+    box-shadow: none !important;
+    width: 100px;
+    display: inline;
+}

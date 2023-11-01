@@ -18,7 +18,7 @@ const Homepage = () => {
             
             <div className='container'>
             
-            <div className=' homepage-body'>
+            <div className=' homepage'>
                 <div className='row'>
 
                 <div className='col-12 col-sm-6'>
