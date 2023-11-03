@@ -24,3 +24,21 @@ select.form-select {
     width: 100px;
     display: inline;
 }
+
+.pickRow td {
+    padding: 15px;
+}
+
+.pickRow td:first-child, th:first-child {
+    padding-left: 25px !important;
+}
+
+
+.entries th {
+    text-align: center;
+    padding: 10px;
+}
+
+.entry{
+    text-align: left !important; 
+}

@@ -36,9 +36,10 @@ const ApiTest = ({poolKey}) => {
   const [selected, setSelected] = useState([]);
   const [tiebreakValue, SetTiebreakvalue] = useState();
   const { currentUser } = useContext(AuthContext);
+  const [week, setWeek] = useState(9)
 
 
-  console.log(teamLogos);
+ 
 
   const userId = currentUser.uid;
 
@@ -55,7 +56,7 @@ const ApiTest = ({poolKey}) => {
 
 
   useEffect(() => {
-    const API_ENDPOINT_URL = "https://site.api.espn.com/apis/site/v2/sports/football/nfl/scoreboard?seasontype=2&week=8&dates=2023";
+    const API_ENDPOINT_URL = "https://site.api.espn.com/apis/site/v2/sports/football/nfl/scoreboard?seasontype=2&week=9&dates=2023";
 
     
 
@@ -195,15 +196,38 @@ const ApiTest = ({poolKey}) => {
       
     }
 
-    database.ref('selections').push(
-      {
-        selections:selections,
-        tiebreakValue: tiebreakValue,
-        poolKey:poolKey,
-        userId: userId,
-        
+    const compoundKey = `${userId}_${poolKey}_${week}`;
+
+    
+
+    const existingEntryRef = database.ref('selections').child(compoundKey)
+    
+
+    existingEntryRef.once('value', (snapshot) =>{
+      if(snapshot.exists()){
+        existingEntryRef.update({
+          selections:selections,
+          tiebreakValue: tiebreakValue,
+          poolKey:poolKey,
+          userId: userId,
+          week: week
+        })
+      } else{
+        database.ref('selections').child(compoundKey).set({
+          selections:selections,
+          tiebreakValue: tiebreakValue,
+          poolKey:poolKey,
+          userId: userId,
+          week: week
+        })
       }
-    )
+    })
+    
+
+    
+
+
+   
   
     
   };
@@ -244,7 +268,7 @@ const ApiTest = ({poolKey}) => {
 
 
  
-console.log(matchData);
+
  
 
   const handleDivClick = (index, teamId) => {
