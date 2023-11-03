@@ -30,7 +30,7 @@
     const ManageEntries = () => {
     const [selections, setSelections] = useState([]);
     const [matchingWeek, SetMachingWeek] = useState(false)
-    const [currentSelectedWeek, SetCurrentSelectedWeek] = useState(9)
+    const [currentSelectedWeek, SetCurrentSelectedWeek] = useState(0)
     const weeks = Array.from({ length: 18 }, (_, index) => `Week ${index + 1}`);
 
 
@@ -55,14 +55,18 @@
             (item) => 
             item.userId === userId && 
             item.poolKey === poolKey &&
-            item.week === currentSelectedWeek
+            item.week === parseInt(currentSelectedWeek)
             
             );
             if (userData) {
             setSelections(userData.selections || []); // Use default empty array if selections is undefined
             SetMachingWeek(true)
             ;
+            } else {
+                SetMachingWeek(false)
             }
+        } else {
+            SetMachingWeek(false)
         }
         });
     }, [currentSelectedWeek]);
@@ -84,7 +88,7 @@
                             id="picks"
                             onChange={(e) =>{ 
                                 SetCurrentSelectedWeek(e.target.value);
-                                console.log('Selected Week:', currentSelectedWeek);
+                               ;
                             }}
                             >
                             
