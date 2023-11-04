@@ -30,8 +30,10 @@
     const ManageEntries = () => {
     const [selections, setSelections] = useState([]);
     const [matchingWeek, SetMachingWeek] = useState(false)
-    const [currentSelectedWeek, SetCurrentSelectedWeek] = useState(0)
+    const [currentSelectedWeek, SetCurrentSelectedWeek] = useState(1)
     const weeks = Array.from({ length: 18 }, (_, index) => `Week ${index + 1}`);
+    const userId = 'xsg02hTTKkaOsRU1vRv5okUz1Zx1';  // temporary
+    const poolKey = '-NctUm9lVaQTH42fq5pp';         // temporary
 
 
     
@@ -41,8 +43,7 @@
         console.log('useEffect triggered');
         const database = app.database();
 
-        const userId = 'xsg02hTTKkaOsRU1vRv5okUz1Zx1';  // temporary
-        const poolKey = '-NctUm9lVaQTH42fq5pp';         // temporary
+        
         
 
         // Query the Firebase database to get the data
@@ -142,7 +143,7 @@
                              
                          </td>
                          <td className='col-md-7 vert-align text-center pickCell' >
-                            <a class="btn btn-danger">
+                            <a href={`pools/${poolKey}/${currentSelectedWeek}`} class="btn btn-danger">
                                 <i class="far fa-pencil pe-1 d-none d-md-inline"></i> 
                                 Make Your Picks
                             </a>

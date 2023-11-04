@@ -11,8 +11,9 @@ const firebase = app.database();
 
 
 const PoolDetail = () => {
-  const { poolKey } = useParams();
+  const { poolKey,week } = useParams();
   const [poolData, setPoolData] = useState(null);
+ 
   
   
  
@@ -51,10 +52,10 @@ const PoolDetail = () => {
     <div className='content-area'>
       <div className='container'>
       <h1>Pick Sheet</h1>
-      <h3>Enter Your week 8 picks</h3>
+      <h3>Enter Your week {week} picks</h3>
       
       {/* Render other pool details here */}
-      <ApiTest poolKey={poolKey}></ApiTest>
+      <ApiTest poolKey={poolKey} week={week}></ApiTest>
       </div>
     </div>
     

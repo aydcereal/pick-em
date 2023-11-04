@@ -29,14 +29,14 @@ const getTeamLogo = teamId => {
 
 
 
-const ApiTest = ({poolKey}) => {
+const ApiTest = ({poolKey, week}) => {
   const [matchData, setMatchData] = useState([]);
   const [teamLogos, setTeamLogos] = useState({});
   const [selections, setSelections] = useState({});
   const [selected, setSelected] = useState([]);
   const [tiebreakValue, SetTiebreakvalue] = useState();
   const { currentUser } = useContext(AuthContext);
-  const [week, setWeek] = useState(9)
+  
 
 
  
@@ -56,7 +56,7 @@ const ApiTest = ({poolKey}) => {
 
 
   useEffect(() => {
-    const API_ENDPOINT_URL = "https://site.api.espn.com/apis/site/v2/sports/football/nfl/scoreboard?seasontype=2&week=9&dates=2023";
+    const API_ENDPOINT_URL = `https://site.api.espn.com/apis/site/v2/sports/football/nfl/scoreboard?seasontype=2&week=${week}&dates=2023`;
 
     
 

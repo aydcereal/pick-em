@@ -47,7 +47,7 @@ const router = createBrowserRouter([
       {path: '/dashboard/my-pools', element: <ProtectedRoute />, children: [{index:
         true, element:<Dashboard />}]},
       
-      { path: '/pools/:poolKey', element: <ProtectedRoute />, children: [
+      { path: '/pools/:poolKey/:week',children: [
           { index: true, element: <PoolDetail /> }
         ]},
 
