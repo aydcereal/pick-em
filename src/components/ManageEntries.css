@@ -3,8 +3,13 @@ p {
     padding-right: 4px;
     display: inline-block;
     line-height: 14px;
-    font-size: 12px;
-    font-weight: bold;
+    font-size: 14px;
+    font-family: 'Inter', sans-serif;
+    
+}
+
+.statusAlive {
+    font-size: 16px;
 }
 
 .p img {
@@ -42,3 +47,4 @@ select.form-select {
 .entry{
     text-align: left !important; 
 }
+

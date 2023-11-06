@@ -210,7 +210,7 @@ const ApiTest = ({poolKey, week}) => {
           tiebreakValue: tiebreakValue,
           poolKey:poolKey,
           userId: userId,
-          week: week
+          week: parseInt(week)
         })
       } else{
         database.ref('selections').child(compoundKey).set({
@@ -218,7 +218,7 @@ const ApiTest = ({poolKey, week}) => {
           tiebreakValue: tiebreakValue,
           poolKey:poolKey,
           userId: userId,
-          week: week
+          week: parseInt(week)
         })
       }
     })
