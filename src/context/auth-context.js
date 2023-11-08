@@ -45,6 +45,7 @@ export const AuthProvider = ({ children }) => {
       signInWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
           const user = userCredential.user;
+          localStorage.setItem('authToken', user.accessToken);
           resolve(user);
         })
         .catch((error) => {
@@ -63,6 +64,7 @@ export const AuthProvider = ({ children }) => {
       createUserWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
           const user = userCredential.user;
+          localStorage.setItem('authToken', user.accessToken);
           
           resolve(user);
         })
@@ -79,7 +81,9 @@ export const AuthProvider = ({ children }) => {
     const unsubscribe =  auth.onAuthStateChanged(user => {
       setCurrentUser(user);
       setIsAuthenticated(!!user);
-    })
+    });
+
+    
 
       return unsubscribe
   } ,[email, password])
