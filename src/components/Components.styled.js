@@ -31,7 +31,7 @@ export const Body = styled.div `
     -webkit-box-align: center;
     align-items: center;
     max-width: 840px;
-    width: 100%;
+    width: 600px;
     padding: 16px;
 `
 
@@ -178,7 +178,7 @@ export const SecondaryActionsPartContainer = styled.div`
   -webkit-box-flex: 1;
   flex-grow: 1;
   display: flex;  
-  align-items: center
+  align-items: center;
 `
 
 export const DashboardSortSelectSortDropdown = styled.div `
@@ -373,4 +373,37 @@ position: relative;
     flex-grow: 1;
     min-height: auto;
     resize: none;
+`
+
+
+export const CopyPoolLinkContainer = styled.div `
+      margin-bottom: 8px;
+      width: 100%;
+      margin-top: 20px;
+`
+
+
+export const PoolLink = styled.button `
+  font-family: Inter, sans-serif;
+    font-weight: 700;
+    font-size: 12px;
+    line-height: 24px;
+    text-transform: uppercase;
+    position: relative;
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+    border: 2px solid transparent;
+    border-radius: 8px;
+    cursor: pointer;
+    user-select: none;
+    text-decoration: none;
+    width: 100%;
+    text-align: center;
+    background-color: #dc3545;
+    padding: 0px 22px;
+    height: 48px;
+    color: rgb(255, 255, 255);
 `

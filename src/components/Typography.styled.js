@@ -9,3 +9,14 @@ export const Title = styled.h2 `
     text-transform: uppercase;
     margin-bottom: 20px;
 `
+
+
+export const Text = styled.p `
+    font-family: Inter, sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 24px;
+    text-align: center;
+    color: rgb(93, 98, 104);
+    margin-bottom: 8px;
+`
