@@ -22,6 +22,8 @@ import ApiTest from './pages/ApiTest';
 import PoolDetail from './pages/PoolDetail';
 import ManageEntries from './components/ManageEntries';
 import Invite from './pages/Invite';
+import InviteLandingPage from './pages/InviteLandingPage';
+
 
 
 
@@ -52,7 +54,10 @@ const router = createBrowserRouter([
           { index: true, element: <PoolDetail /> }
         ]},
       
-        {path: '/pools/:poolId/invite', element:<Invite/> },
+      {path: '/pools/:poolId/invite', element:<Invite/> },
+
+      {path: '/join', element: <InviteLandingPage />},
+
 
       {path: '/pools/start', element: <ProtectedRoute />, children: [{index:
           true, element:<NewPool />}]},

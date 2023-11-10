@@ -9,24 +9,14 @@ const database = app.database();
 
 
 
-const inviteUserToPool = (poolID, recipientEmail) => {
-  const invitationsRef = database.ref(`pools/${poolID}/invitations`);
-  invitationsRef.push({
-    recipientEmail: recipientEmail,
-    status: 'pending' // You can set 'pending' as the initial status
-  });
-};
 
 
 
 
 const FlyoutMoreActions = ({shouldHide, poolKey})=> {
-  const testEmail = "test@hotmail.com"
+  
 
-  const inviteHandler = () => {
-    
-    inviteUserToPool(poolKey, testEmail)
-  }
+ 
 
 
     const deleteHandler = () => {
@@ -49,7 +39,7 @@ const FlyoutMoreActions = ({shouldHide, poolKey})=> {
     return(
         <FlyoutContainer className={`FlyoutContainer  ${shouldHide ? 'hidden' : ''}`}>
             <FlyoutSubContainer>
-            <FlyoutListItem onClick={inviteHandler}>Invite Members</FlyoutListItem>
+            <FlyoutListItem to={`/pools/${poolKey}/invite`}>Invite Members</FlyoutListItem>
             <FlyoutListItem>Member Management</FlyoutListItem>
             <FlyoutListItem onClick={deleteHandler} >Delete</FlyoutListItem>
             </FlyoutSubContainer>

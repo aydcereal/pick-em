@@ -78,15 +78,14 @@ export const AuthProvider = ({ children }) => {
   }
 
   useEffect(() => {
-    const unsubscribe =  auth.onAuthStateChanged(user => {
+    const unsubscribe = auth.onAuthStateChanged(user => {
       setCurrentUser(user);
       setIsAuthenticated(!!user);
     });
-
-    
-
-      return unsubscribe
-  } ,[email, password])
+  
+    return () => unsubscribe();
+  }, [setCurrentUser, setIsAuthenticated]);
+  
 
   const handleLogout = () => {
     auth.signOut()
