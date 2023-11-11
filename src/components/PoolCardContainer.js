@@ -25,7 +25,15 @@ import { useEffect } from "react";
 
 
 
+
+
+
+
 export default function PoolCardContainer (props) {
+
+    console.log(props);
+    console.log(props.poolName);
+
 
     
 
@@ -34,6 +42,7 @@ export default function PoolCardContainer (props) {
     
     
     const [shouldHideStates, setShouldHideStates] = useState([]);
+    const [poolName, setPoolName] = useState(undefined);
 
    
 
@@ -45,6 +54,11 @@ export default function PoolCardContainer (props) {
           setShouldHideStates(initialShouldHideStates);
         }
       }, [props.pools]);
+
+      useEffect(() => {
+        setPoolName(props.poolName);
+    }, [props.poolName]); // Empty dependency array to run the effect only once
+    
 
   
 
@@ -141,7 +155,7 @@ export default function PoolCardContainer (props) {
                             <HeadingContainer>
                                 <TitleContainer>
                                     <Title>
-                                        {props.poolName}
+                                    {props.poolName ? props.poolName : 'Loading...'}
                                     </Title>
                                     
                                 </TitleContainer>
