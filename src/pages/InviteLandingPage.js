@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { PageContainer } from "../components/Components.styled";
+import { PageContainer, Row } from "../components/Components.styled";
+import { Content } from '../components/Containers.styled';
 import { Container } from '../components/PoolComponents.styled';
-import { Title } from "../components/Typography.styled";
+import { Title, Text } from "../components/Typography.styled";
 import { useSearchParams } from "react-router-dom";
 import PoolCardContainer from '../components/PoolCardContainer';
 import { app } from '../firebase';
@@ -20,7 +21,7 @@ const InviteLandingPage = () => {
       if (poolID) {
         const poolData = await getPoolData(poolID);
         setPoolData(poolData);
-        console.log(poolData.poolName);
+        
       }
     };
 
@@ -48,12 +49,18 @@ const InviteLandingPage = () => {
 
   return (
     <PageContainer>
-      <Container>
+      <Content>
         <Title>
           Join A Pool
         </Title>
-        <PoolCardContainer></PoolCardContainer>
-      </Container>
+        <Row>
+          <Text>You’re only one step away from playing! Click the button below to start.</Text>
+        </Row>
+        <Row>
+          <PoolCardContainer poolData={poolData}></PoolCardContainer>
+        </Row>
+       
+      </Content>
     </PageContainer>
   );
 };

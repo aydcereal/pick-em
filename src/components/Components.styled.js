@@ -407,3 +407,20 @@ export const PoolLink = styled.button `
     height: 48px;
     color: rgb(255, 255, 255);
 `
+
+export const Row = styled.div `
+
+  width: 600px;
+   
+  &:not(:last-child) {
+    margin-bottom: 40px;
+  }
+  
+
+@media (max-width: 600px) {
+    width: 100%;
+   
+  }
+
+`
+
