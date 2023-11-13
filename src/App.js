@@ -44,9 +44,10 @@ const router = createBrowserRouter([
       {index: true, element: <Homepage/>},
       {path: '/login', element: <Login/>},
       {path: '/picks', element: <ApiTest/>},
-      {path: '/selections/:poolId', element: <ManageEntries/>},
       {path: '/dashboard', element: <ProtectedRoute />, children: [{index:
         true, element:<Dashboard />}]},
+      {path: '/selections/:poolId', element: <ManageEntries/>},
+      
       {path: '/dashboard/my-pools', element: <ProtectedRoute />, children: [{index:
         true, element:<Dashboard />}]},
       

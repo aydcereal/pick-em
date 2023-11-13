@@ -1,4 +1,4 @@
-p {
+.managinEntries_p {
     padding-left: 4px;
     padding-right: 4px;
     display: inline-block;
@@ -16,7 +16,7 @@ p {
     width: 35px;
 }
 
-select.form-select {
+.form_select {
     font-family: 'Inter', sans-serif;
     background-color: #ffffff;
     border-color: rgb(206, 212, 218);

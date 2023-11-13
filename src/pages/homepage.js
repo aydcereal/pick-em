@@ -22,9 +22,9 @@ const Homepage = () => {
                 <div className='row'>
 
                 <div className='col-12 col-sm-6'>
-                <img className='hero-img' src={heroImg}/>
+                    <img className='hero-img' src={heroImg}/>
 
-            </div>
+                </div>
                 <div className='col-12 col-sm-6'>
                     <div className='title'>
                         <h1>Welcome to pick em bets</h1>
