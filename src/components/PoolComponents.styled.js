@@ -123,9 +123,10 @@ export const Category = styled.div`
 `
 
 export const BottomContainer = styled.div `
-    padding: 20px 0px 20px 20px;
     display: flex;
+    -webkit-box-pack: justify;
     justify-content: space-between;
+    padding: 20px 0px 20px 20px;
     
 `
 
@@ -144,7 +145,7 @@ export const ActionsContainer = styled.div `
 `
 
 export const ActionsSubContainer = styled.div `
-    position: relative
+    position: relative;
 `
 
 export const MoreActionsDropdownButton = styled.button`
@@ -177,5 +178,39 @@ export const MoreActionsDropdownButton = styled.button`
     color: rgb(148, 154, 157);
     text-decoration: none;
   }
-`;
+`
+
+export const PoolCardButton = styled.div `
+
+    font-family: Inter, sans-serif;
+    font-weight: 700;
+    font-size: 12px;
+    line-height: 24px;
+    text-transform: uppercase;
+    position: relative;
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+    border: 2px solid transparent;
+    border-radius: 8px;
+    cursor: pointer;
+    user-select: none;
+    text-decoration: none;
+    width: auto;
+    text-align: center;
+    background-color: #dc3545;;
+    padding: 0px 16px;
+    height: 32px;
+    color: rgb(255, 255, 255);
+
+    &:hover {
+        background-color: #bb2d3b;
+        color: rgb(255, 255, 255);
+        text-decoration: none;
+}
+    
+
+`
 

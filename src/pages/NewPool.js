@@ -59,7 +59,8 @@ export default function  NewPool () {
         pointSpreads: pointSpreads,
         startingWeek: startingWeek,
         poolVisibility: poolVisibility,
-        creator: currentUserID
+        creator: currentUserID,
+        members: {[currentUserID]: true}
       }
     )
   }

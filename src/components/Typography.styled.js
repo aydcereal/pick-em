@@ -19,4 +19,5 @@ export const Text = styled.p `
     text-align: center;
     color: rgb(93, 98, 104);
     margin-bottom: 8px;
+    display:block;
 `

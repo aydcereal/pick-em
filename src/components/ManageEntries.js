@@ -1,13 +1,15 @@
-    import { useEffect, useState } from 'react';
+    import { useEffect, useState, useContext } from 'react';
+    import AuthContext from '../context/auth-context';
     import { app } from '../firebase';
     import 'firebase/compat/database';
     import classes from './ManageEntries.css'
-    
+    import { useParams } from 'react-router-dom';
     
 
 
     const TeamLogo = ({ teamId }) => {
         const logoSrc = (`/images/team logos/${teamId}.png`)
+        
         
 
         
@@ -31,9 +33,13 @@
     const [selections, setSelections] = useState([]);
     const [matchingWeek, SetMachingWeek] = useState(false)
     const [currentSelectedWeek, SetCurrentSelectedWeek] = useState(1)
+    const { poolId } = useParams();
+    const { currentUser } = useContext(AuthContext);
+    const userId = currentUser.uid;
+    console.log(userId);
     const weeks = Array.from({ length: 18 }, (_, index) => `Week ${index + 1}`);
-    const userId = 'xsg02hTTKkaOsRU1vRv5okUz1Zx1';  // temporary
-    const poolKey = '-NctUm9lVaQTH42fq5pp';         // temporary
+   
+    
 
 
     
@@ -55,7 +61,7 @@
             const userData = Object.values(dataObject).find(
             (item) => 
             item.userId === userId && 
-            item.poolKey === poolKey &&
+            item.poolKey === poolId &&
             item.week === parseInt(currentSelectedWeek)
             
             );
@@ -158,7 +164,7 @@
                                 
                             </td>
                             <td className='col-md-7 vert-align text-center pickCell' >
-                                <a href={`pools/${poolKey}/${currentSelectedWeek}`} class="btn btn-danger">
+                                <a href={`/pools/${poolId}/${currentSelectedWeek}`} class="btn btn-danger">
                                     <i class="far fa-pencil pe-1 d-none d-md-inline"></i> 
                                     Make Your Picks
                                 </a>

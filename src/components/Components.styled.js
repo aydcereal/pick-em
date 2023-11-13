@@ -424,3 +424,12 @@ export const Row = styled.div `
 
 `
 
+export const TileConatiner = styled.div `
+    background: rgb(255, 255, 255);
+    border-radius: 8px;
+    box-shadow: rgba(0, 0, 0, 0.08) 0px 1px 3px;
+    position: relative;
+    transition: box-shadow 100ms ease-in-out 0s;
+
+`
+

@@ -59,7 +59,7 @@ export default function Dashboard() {
 
 
   useEffect(() => {
-    database.ref('pools').orderByChild('creator').equalTo(currentUserID).on('value', (snapshot) => {
+    database.ref('pools').orderByChild(`members/${currentUserID}`).equalTo(true).on('value', (snapshot) => {
       const newPools = [];
       snapshot.forEach((childSnapshot) => {
         const pool = childSnapshot.val();
