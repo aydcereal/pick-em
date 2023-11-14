@@ -26,6 +26,8 @@
 .title{
     display: flex;
     margin-top: 75px;
+    justify-content: center
+    ;
     
 }
 
