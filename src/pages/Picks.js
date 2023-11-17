@@ -1,5 +1,5 @@
 
-
+import ProgressCircle from "../components/ProgressCircle";
 
 
 
@@ -18,7 +18,8 @@ const Picks = () => {
                                 <div className="inner-pchart">
                                     <div className='circle'>
                                         <div className="circles-wrp">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="70" height="70"><path fill="transparent" stroke="#ddd" stroke-width="4" d="M 34.99327878427806 2.0000006844657747 A 33 33 0 1 1 34.95416366204364 2.000031832892283 Z"></path><path fill="transparent" stroke="#999" stroke-width="4" d="M 34.99327878427806 2.0000006844657747 A 33 33 0 1 1 34.95416366204364 2.000031832892283 "></path></svg>
+                                        <ProgressCircle progress={50}></ProgressCircle>
+                                        
                                         </div>
                                     </div>
                                     <h3 className="circle-title">Active Entries</h3>
