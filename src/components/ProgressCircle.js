@@ -27,15 +27,15 @@ const ProgressCircle = ({progress}) => {
             <svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="90px" height="90px">
             <defs>
                 <linearGradient id="GradientColor">
-                    <stop offset="0%" stop-color="#646964" />
-                    <stop offset="100%" stop-color="#a1a6a1" />
+                    <stop offset="0%" stopColor="#646964" />
+                    <stop offset="100%" stopColor="#a1a6a1" />
                 </linearGradient>
             </defs>
             <circle 
                 cx="45" 
                 cy="45" 
                 r={radius}
-                stroke-linecap="round"
+                strokeLinecap="round"
                 strokeDasharray={circumference}
                 strokeDashoffset={offset} />
         </svg>  

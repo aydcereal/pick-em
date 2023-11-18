@@ -37,19 +37,16 @@
     font-weight: bold;
 }
 
-circle{
+circle {
     fill: none;
     stroke: url(#GradientColor);
     stroke-width: 10px;
     
     transform: rotate(-90deg);
-    transform-origin: 45px 45px; 
-   
-    animation: anim 1.5s linear forwards;
-    
-    
-
+    transform-origin: 45px 45px;
+    transition: stroke-dashoffset 0.35s; /* Adjust as needed */
 }
+
 
 svg{
     position: absolute;

@@ -18,7 +18,7 @@ const Picks = () => {
                                 <div className="inner-pchart">
                                     <div className='circle'>
                                         <div className="circles-wrp">
-                                        <ProgressCircle progress={50}></ProgressCircle>
+                                        <ProgressCircle progress={100}></ProgressCircle>
                                         
                                         </div>
                                     </div>
