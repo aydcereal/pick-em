@@ -190,7 +190,8 @@ export const DashboardSortSelectSortDropdown = styled.div `
 
 export const SecondaryNav = styled.ul`
     height: 48px;
-    display: flex;      
+    display: flex;     
+     
 `
 
 export const SecondaryNavItem = styled.li`
@@ -433,3 +434,11 @@ export const TileConatiner = styled.div `
 
 `
 
+export const ActionAnchor = styled.a `
+    color: #0034CE; 
+    font-size: 11px;
+    text-decoration: none;
+  &:hover{
+    text-decoration: solid;
+  }
+`

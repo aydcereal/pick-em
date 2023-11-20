@@ -1,0 +1,131 @@
+.skill {
+    width: 90px ;
+    height: 90px;
+   
+    position: relative;
+}
+
+.outer {
+    height: 90px;
+    width: 90px;
+    border-radius: 50%;
+    padding: 10px;
+    box-shadow: 6px 6px 10px -1px rgba(0,0,0,0.15),
+                -6px -6px 10px -1px rgba(255,255,255,0.7)
+    
+}
+
+.inner{
+    height: 70px;
+    width: 70px;
+    border-radius: 50%;
+    box-shadow: inset 4px 4px 6px -1px rgba(0, 0, 0, 0.2),
+                inset -4px -4px 6px -1px rgba(255,255, 255, 0.7),
+                        -0.5px -0.5px 0px rgba(255,255, 255, 1),
+                        0.5px 0.5px 0px rgba(0,0, 0, 0.15),
+                        0px 12px 10px -10px rgba(0,0, 0, 0.05);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+}
+
+#number{
+    font-size: 19px;
+    font-family: 'Inter', sans-serif;
+    color: #555;
+    font-weight: bold;
+}
+
+circle {
+    fill: none;
+    stroke: var(--gradient-id);
+    stroke-width: 10px;
+    
+    transform: rotate(-90deg);
+    transform-origin: 45px 45px;
+    transition: stroke-dashoffset 1.5s; /* Adjust as needed */
+}
+
+
+.pie-progress-charts svg{
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.pie-progress-charts{
+    padding-left: 0px;
+    padding-right: 30px;
+}
+
+.pie-progress-charts .circle {
+    
+    margin-bottom: 5px;
+}
+
+@media (min-width: 768px){
+.pie-progress-charts.col-md-2 {
+    width: 22.222223%;
+}
+}
+.circle-title{
+    
+    margin-bottom: 5px;
+}
+
+p.noprint {
+    margin-top: 5px;
+}
+
+
+
+.inner-pchart {
+    border-radius: 6px;
+    padding: 8px;
+    border: solid 1px #ddd;
+    padding-bottom: 2px;
+    min-height: 145px;
+}
+
+.pie-progress-charts {
+    text-align: center;
+}
+
+@media (min-width: 768px) {
+    .pie_progress_charts.col-md-2 {
+        width: 22.222223%;
+    }
+}
+
+@keyframes anim {
+    100%{
+        stroke-dashoffset: 0;
+    }
+    
+}
+
+
+
+.btn-sm {
+    padding: 7px 14px !important;
+    border-radius: 6px;
+    
+}
+
+.wholeWrapper select {
+    max-width: 330px;
+
+}
+
+select.form-select {
+    font-family: 'Inter', sans-serif;
+    background-color: #ffffff;
+    border-color: rgb(206, 212, 218);
+    border-width: 1px;
+    border-radius: 8px;
+    font-size: 14px;
+    padding: 14px 16px 14px 16px;
+    font-weight: 600;
+    box-shadow: none !important;
+}
