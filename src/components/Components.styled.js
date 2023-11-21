@@ -439,6 +439,6 @@ export const ActionAnchor = styled.a `
     font-size: 11px;
     text-decoration: none;
   &:hover{
-    text-decoration: solid;
+    text-decoration: underline;
   }
 `

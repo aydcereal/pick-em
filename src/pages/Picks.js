@@ -1,6 +1,7 @@
 import React from 'react';
 import ProgressCircle from "../components/ProgressCircle";
 import '@fortawesome/fontawesome-free/css/all.css';
+import classes from './picks.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPrint, faFileExcel } from '@fortawesome/free-solid-svg-icons';
 
@@ -88,6 +89,38 @@ const Picks = () => {
                                 </form>
                             </div>
                         </div>
+                    </div>
+                    <div className="well noprint">
+                        <strong>Note:</strong>
+                            All picks will appear in the grid below after the pick deadline passes 
+                            (usually Sunday at 1:00 pm ET). Earlier game picks will show up once the 
+                            game has started and picks for that game can't be added or changed.
+                    </div>
+                    <div className="table-responsive">
+                        <table border='0' cellPadding='0' cellSpacing='0' id='picksTable'>
+                            <thead>
+                                <tr>
+                                    <td className="sticky headcell" width='100' >
+                                        <span className="n">
+                                            <b>ENTRY NAME</b>
+                                        </span>
+                                        <span className="pts">Weekly Points</span>
+                                    </td>
+                                    <td className="sticky headcell" width='40' align='center' valign='bottom'>
+                                        <strong>
+                                            CIN
+                                            <br />
+                                            at
+                                            <br />
+                                            BAL
+                                        </strong>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    
+                                </tr>
+                            </thead>
+                        </table>
                     </div>
                 </div>
             </div>

@@ -1,0 +1,23 @@
+#picksTable td {
+    padding: 3px;
+}
+
+#picksTable .headCell {
+    font-family: Arial Narrow, Segoe UI, Arial;
+}
+
+.sticky {
+    top: -1px;
+    background-color: #ffffff;
+    z-index: 99;
+}
+
+.n {
+    width: 150px;
+    overflow: hidden;
+    font-weight: bold;
+}
+
+.pts{
+    display: block;
+}

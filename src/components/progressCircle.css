@@ -57,6 +57,7 @@ circle {
 .pie-progress-charts{
     padding-left: 0px;
     padding-right: 30px;
+    margin-bottom: 30px;
 }
 
 .pie-progress-charts .circle {
