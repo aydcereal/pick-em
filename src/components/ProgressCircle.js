@@ -12,8 +12,7 @@ const ProgressCircle = ({
     action
 }) => {
     
-    console.log(gradientColor);
-    console.log(id);
+    
     const radius = 40;
     const circumference = 2 * Math.PI * radius;
 

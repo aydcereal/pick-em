@@ -1,11 +1,26 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import ProgressCircle from "../components/ProgressCircle";
 import '@fortawesome/fontawesome-free/css/all.css';
 import classes from './picks.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPrint, faFileExcel } from '@fortawesome/free-solid-svg-icons';
+import TeamData from './TeamData';
 
 const Picks = () => {
+    const [matchData, setMatchData] = useState([])
+
+    useEffect(() => {
+        TeamData(10).then(data => {
+            setMatchData(data)
+        })
+
+    }, [])
+
+    console.log(matchData);
+
+
+    
+
     return (
         <div className="content-area">
             <div className="container">
@@ -33,7 +48,7 @@ const Picks = () => {
                                 progress={50} 
                                 gradientColor={'red'} 
                                 id={'red'}
-                                title={"Week 11 Picks in"}
+                                title={"Week 11 Picks not in"}
                                 action={"View members without picks"}
                                 value={1}
                             ></ProgressCircle>

@@ -95,6 +95,7 @@ const ApiTest = ({poolKey, week}) => {
                 const team2Abbr = competitors[0].team.abbreviation;
                 
                 const date = new Date(event.date)
+                
 
 
                 const daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
@@ -470,8 +471,8 @@ const ApiTest = ({poolKey, week}) => {
             </td>
           </tr>
           <tr>
-            <td colspan="3" align="center">
-              <span class="black8">&nbsp;</span>
+            <td colSpan="3" align="center">
+              <span className="black8">&nbsp;</span>
             </td>
           </tr>
           <tr>

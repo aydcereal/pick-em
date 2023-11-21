@@ -8,7 +8,7 @@
 
 .sticky {
     top: -1px;
-    background-color: #ffffff;
+    background-color: #fafafa;
     z-index: 99;
 }
 
@@ -20,4 +20,8 @@
 
 .pts{
     display: block;
+    font-style: normal;
+    font-weight: normal;
+    color: #777777;
+    min-width: 150px;
 }
