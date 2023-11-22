@@ -25,3 +25,8 @@
     color: #777777;
     min-width: 150px;
 }
+
+#picksTable{
+    border-spacing: 0px 6px;
+    border-collapse: separate;
+}

@@ -11,6 +11,7 @@ const Picks = () => {
 
     useEffect(() => {
         TeamData(10).then(data => {
+            console.log(data);
             setMatchData(data)
         })
 
@@ -115,21 +116,34 @@ const Picks = () => {
                         <table border='0' cellPadding='0' cellSpacing='0' id='picksTable'>
                             <thead>
                                 <tr>
-                                    <td className="sticky headcell" width='100' >
-                                        <span className="n">
-                                            <b>ENTRY NAME</b>
-                                        </span>
-                                        <span className="pts">Weekly Points</span>
-                                    </td>
-                                    <td className="sticky headcell" width='40' align='center' valign='bottom'>
-                                        <strong>
-                                            CIN
-                                            <br />
-                                            at
-                                            <br />
-                                            BAL
-                                        </strong>
-                                    </td>
+                                <td className="sticky headcell" width='100' >
+    <span className="n">
+        <b>ENTRY NAME</b>
+    </span>
+    <span className="pts">Weekly Points</span>
+</td>
+
+{matchData.map((match, index) => {
+    return (
+        <React.Fragment>
+            {matchData && matchData.length > 0 ? (
+                <td className="sticky headcell" width='48' align='center' valign='bottom'>
+                    <strong>
+                        {match.team1Abbr}
+                        <br />
+                        at
+                        <br/>
+                        {match.team2Abbr}
+                    </strong>
+                </td>
+            ) : (
+                <p>Loading</p>
+            )}
+        </React.Fragment>
+    );
+})}
+                                    
+                                    
                                 </tr>
                                 <tr>
                                     

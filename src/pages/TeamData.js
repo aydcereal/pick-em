@@ -26,19 +26,18 @@ const TeamData = (week) => {
                 const events = data.events || [];
         
                 events.forEach(event => {
+                  try {
+                    if (!event || !Array.isArray(event.competitions)) {
+                      console.error("Event structure is not as expected");
+                      return;
+                    }
         
-                  if (!event || !Array.isArray(event.competitions)) {
-                    console.error("Event structure is not as expected");
-                    return;
-                  }
+                    const competitions = event.competitions || [] ;
         
-                  const competitions = event.competitions || [] ;;
-                    
+                    competitions.forEach(competition => {
+                      const competitors = competition.competitors;
         
-                  competitions.forEach(competition => {
-                    const competitors = competition.competitors;
-                   
-                    if (competitors.length === 2) {
+                      if (competitors.length === 2) {
                         const team1Abbr = competitors[1].team.abbreviation;
                         const team2Abbr = competitors[0].team.abbreviation;
     
@@ -53,47 +52,29 @@ const TeamData = (week) => {
                         const match = {team1Id, team2Id, date, team1Abbr, team2Abbr};
 
                         const itemExists = matches.some(
-                            item =>
-                              item.team1Id === team1Id &&
-                              item.team2Id === team2Id &&
-                              item.date === date
-                          );
-
-                        if (!itemExists) {
-                            matches.push(match)
-                        }
-                            resolve (matches);
-                          
-                    }
-                    
-                  })
-                  .catch(error => {
-                    console.error("Error fetching data:", error);
-                    reject(error);
-                  });
-
+                          item =>
+                            item.team1Id === team1Id &&
+                            item.team2Id === team2Id &&
+                            item.date === date
+                        );
         
+                        if (!itemExists) {
+                          matches.push(match);
+                        }
+                      }
+                    });
+                  } catch (error) {
+                    console.error("Error processing event:", error);
+                    reject(error);
+                  }
                 });
         
-               
-        
+                resolve(matches);
               })
               .catch(error => {
                 console.error("Error fetching data:", error);
               });
-          }, []);
-    
-          
-
-    
-
-    
-    
-
-    
-
-}
-
-
-
-export default TeamData;
+          });
+        };
+        
+        export default TeamData;
