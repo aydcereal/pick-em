@@ -4,29 +4,50 @@ import { app } from "../firebase";
 import "firebase/compat/database";
 import styles from "./ManageEntries.module.css";
 import { useParams } from "react-router-dom";
-import TeamLogo from "./TeamLogo";
-import useQuerySelections from "./useQuerySelections";
+
+const TeamLogo = ({ teamId }) => {
+  const logoSrc = `/images/team logos/${teamId}.png`;
+
+  return <img src={logoSrc} alt={`Team ${teamId} Logo`} />;
+};
 
 const ManageEntries = () => {
   const [selections, setSelections] = useState([]);
-  const [matchingWeek, setMatchingWeek] = useState(false);
-  const [currentSelectedWeek, setCurrentSelectedWeek] = useState(4);
-  const weeks = Array.from({ length: 18 }, (_, index) => `Week ${index + 1}`);
+  const [matchingWeek, SetMachingWeek] = useState(false);
+  const [currentSelectedWeek, SetCurrentSelectedWeek] = useState(1);
   const { poolId } = useParams();
+  const { currentUser } = useContext(AuthContext);
+  const userId = currentUser.uid;
+  console.log(userId);
+  const weeks = Array.from({ length: 18 }, (_, index) => `Week ${index + 1}`);
 
-  console.log(currentSelectedWeek);
+  useEffect(() => {
+    console.log("useEffect triggered");
+    const database = app.database();
 
-  const updateStatesFromQuery = (
-    selections,
-    matchingWeek,
-    currentSelectedWeek
-  ) => {
-    setSelections(selections);
-    setMatchingWeek(matchingWeek);
-    setCurrentSelectedWeek(currentSelectedWeek);
-  };
-
-  useQuerySelections(updateStatesFromQuery, poolId, setCurrentSelectedWeek);
+    // Query the Firebase database to get the data
+    const dataRef = database.ref("selections");
+    dataRef.on("value", (snapshot) => {
+      const dataObject = snapshot.val();
+      if (dataObject) {
+        console.log(currentSelectedWeek);
+        const userData = Object.values(dataObject).find(
+          (item) =>
+            item.userId === userId &&
+            item.poolKey === poolId &&
+            item.week === parseInt(currentSelectedWeek)
+        );
+        if (userData) {
+          setSelections(userData.selections || []); // Use default empty array if selections is undefined
+          SetMachingWeek(true);
+        } else {
+          SetMachingWeek(false);
+        }
+      } else {
+        SetMachingWeek(false);
+      }
+    });
+  }, [currentSelectedWeek]);
 
   return (
     <div className="content-area">
@@ -52,9 +73,8 @@ const ManageEntries = () => {
                       className={styles.form_select}
                       name="picks"
                       id="picks"
-                      value={currentSelectedWeek}
                       onChange={(e) => {
-                        setCurrentSelectedWeek(e.target.value);
+                        SetCurrentSelectedWeek(e.target.value);
                       }}
                     >
                       {weeks.map((week, index) => (

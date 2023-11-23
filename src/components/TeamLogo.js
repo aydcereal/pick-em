@@ -1,17 +1,15 @@
+const TeamLogo = ({ teamId, type }) => {
+  const logoSrc = `/images/team logos/${teamId}.png`;
 
-
-
-const TeamLogo = ({ teamId }) => {
-    const logoSrc = (`/images/team logos/${teamId}.png`)
-        
+  if (type === "picks") {
     return (
-        <img
-        src={logoSrc}
-        alt={`Team ${teamId} Logo`}
-    />
-    
+      <div>
+        <img src={logoSrc} alt={`Team ${teamId} Logo`} />
+      </div>
     );
-};
+  }
 
+  return <img src={logoSrc} alt={`Team ${teamId} Logo`} />;
+};
 
 export default TeamLogo;

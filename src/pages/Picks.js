@@ -6,15 +6,16 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPrint, faFileExcel } from "@fortawesome/free-solid-svg-icons";
 import TeamData from "./TeamData";
 import TeamLogo from "../components/TeamLogo";
-import useQuerySelections from "../components/useQuerySelections";
 import { useParams } from "react-router-dom";
 import styles from "../components/ManageEntries.module.css";
+import { app } from "../firebase";
+import "firebase/compat/database";
 
 const Picks = () => {
   const [matchData, setMatchData] = useState([]);
   const [selections, setSelections] = useState([]);
-  const [matchingWeek, setMatchingWeek] = useState(false);
-  const [currentSelectedWeek, setCurrentSelectedWeek] = useState(1);
+  const [week, setWeek] = useState(1);
+
   // const { poolId } = useParams();
   const poolId = "-Nj4tuMgXtDwNh8BH2Cp"; // Temp
   const weeks = Array.from({ length: 18 }, (_, index) => `Week ${index + 1}`);
@@ -25,17 +26,33 @@ const Picks = () => {
     });
   }, []);
 
-  const updateStatesFromQuery = (
-    selections,
-    matchingWeek,
-    currentSelectedWeek
-  ) => {
-    setSelections(selections);
-    setMatchingWeek(matchingWeek);
-    setCurrentSelectedWeek(currentSelectedWeek);
-  };
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const database = app.database();
+        const selectionRef = database.ref("selections");
 
-  useQuerySelections(updateStatesFromQuery, poolId, setCurrentSelectedWeek);
+        const query = selectionRef.orderByChild("poolKey").equalTo(poolId);
+
+        query.on("value", (snapshot) => {
+          const result = [];
+          snapshot.forEach((childSnapshot) => {
+            const selectionData = childSnapshot.val();
+            if (selectionData.week === parseInt(week, 10)) {
+              result.push({ id: childSnapshot.key, ...selectionData });
+            }
+          });
+
+          setSelections(result);
+          console.log("result", result);
+        });
+      } catch (error) {
+        console.error("Error Fetching Data", error);
+      }
+    };
+
+    fetchData();
+  }, [poolId, week]);
 
   console.log(selections);
 
@@ -157,21 +174,23 @@ const Picks = () => {
                     );
                   })}
                 </tr>
-                <tr>
-                  <td className="sticky headcell" width="100">
-                    <span className="n">
-                      <b>Jordy Figueroa</b>
-                    </span>
-                    <span className="pts">9 Points</span>
-                  </td>
-                  {selections.map((item, index) => (
-                    <td>
-                      <span className={styles.p}>
-                        <TeamLogo teamId={item} />
+                {selections.map((item, index) => (
+                  <tr>
+                    <td className="sticky headcell" width="100">
+                      <span className="n">
+                        <b>{item.name}</b>
+                        <span className="pts">9 Points</span>
                       </span>
                     </td>
-                  ))}
-                </tr>
+                    {item.selections.map((item, index) => (
+                      <td>
+                        <span className={styles.p}>
+                          <TeamLogo teamId={item} type={"picks"} />
+                        </span>
+                      </td>
+                    ))}
+                  </tr>
+                ))}
               </thead>
             </table>
           </div>
