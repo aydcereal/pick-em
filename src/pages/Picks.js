@@ -15,6 +15,7 @@ const Picks = () => {
   const [matchData, setMatchData] = useState([]);
   const [selections, setSelections] = useState([]);
   const [week, setWeek] = useState(1);
+  const [results, setResults] = useState([]);
 
   // const { poolId } = useParams();
   const poolId = "-Nj4tuMgXtDwNh8BH2Cp"; // Temp
@@ -44,7 +45,6 @@ const Picks = () => {
           });
 
           setSelections(result);
-          console.log("result", result);
         });
       } catch (error) {
         console.error("Error Fetching Data", error);
@@ -54,7 +54,51 @@ const Picks = () => {
     fetchData();
   }, [poolId, week]);
 
-  console.log(selections);
+  useEffect(() => {
+    const API_ENDPOINT_URL = `https://site.api.espn.com/apis/site/v2/sports/football/nfl/scoreboard?seasontype=2&week=${week}&dates=2023`;
+
+    fetch(API_ENDPOINT_URL)
+      .then((response) => response.json())
+      .then((data) => {
+        if (!data || !Array.isArray(data.events)) {
+          console.error("Data structure is not as expected");
+          return;
+        }
+
+        const events = data.events || [];
+
+        const newResultsArray = events.flatMap((event) =>
+          event.competitions.flatMap((competition) =>
+            competition.competitors.map((competitor) => ({
+              id: competitor.id,
+              winner: competitor.winner,
+            }))
+          )
+        );
+
+        setResults((prevResults) => {
+          // Check if an item with the same properties already exists
+          const itemsToAdd = newResultsArray.filter(
+            (newResult) =>
+              !prevResults.some(
+                (prevResult) =>
+                  prevResult.team1Result === newResult.team1Result &&
+                  prevResult.team2Result === newResult.team2Result &&
+                  prevResult.team1Id === newResult.team1Id &&
+                  prevResult.team2Id === newResult.team2Id
+              )
+          );
+
+          // Add the new items to the existing results
+          return [...prevResults, ...itemsToAdd];
+        });
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+      });
+  }, []);
+
+  console.log(results);
 
   return (
     <div className="content-area">
