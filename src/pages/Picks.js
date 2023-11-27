@@ -22,10 +22,10 @@ const Picks = () => {
   const weeks = Array.from({ length: 18 }, (_, index) => `Week ${index + 1}`);
 
   useEffect(() => {
-    TeamData(1).then((data) => {
+    TeamData(week).then((data) => {
       setMatchData(data);
     });
-  }, []);
+  }, [week]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -66,7 +66,6 @@ const Picks = () => {
         }
 
         const events = data.events || [];
-        console.log(events);
 
         const newResultsArray = events.flatMap((event) =>
           event.competitions.flatMap((competition) =>
@@ -76,29 +75,15 @@ const Picks = () => {
             }))
           )
         );
+        console.log(newResultsArray);
 
-        setResults((prevResults) => {
-          // Check if an item with the same properties already exists
-          const itemsToAdd = newResultsArray.filter(
-            (newResult) =>
-              !prevResults.some(
-                (prevResult) =>
-                  prevResult.team1Result === newResult.team1Result &&
-                  prevResult.team2Result === newResult.team2Result &&
-                  prevResult.team1Id === newResult.team1Id &&
-                  prevResult.team2Id === newResult.team2Id
-              )
-          );
-
-          // Add the new items to the existing results
-          return [...prevResults, ...itemsToAdd];
-        });
+        setResults(newResultsArray);
       })
       .catch((error) => {
         console.error("Error fetching data:", error);
       });
-  }, []);
-  console.log(results);
+  }, [week]);
+
   return (
     <div className="content-area">
       <div className="container">
@@ -150,7 +135,14 @@ const Picks = () => {
                     Select a week:
                   </label>
                   <div className="col-md-8" style={{ marginBottom: "10px" }}>
-                    <select className="form-select" name="week" id="week">
+                    <select
+                      onChange={(e) => {
+                        setWeek(e.target.value);
+                      }}
+                      className="form-select"
+                      name="week"
+                      id="week"
+                    >
                       {weeks.map((week, index) => (
                         <option key={index} value={index + 1}>
                           {week}
@@ -197,6 +189,7 @@ const Picks = () => {
                       <React.Fragment>
                         {matchData && matchData.length > 0 ? (
                           <td
+                            key={index}
                             className="sticky headcell"
                             width="48"
                             align="center"
@@ -231,15 +224,17 @@ const Picks = () => {
                       );
                       const isWinner = resultItem ? resultItem.winner : false;
 
+                      const tdClass =
+                        (colIndex === 0 ? "first-col-class " : "") +
+                        (isWinner === undefined
+                          ? "undefined-class"
+                          : isWinner
+                          ? "winner-class"
+                          : "loser-class");
+
                       return (
-                        <td key={colIndex}>
-                          <span className={styles.p}>
-                            <TeamLogo
-                              teamId={teamId}
-                              type={"picks"}
-                              winner={isWinner ? "winner-class" : "loser-class"}
-                            />
-                          </span>
+                        <td className={tdClass} key={colIndex}>
+                          <TeamLogo teamId={teamId} type={"picks"} />
                         </td>
                       );
                     })}

@@ -32,13 +32,40 @@
 }
 
 .loser-class{
-    background-color: #e18484;
-    border: solid 2px;
-    border-color: black;
+    background-color: #FF9F9F;
+    border: solid 1px;
+    border-color: #CC0000;
+    border-left: 0px;
+    
 }
 
 .winner-class {
-    background-color: #84e184;
-    border: solid 2px;
-    border-color: black;
+    background-color: #A7FFA7;
+    border: solid 1px;
+    border-color: #006600;
+    border-left: 0px;
+    
+}
+
+.undefined-class {
+    background-color: #f2f2f2;
+    border: solid 1px;
+    border-color: #8c8c8c;
+    border-left: 0px;
+    
+}
+
+
+.first-col-class{
+    border-left: solid 1px;
+}
+
+.t{
+    width: 35px;
+    height: 36px;
+    margin: auto;
+}
+
+.t img{
+    width: 100%;
 }

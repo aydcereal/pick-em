@@ -4,12 +4,7 @@ import { app } from "../firebase";
 import "firebase/compat/database";
 import styles from "./ManageEntries.module.css";
 import { useParams } from "react-router-dom";
-
-const TeamLogo = ({ teamId }) => {
-  const logoSrc = `/images/team logos/${teamId}.png`;
-
-  return <img src={logoSrc} alt={`Team ${teamId} Logo`} />;
-};
+import TeamLogo from "./TeamLogo";
 
 const ManageEntries = () => {
   const [selections, setSelections] = useState([]);
@@ -95,16 +90,16 @@ const ManageEntries = () => {
                     </td>
                     <td className="col-md-7 vert-align text-center pickCell">
                       {selections.map((item, index) => (
-                        <span className={styles.p}>
-                          <TeamLogo teamId={item} />
+                        <span className={styles.team}>
+                          <TeamLogo imgclass={styles.team} teamId={item} />
                         </span>
                       ))}
                     </td>
                     <td className="cold-md-1 text-center vert-align">
-                      <span class={styles.statusAlive}>0-0</span>
+                      <span className={styles.statusAlive}>0-0</span>
                     </td>
-                    <td class="col-md-1 text-center vert-align">
-                      <div class="btn-group">
+                    <td className="col-md-1 text-center vert-align">
+                      <div className="btn-group">
                         <button
                           type="button"
                           id="btnGroupOptions"
@@ -112,7 +107,7 @@ const ManageEntries = () => {
                           data-bs-toggle="dropdown"
                           aria-expanded="false"
                         >
-                          <span class={styles.statusAlive}>0-0</span>
+                          <span className={styles.statusAlive}>0-0</span>
                         </button>
                       </div>
                     </td>
@@ -127,15 +122,15 @@ const ManageEntries = () => {
                         href={`/pools/${poolId}/${currentSelectedWeek}`}
                         class="btn btn-danger"
                       >
-                        <i class="far fa-pencil pe-1 d-none d-md-inline"></i>
+                        <i className="far fa-pencil pe-1 d-none d-md-inline"></i>
                         Make Your Picks
                       </a>
                     </td>
                     <td className="cold-md-1 text-center vert-align">
-                      <span class="statusAlive">0-0</span>
+                      <span className="statusAlive">0-0</span>
                     </td>
-                    <td class="col-md-1 text-center vert-align">
-                      <div class="btn-group">
+                    <td className="col-md-1 text-center vert-align">
+                      <div className="btn-group">
                         <button
                           type="button"
                           id="btnGroupOptions"
@@ -143,7 +138,7 @@ const ManageEntries = () => {
                           data-bs-toggle="dropdown"
                           aria-expanded="false"
                         >
-                          <span class="far fa-ellipsis-v fa-2x"></span>
+                          <span className="far fa-ellipsis-v fa-2x"></span>
                         </button>
                       </div>
                     </td>
