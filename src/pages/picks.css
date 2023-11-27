@@ -30,3 +30,15 @@
     border-spacing: 0px 6px;
     border-collapse: separate;
 }
+
+.loser-class{
+    background-color: #e18484;
+    border: solid 2px;
+    border-color: black;
+}
+
+.winner-class {
+    background-color: #84e184;
+    border: solid 2px;
+    border-color: black;
+}

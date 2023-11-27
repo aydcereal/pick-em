@@ -6,6 +6,7 @@ import logo from "../images/team logos/1.png";
 import { app } from "../firebase";
 import "firebase/compat/database";
 import TeamLogo from "../components/TeamLogo";
+import { ref, onValue } from "firebase/database";
 
 const database = app.database();
 
@@ -14,10 +15,29 @@ const ApiTest = ({ poolKey, week }) => {
   const [selections, setSelections] = useState({});
   const [selected, setSelected] = useState([]);
   const [tiebreakValue, SetTiebreakvalue] = useState();
+  const [userData, setUserData] = useState("");
+  const [fullName, setFullName] = useState("");
   const { currentUser } = useContext(AuthContext);
 
-  console.log(currentUser);
   const userId = currentUser.uid;
+
+  const getUserData = (userId, callback) => {
+    const userRef = ref(database, `users/${userId}`);
+    onValue(userRef, (snapshot) => {
+      const userData = snapshot.val();
+      callback(userData);
+    });
+  };
+
+  useEffect(() => {
+    if (userId) {
+      getUserData(userId, (userData) => {
+        setUserData(userData);
+        setFullName(userData.firstName + " " + userData.lastName);
+        console.log(fullName);
+      });
+    }
+  }, [userId, currentUser]);
 
   let lastDate = "";
 
@@ -176,6 +196,7 @@ const ApiTest = ({ poolKey, week }) => {
     existingEntryRef.once("value", (snapshot) => {
       if (snapshot.exists()) {
         existingEntryRef.update({
+          fullName: fullName,
           selections: selections,
           tiebreakValue: tiebreakValue,
           poolKey: poolKey,
@@ -187,6 +208,7 @@ const ApiTest = ({ poolKey, week }) => {
           .ref("selections")
           .child(compoundKey)
           .set({
+            fullName: fullName,
             selections: selections,
             tiebreakValue: tiebreakValue,
             poolKey: poolKey,

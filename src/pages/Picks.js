@@ -66,6 +66,7 @@ const Picks = () => {
         }
 
         const events = data.events || [];
+        console.log(events);
 
         const newResultsArray = events.flatMap((event) =>
           event.competitions.flatMap((competition) =>
@@ -97,9 +98,7 @@ const Picks = () => {
         console.error("Error fetching data:", error);
       });
   }, []);
-
   console.log(results);
-
   return (
     <div className="content-area">
       <div className="container">
@@ -218,21 +217,32 @@ const Picks = () => {
                     );
                   })}
                 </tr>
-                {selections.map((item, index) => (
-                  <tr>
+                {selections.map((item, rowIndex) => (
+                  <tr key={rowIndex}>
                     <td className="sticky headcell" width="100">
                       <span className="n">
-                        <b>{item.name}</b>
+                        <b>{item.fullName}</b>
                         <span className="pts">9 Points</span>
                       </span>
                     </td>
-                    {item.selections.map((item, index) => (
-                      <td>
-                        <span className={styles.p}>
-                          <TeamLogo teamId={item} type={"picks"} />
-                        </span>
-                      </td>
-                    ))}
+                    {item.selections.map((teamId, colIndex) => {
+                      const resultItem = results.find(
+                        (result) => result.id === teamId.toString()
+                      );
+                      const isWinner = resultItem ? resultItem.winner : false;
+
+                      return (
+                        <td key={colIndex}>
+                          <span className={styles.p}>
+                            <TeamLogo
+                              teamId={teamId}
+                              type={"picks"}
+                              winner={isWinner ? "winner-class" : "loser-class"}
+                            />
+                          </span>
+                        </td>
+                      );
+                    })}
                   </tr>
                 ))}
               </thead>
