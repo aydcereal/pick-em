@@ -15,6 +15,7 @@ const ApiTest = ({ poolKey, week }) => {
   const [selections, setSelections] = useState({});
   const [selected, setSelected] = useState([]);
   const [tiebreakValue, SetTiebreakvalue] = useState();
+  const [playerName, SetPlayerName] = useState("");
   const [userData, setUserData] = useState("");
   const [fullName, setFullName] = useState("");
   const { currentUser } = useContext(AuthContext);
@@ -43,6 +44,11 @@ const ApiTest = ({ poolKey, week }) => {
 
   const tiebreakHandler = (event) => {
     SetTiebreakvalue(event.target.value);
+  };
+
+  const playerNameHandler = (event) => {
+    SetPlayerName(event.target.value);
+    console.log(playerName);
   };
 
   useEffect(() => {
@@ -196,7 +202,7 @@ const ApiTest = ({ poolKey, week }) => {
     existingEntryRef.once("value", (snapshot) => {
       if (snapshot.exists()) {
         existingEntryRef.update({
-          fullName: fullName,
+          playerName: playerName,
           selections: selections,
           tiebreakValue: tiebreakValue,
           poolKey: poolKey,
@@ -208,7 +214,7 @@ const ApiTest = ({ poolKey, week }) => {
           .ref("selections")
           .child(compoundKey)
           .set({
-            fullName: fullName,
+            playerName: playerName,
             selections: selections,
             tiebreakValue: tiebreakValue,
             poolKey: poolKey,
@@ -406,7 +412,22 @@ const ApiTest = ({ poolKey, week }) => {
                     </>
                   );
                 })}
-
+                <tr>
+                  <td colSpan="3" align="center" style={{ paddingTop: "15px" }}>
+                    <strong>Name</strong>:
+                    <input
+                      onChange={playerNameHandler}
+                      id="playerName"
+                      type="text"
+                      className="form-control"
+                      style={{
+                        display: "inline-block",
+                        width: "150px",
+                        textAlign: "center",
+                      }}
+                    ></input>
+                  </td>
+                </tr>
                 <tr>
                   <td colSpan="3" align="center" style={{ paddingTop: "15px" }}>
                     <strong>

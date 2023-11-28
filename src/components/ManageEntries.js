@@ -12,7 +12,8 @@ const ManageEntries = () => {
   const [currentSelectedWeek, SetCurrentSelectedWeek] = useState(1);
   const { poolId } = useParams();
   const { currentUser } = useContext(AuthContext);
-  const userId = currentUser.uid;
+  const userId = currentUser ? currentUser.uid : null;
+
   console.log(userId);
   const weeks = Array.from({ length: 18 }, (_, index) => `Week ${index + 1}`);
 
