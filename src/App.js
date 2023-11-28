@@ -37,63 +37,60 @@ function ProtectedRoute() {
   return <Outlet />;
 }
 
-const router = createBrowserRouter({
-  basename: process.env.PUBLIC_URL,
-  routes: [
-    {
-      path: "/",
-      element: <RootLayout />,
-      errorElement: <ErrorPage />,
-      children: [
-        { index: true, element: <Homepage /> },
-        { path: "/login", element: <Login /> },
-        { path: "/picks", element: <Picks /> },
-        {
-          path: "/dashboard",
-          element: <ProtectedRoute />,
-          children: [{ index: true, element: <Dashboard /> }],
-        },
-        { path: "/selections/:poolId", element: <ManageEntries /> },
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <RootLayout />,
+    errorElement: <ErrorPage />,
+    children: [
+      { index: true, element: <Homepage /> },
+      { path: "/login", element: <Login /> },
+      { path: "/picks", element: <Picks /> },
+      {
+        path: "/dashboard",
+        element: <ProtectedRoute />,
+        children: [{ index: true, element: <Dashboard /> }],
+      },
+      { path: "/selections/:poolId", element: <ManageEntries /> },
 
-        {
-          path: "/dashboard/my-pools",
-          element: <ProtectedRoute />,
-          children: [{ index: true, element: <Dashboard /> }],
-        },
+      {
+        path: "/dashboard/my-pools",
+        element: <ProtectedRoute />,
+        children: [{ index: true, element: <Dashboard /> }],
+      },
 
-        {
-          path: "/pools/:poolKey/:week",
-          children: [{ index: true, element: <PoolDetail /> }],
-        },
+      {
+        path: "/pools/:poolKey/:week",
+        children: [{ index: true, element: <PoolDetail /> }],
+      },
 
-        { path: "/pools/:poolId/invite", element: <Invite /> },
+      { path: "/pools/:poolId/invite", element: <Invite /> },
 
-        { path: "/join", element: <InviteLandingPage /> },
-        { path: "/Picks", element: <Picks /> },
+      { path: "/join", element: <InviteLandingPage /> },
+      { path: "/Picks", element: <Picks /> },
 
-        {
-          path: "/pools/start",
-          element: <ProtectedRoute />,
-          children: [{ index: true, element: <NewPool /> }],
-        },
-        {
-          path: "/connections",
-          element: <ProtectedRoute />,
-          children: [{ index: true, element: <Connections /> }],
-        },
-        {
-          path: "/signup",
-          element: <SignupRoot />,
-          children: [
-            { path: "", element: <Signup /> },
-            { path: "password", element: <ChoosePassword /> },
-            { path: "user-details", element: <UserDetailsPage /> },
-          ],
-        },
-      ],
-    },
-  ],
-});
+      {
+        path: "/pools/start",
+        element: <ProtectedRoute />,
+        children: [{ index: true, element: <NewPool /> }],
+      },
+      {
+        path: "/connections",
+        element: <ProtectedRoute />,
+        children: [{ index: true, element: <Connections /> }],
+      },
+      {
+        path: "/signup",
+        element: <SignupRoot />,
+        children: [
+          { path: "", element: <Signup /> },
+          { path: "password", element: <ChoosePassword /> },
+          { path: "user-details", element: <UserDetailsPage /> },
+        ],
+      },
+    ],
+  },
+]);
 
 function App() {
   return (
