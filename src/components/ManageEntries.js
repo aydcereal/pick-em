@@ -6,34 +6,47 @@ import styles from "./ManageEntries.module.css";
 import { useParams } from "react-router-dom";
 import TeamLogo from "./TeamLogo";
 
+const LoadingState = () => {
+  return (
+    <div>
+      <h2>Loading...</h2>
+    </div>
+  );
+};
+
 const ManageEntries = () => {
   const [selections, setSelections] = useState([]);
   const [matchingWeek, SetMachingWeek] = useState(false);
   const [currentSelectedWeek, SetCurrentSelectedWeek] = useState(1);
+  const [fullName, setFullName] = useState("");
   const { poolId } = useParams();
   const { currentUser } = useContext(AuthContext);
-  const userId = currentUser.uid;
-  console.log(userId);
+
+  const userId = currentUser ? currentUser.uid : "null";
+
   const weeks = Array.from({ length: 18 }, (_, index) => `Week ${index + 1}`);
 
   useEffect(() => {
-    console.log("useEffect triggered");
+    if (!currentUser) {
+      return;
+    }
+
     const database = app.database();
 
-    // Query the Firebase database to get the data
     const dataRef = database.ref("selections");
     dataRef.on("value", (snapshot) => {
       const dataObject = snapshot.val();
       if (dataObject) {
-        console.log(currentSelectedWeek);
         const userData = Object.values(dataObject).find(
           (item) =>
             item.userId === userId &&
             item.poolKey === poolId &&
             item.week === parseInt(currentSelectedWeek)
         );
+        console.log(userData);
         if (userData) {
-          setSelections(userData.selections || []); // Use default empty array if selections is undefined
+          setFullName(userData.fullName);
+          setSelections(userData.selections || []);
           SetMachingWeek(true);
         } else {
           SetMachingWeek(false);
@@ -42,7 +55,7 @@ const ManageEntries = () => {
         SetMachingWeek(false);
       }
     });
-  }, [currentSelectedWeek]);
+  }, [currentSelectedWeek, currentUser, userId, poolId]);
 
   return (
     <div className="content-area">
@@ -86,7 +99,7 @@ const ManageEntries = () => {
                 {(matchingWeek && (
                   <tr className={styles.pickRow}>
                     <td className={`col-md-2 vert-align ${styles.entry}`}>
-                      <div>Jordy Figueroa</div>
+                      <div>{fullName}</div>
                     </td>
                     <td className="col-md-7 vert-align text-center pickCell">
                       {selections.map((item, index) => (
@@ -115,7 +128,7 @@ const ManageEntries = () => {
                 )) || (
                   <tr className={styles.pickRow}>
                     <td className={`col-md-2 vert-align ${styles.entry}`}>
-                      <div>Jordy Figueroa </div>
+                      <div>{fullName} </div>
                     </td>
                     <td className="col-md-7 vert-align text-center pickCell">
                       <a

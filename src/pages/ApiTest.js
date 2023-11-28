@@ -34,7 +34,6 @@ const ApiTest = ({ poolKey, week }) => {
       getUserData(userId, (userData) => {
         setUserData(userData);
         setFullName(userData.firstName + " " + userData.lastName);
-        console.log(fullName);
       });
     }
   }, [userId, currentUser]);
