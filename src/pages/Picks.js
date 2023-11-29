@@ -16,11 +16,36 @@ const Picks = () => {
   const [selections, setSelections] = useState([]);
   const [week, setWeek] = useState(1);
   const [results, setResults] = useState([]);
+  const [points, setPoints] = useState([]);
+
+  useEffect(() => {
+    const newPoints = selections.map((item) => {
+      let selectionObject = 0; // Initialize with a default value
+      item.selections.forEach((selection) => {
+        const resultItem = results.find(
+          (result) => result.id === selection.toString()
+        );
+
+        const isWinner = resultItem ? resultItem.winner : false;
+
+        if (isWinner) {
+          selectionObject = selectionObject + 1;
+        }
+      });
+      return selectionObject;
+    });
+
+    setPoints(newPoints);
+  }, [selections, results]);
+
+  useEffect(() => {
+    console.log("points", points);
+  }, [points]);
 
   // const { poolId } = useParams();
   const poolId = "-NkN4le9I5JNY92sXeUH"; // Temp
   const weeks = Array.from({ length: 18 }, (_, index) => `Week ${index + 1}`);
-  console.log(selections);
+  console.log("selections", selections);
   useEffect(() => {
     TeamData(week).then((data) => {
       setMatchData(data);
