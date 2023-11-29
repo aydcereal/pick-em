@@ -21,9 +21,9 @@ const ManageEntries = () => {
   const [fullName, setFullName] = useState("");
   const { poolId } = useParams();
   const { currentUser } = useContext(AuthContext);
+  const userId = currentUser ? currentUser.uid : null;
 
-  const userId = currentUser ? currentUser.uid : "null";
-
+  console.log(userId);
   const weeks = Array.from({ length: 18 }, (_, index) => `Week ${index + 1}`);
 
   useEffect(() => {

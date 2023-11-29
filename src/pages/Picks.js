@@ -18,9 +18,9 @@ const Picks = () => {
   const [results, setResults] = useState([]);
 
   // const { poolId } = useParams();
-  const poolId = "-Nj4tuMgXtDwNh8BH2Cp"; // Temp
+  const poolId = "-NkN4le9I5JNY92sXeUH"; // Temp
   const weeks = Array.from({ length: 18 }, (_, index) => `Week ${index + 1}`);
-
+  console.log(selections);
   useEffect(() => {
     TeamData(week).then((data) => {
       setMatchData(data);
@@ -89,7 +89,7 @@ const Picks = () => {
       <div className="container">
         <div className="wholeWrapper">
           <div className="stickyLeftWrapper">
-            <h1>POOL MEMBERS' PICKS FOR WEEK 10 </h1>
+            <h1>POOL MEMBERS' PICKS FOR WEEK {week} </h1>
             <div className="header row">
               <ProgressCircle
                 progress={100}
@@ -153,7 +153,7 @@ const Picks = () => {
                 </form>
                 <form className="row">
                   <label htmlFor="week" className="col-sm-4 col-form-label">
-                    Select a week:
+                    Sort picks by:
                   </label>
                   <div className="col-md-8" style={{ marginBottom: "10px" }}>
                     <select className="form-select" name="sort" id="sort">
@@ -214,7 +214,7 @@ const Picks = () => {
                   <tr key={rowIndex}>
                     <td className="sticky headcell" width="100">
                       <span className="n">
-                        <b>{item.fullName}</b>
+                        <b>{item.fullName ? item.fullName : item.playerName}</b>
                         <span className="pts">9 Points</span>
                       </span>
                     </td>
