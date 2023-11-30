@@ -20,6 +20,8 @@ const Picks = () => {
 
   useEffect(() => {
     const newPoints = selections.map((item) => {
+      console.log(item.playerName);
+      const playerName = item.playerName;
       let selectionObject = 0; // Initialize with a default value
       item.selections.forEach((selection) => {
         const resultItem = results.find(
@@ -32,7 +34,11 @@ const Picks = () => {
           selectionObject = selectionObject + 1;
         }
       });
-      return selectionObject;
+      let point = {};
+      if (playerName) {
+        point[playerName] = selectionObject;
+      }
+      return point;
     });
 
     setPoints(newPoints);
@@ -41,6 +47,8 @@ const Picks = () => {
   useEffect(() => {
     console.log("points", points);
   }, [points]);
+
+  useEffect(() => {});
 
   // const { poolId } = useParams();
   const poolId = "-NkN4le9I5JNY92sXeUH"; // Temp
@@ -100,7 +108,6 @@ const Picks = () => {
             }))
           )
         );
-        console.log(newResultsArray);
 
         setResults(newResultsArray);
       })
@@ -235,36 +242,45 @@ const Picks = () => {
                     );
                   })}
                 </tr>
-                {selections.map((item, rowIndex) => (
-                  <tr key={rowIndex}>
-                    <td className="sticky headcell" width="100">
-                      <span className="n">
-                        <b>{item.fullName ? item.fullName : item.playerName}</b>
-                        <span className="pts">9 Points</span>
-                      </span>
-                    </td>
-                    {item.selections.map((teamId, colIndex) => {
-                      const resultItem = results.find(
-                        (result) => result.id === teamId.toString()
-                      );
-                      const isWinner = resultItem ? resultItem.winner : false;
+                {selections.map((item, rowIndex) => {
+                  const pointItem = points.find((obj) =>
+                    obj.hasOwnProperty(item.playerName)
+                  );
+                  const pointValue = pointItem ? pointItem[item.playerName] : 0;
 
-                      const tdClass =
-                        (colIndex === 0 ? "first-col-class " : "") +
-                        (isWinner === undefined
-                          ? "undefined-class"
-                          : isWinner
-                          ? "winner-class"
-                          : "loser-class");
+                  return (
+                    <tr key={rowIndex}>
+                      <td className="sticky headcell" width="100">
+                        <span className="n">
+                          <b>
+                            {item.fullName ? item.fullName : item.playerName}
+                          </b>
+                          <span className="pts">{pointValue} Points</span>
+                        </span>
+                      </td>
+                      {item.selections.map((teamId, colIndex) => {
+                        const resultItem = results.find(
+                          (result) => result.id === teamId.toString()
+                        );
+                        const isWinner = resultItem ? resultItem.winner : false;
 
-                      return (
-                        <td className={tdClass} key={colIndex}>
-                          <TeamLogo teamId={teamId} type={"picks"} />
-                        </td>
-                      );
-                    })}
-                  </tr>
-                ))}
+                        const tdClass =
+                          (colIndex === 0 ? "first-col-class " : "") +
+                          (isWinner === undefined
+                            ? "undefined-class"
+                            : isWinner
+                            ? "winner-class"
+                            : "loser-class");
+
+                        return (
+                          <td className={tdClass} key={colIndex}>
+                            <TeamLogo teamId={teamId} type={"picks"} />
+                          </td>
+                        );
+                      })}
+                    </tr>
+                  );
+                })}
               </thead>
             </table>
           </div>
