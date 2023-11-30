@@ -17,10 +17,49 @@ const Picks = () => {
   const [week, setWeek] = useState(1);
   const [results, setResults] = useState([]);
   const [points, setPoints] = useState([]);
+  const [sortedUsersData, setSortedUsersData] = useState([]);
+  const [usersData, setUsersData] = useState([]);
+
+  useEffect(() => {
+    const newUsersData = selections.map((item) => {
+      const playerName = item.playerName;
+      let selectionObject = 0; // Initialize with a default value
+      item.selections.forEach((selection) => {
+        const resultItem = results.find(
+          (result) => result.id === selection.toString()
+        );
+        const isWinner = resultItem ? resultItem.winner : false;
+        if (isWinner) {
+          selectionObject = selectionObject + 1;
+        }
+      });
+
+      return {
+        playerName,
+        selections: item.selections,
+        wins: selectionObject,
+      };
+    });
+
+    setUsersData(newUsersData);
+  }, [selections, results]);
+
+  const sortPicks = (event) => {
+    console.log(event.target.value);
+
+    if (event.target.value == 3) {
+      const sortedData = [...usersData].sort((a, b) => b.wins - a.wins);
+      setUsersData(sortedData);
+    } else if (event.target.value == 1) {
+      const sortedData = [...usersData].sort((a, b) =>
+        a.playerName.localeCompare(b.playerName)
+      );
+      setUsersData(sortedData);
+    }
+  };
 
   useEffect(() => {
     const newPoints = selections.map((item) => {
-      console.log(item.playerName);
       const playerName = item.playerName;
       let selectionObject = 0; // Initialize with a default value
       item.selections.forEach((selection) => {
@@ -44,19 +83,10 @@ const Picks = () => {
     setPoints(newPoints);
   }, [selections, results]);
 
-  useEffect(() => {
-    const dataArray = [...selections];
-    selections.sort((a, b) => b.playerName.localeCompare(a.playerName));
-
-    console.log("points", dataArray);
-  }, [points]);
-
-  useEffect(() => {});
-
   // const { poolId } = useParams();
   const poolId = "-NkN4le9I5JNY92sXeUH"; // Temp
   const weeks = Array.from({ length: 18 }, (_, index) => `Week ${index + 1}`);
-  console.log("selections", selections);
+
   useEffect(() => {
     TeamData(week).then((data) => {
       setMatchData(data);
@@ -191,7 +221,12 @@ const Picks = () => {
                     Sort picks by:
                   </label>
                   <div className="col-md-8" style={{ marginBottom: "10px" }}>
-                    <select className="form-select" name="sort" id="sort">
+                    <select
+                      onChange={sortPicks}
+                      className="form-select"
+                      name="sort"
+                      id="sort"
+                    >
                       <option value="1">Entry Name</option>
                       <option value="2">YTD Standings</option>
                       <option value="3">Weekly Standing</option>
@@ -245,7 +280,7 @@ const Picks = () => {
                     );
                   })}
                 </tr>
-                {selections.map((item, rowIndex) => {
+                {usersData.map((item, rowIndex) => {
                   const pointItem = points.find((obj) =>
                     obj.hasOwnProperty(item.playerName)
                   );
