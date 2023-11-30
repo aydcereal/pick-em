@@ -45,7 +45,10 @@ const Picks = () => {
   }, [selections, results]);
 
   useEffect(() => {
-    console.log("points", points);
+    const dataArray = [...selections];
+    selections.sort((a, b) => b.playerName.localeCompare(a.playerName));
+
+    console.log("points", dataArray);
   }, [points]);
 
   useEffect(() => {});
