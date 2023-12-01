@@ -10,6 +10,7 @@ import { useParams } from "react-router-dom";
 import styles from "../components/ManageEntries.module.css";
 import { app } from "../firebase";
 import "firebase/compat/database";
+import SelectionData from "../components/selectionData";
 
 const Picks = () => {
   const [matchData, setMatchData] = useState([]);
@@ -17,12 +18,15 @@ const Picks = () => {
   const [week, setWeek] = useState(1);
   const [results, setResults] = useState([]);
   const [points, setPoints] = useState([]);
-  const [sortedUsersData, setSortedUsersData] = useState([]);
   const [usersData, setUsersData] = useState([]);
+  const [mNScores, setMNScores] = useState();
 
   useEffect(() => {
     const newUsersData = selections.map((item) => {
       const playerName = item.playerName;
+      const fullName = item.fullName;
+      const tieBreakValue = item.tiebreakValue;
+
       let selectionObject = 0; // Initialize with a default value
       item.selections.forEach((selection) => {
         const resultItem = results.find(
@@ -36,6 +40,8 @@ const Picks = () => {
 
       return {
         playerName,
+        fullName,
+        tieBreakValue,
         selections: item.selections,
         wins: selectionObject,
       };
@@ -89,65 +95,16 @@ const Picks = () => {
 
   useEffect(() => {
     TeamData(week).then((data) => {
-      setMatchData(data);
+      setMatchData(data.matches);
+      setResults(data.results);
+      setMNScores(data.mondayScores);
+      console.log(data.mondayScores);
     });
-  }, [week]);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const database = app.database();
-        const selectionRef = database.ref("selections");
-
-        const query = selectionRef.orderByChild("poolKey").equalTo(poolId);
-
-        query.on("value", (snapshot) => {
-          const result = [];
-          snapshot.forEach((childSnapshot) => {
-            const selectionData = childSnapshot.val();
-            if (selectionData.week === parseInt(week, 10)) {
-              result.push({ id: childSnapshot.key, ...selectionData });
-            }
-          });
-
-          setSelections(result);
-        });
-      } catch (error) {
-        console.error("Error Fetching Data", error);
-      }
-    };
-
-    fetchData();
-  }, [poolId, week]);
-
-  useEffect(() => {
-    const API_ENDPOINT_URL = `https://site.api.espn.com/apis/site/v2/sports/football/nfl/scoreboard?seasontype=2&week=${week}&dates=2023`;
-
-    fetch(API_ENDPOINT_URL)
-      .then((response) => response.json())
-      .then((data) => {
-        if (!data || !Array.isArray(data.events)) {
-          console.error("Data structure is not as expected");
-          return;
-        }
-
-        const events = data.events || [];
-
-        const newResultsArray = events.flatMap((event) =>
-          event.competitions.flatMap((competition) =>
-            competition.competitors.map((competitor) => ({
-              id: competitor.id,
-              winner: competitor.winner,
-            }))
-          )
-        );
-
-        setResults(newResultsArray);
-      })
-      .catch((error) => {
-        console.error("Error fetching data:", error);
-      });
-  }, [week]);
+    SelectionData(week, poolId).then((data) => {
+      setSelections(data);
+    });
+  }, [week, poolId]);
 
   return (
     <div className="content-area">
@@ -168,7 +125,7 @@ const Picks = () => {
                 progress={50}
                 gradientColor={"green"}
                 id={"green"}
-                title={"Week 11 Picks in"}
+                title={`Week ${week} Picks in`}
                 action={"View members with picks"}
                 value={1}
               ></ProgressCircle>
@@ -176,7 +133,7 @@ const Picks = () => {
                 progress={50}
                 gradientColor={"red"}
                 id={"red"}
-                title={"Week 11 Picks not in"}
+                title={`Week ${week} Picks not in`}
                 action={"View members without picks"}
                 value={1}
               ></ProgressCircle>
@@ -254,10 +211,10 @@ const Picks = () => {
                     <span className="pts">Weekly Points</span>
                   </td>
 
-                  {matchData.map((match, index) => {
-                    return (
-                      <React.Fragment>
-                        {matchData && matchData.length > 0 ? (
+                  {matchData && matchData && matchData.length > 0 ? (
+                    matchData.map((match, index) => {
+                      return (
+                        <React.Fragment>
                           <td
                             key={index}
                             className="sticky headcell"
@@ -273,12 +230,26 @@ const Picks = () => {
                               {match.team2Abbr}
                             </strong>
                           </td>
-                        ) : (
-                          <p>Loading</p>
-                        )}
-                      </React.Fragment>
-                    );
-                  })}
+                        </React.Fragment>
+                      );
+                    })
+                  ) : (
+                    <p>Loading</p>
+                  )}
+                  <td
+                    className="sticky headcell"
+                    width="48"
+                    align="center"
+                    valign="bottom"
+                  >
+                    <strong>
+                      MNF
+                      <br />
+                      Tie
+                      <br />
+                      Pts
+                    </strong>
+                  </td>
                 </tr>
                 {usersData.map((item, rowIndex) => {
                   const pointItem = points.find((obj) =>
@@ -316,6 +287,12 @@ const Picks = () => {
                           </td>
                         );
                       })}
+                      <td className="tie">
+                        {item.tieBreakValue}
+                        <span className="tb">
+                          ({item.tieBreakValue - mNScores})
+                        </span>
+                      </td>
                     </tr>
                   );
                 })}

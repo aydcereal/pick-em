@@ -1,0 +1,209 @@
+.overview-title {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.tag-box {
+    background: #fff;
+    margin-bottom: 30px;
+    background: #fafafa;
+    border: solid 1px #ddd;
+    border-left: solid 3px #999;
+}
+
+
+	/*Common Style*/
+	.box-shadow {
+		background: #fff;
+		position: relative;
+	}
+
+	.box-shadow:after,
+	.box-shadow:before {
+		top: 80%;
+		left: 5px;
+		width: 50%;
+		z-index: -1;
+		content: "";
+		bottom: 15px;
+		max-width: 300px;
+		background: #999;
+		position: absolute;	
+	}
+
+	 /*Effect 1*/
+	.shadow-effect-1 {
+		box-shadow: 0 10px 6px -6px #bbb;
+		-moz-box-shadow: 0 10px 6px -6px #bbb;
+		-webkit-box-shadow: 0 10px 6px -6px #bbb;
+	}
+
+	 /*Effect 2,3,4*/
+	.shadow-effect-2 {
+		position: relative;
+	}
+
+	.shadow-effect-2:after,
+	.shadow-effect-2:before,
+	.shadow-effect-3:before,
+	.shadow-effect-4:after {
+		transform: rotate(-3deg);
+		-o-transform: rotate(-3deg);
+		-ms-transform: rotate(-3deg);
+		-moz-transform: rotate(-3deg);
+		-webkit-transform: rotate(-3deg);
+		box-shadow: 0 15px 10px #999;
+		-moz-box-shadow: 0 15px 10px #999;
+		-webkit-box-shadow: 0 15px 10px #999;
+	}
+
+	.shadow-effect-2:after,
+	.shadow-effect-4:after {
+		left: auto;
+		right: 5px;
+	  transform: rotate(3deg);
+	  -o-transform: rotate(3deg);
+	  -ms-transform: rotate(3deg);
+	  -moz-transform: rotate(3deg);
+	  -webkit-transform: rotate(3deg);
+	}
+
+
+	
+
+
+	.tag-box-header {
+
+		color:#666;
+		padding:5px;
+		padding-top:10px;
+		padding-left:20px;
+		font-weight:bold;
+		font-size:22px;
+	
+	}
+	
+	.tag-box-content {
+		padding: 20px;
+		padding-top:5px;
+	}
+	
+    .featuredBox .label {
+        margin: 10px;
+    }
+
+    .featuredBox svg {
+        margin-top: 10px;
+    }
+		
+
+
+	.featuredBox {margin:15px auto;width:200px;padding-top:0px;padding-bottom:5px;border-radius:4px;font-size:18px;text-align:center;}
+
+    @media (max-width:992px) {
+		.featuredBox {width:150px;max-width:150px;}
+		.featuredBox .btn {white-space: pre-wrap}
+	}
+		
+    .featuredBox .btn-default {
+        background-color: #F5F5F5 !important;
+        height: auto;
+    }
+
+    @media (min-width: 992px){
+        .col-lg-2 {
+            width: 20% !important;
+        }
+    }
+    
+    .widgetBox {
+        margin: 0px;
+        border: solid 1px #ddd;
+        margin-bottom: 30px;
+        width: 100%;
+        background-color: #F5F5F5;
+        min-height: 361px;
+    }
+
+    .widgetHeader {
+        font-weight: 500;
+        font-size: 14px;
+        padding: 16px 24px;
+        border-bottom: solid 1px #ddd;
+    }
+
+    .widgetContent {
+        padding: 16px 24px;
+    }
+    
+
+    
+/*Counter
+------------------------------------*/
+.counters {
+    color: #080A0D;
+    font-family:"Sohne", Helvetica;
+    font-size:38px;
+    margin-top:10px;
+    margin-bottom:20px;
+  }
+  
+  @media (max-width: 767px) {
+    .counters {
+      margin-bottom: 30px;
+    }
+  }
+  
+  .counters span {
+    font-size: 22px;font-weight:bold;
+  }
+  
+  .counters h4 {
+  font-family: "Inter", sans-serif; font-size:14px; font-weight: 700;
+  }
+  .counters p {
+      margin:0px;margin-bottom:20px;font-size:11px;
+  }
+  
+  .counters span.counter-icon {
+     display: block;
+     margin-bottom: 10px;
+  }
+  
+  .counters span.counter-icon i {
+     color: #428bca;
+     padding: 8px;
+     min-width: 48px;
+     font-size: 26px;
+     position: relative;
+     background: #999;
+     font-weight:bold;
+     font-family:Arial;
+  }
+  .counters span.counter-icon i.gray {
+      background: #eee;
+  }
+  
+  .counters span.counter-icon i:after {
+     width: 0;
+     height: 0;
+     left: 38%;
+     content: " ";
+     bottom: -7px;
+     display: block;
+     position: absolute;
+     border-top: 7px solid #999;
+     border-left: 7px solid transparent;
+     border-right: 7px solid transparent;
+     border-left-style: inset; /*FF fixes*/
+     border-right-style: inset; /*FF fixes*/
+  }
+  .counters span.counter-icon i.gray:after {
+      border-top-color: #eee;
+  }
+  
+  
+  .counters:hover span.counter-icon i {
+     border-color: #000;
+   }
+   

@@ -13,8 +13,45 @@ const TeamData = (week) => {
         }
 
         const matches = [];
+        let scores = 0;
 
         const events = data.events || [];
+
+        const lastMatchIndex = events.length - 1;
+
+        const mondayMatchDate = new Date(
+          events[lastMatchIndex].date
+        ).toLocaleDateString();
+
+        const matchesOnMonday = events.filter((item) => {
+          // Convert item date to a common format without time
+          const itemDateWithoutTime = new Date(item.date).toLocaleDateString();
+
+          // Compare the two formatted dates
+          return itemDateWithoutTime === mondayMatchDate;
+        });
+
+        console.log(matchesOnMonday);
+
+        const mondayScores = () => {
+          matchesOnMonday.map((item) => {
+            const score1 = Number(item.competitions[0].competitors[0].score);
+            const score2 = Number(item.competitions[0].competitors[1].score);
+
+            scores += score1 + score2;
+          });
+        };
+
+        mondayScores();
+
+        const results = events.flatMap((event) =>
+          event.competitions.flatMap((competition) =>
+            competition.competitors.map((competitor) => ({
+              id: competitor.id,
+              winner: competitor.winner,
+            }))
+          )
+        );
 
         events.forEach((event) => {
           try {
@@ -46,7 +83,13 @@ const TeamData = (week) => {
                 const team1Id = team1Info.id;
                 const team2Id = team2Info.id;
 
-                const match = { team1Id, team2Id, date, team1Abbr, team2Abbr };
+                const match = {
+                  team1Id,
+                  team2Id,
+                  date,
+                  team1Abbr,
+                  team2Abbr,
+                };
 
                 const itemExists = matches.some(
                   (item) =>
@@ -65,10 +108,16 @@ const TeamData = (week) => {
             reject(error);
           }
         });
-        console.log(matches);
+
         matches.sort((a, b) => a.date - b.date);
 
-        resolve(matches);
+        const combinedResults = {
+          matches: matches,
+          results: results,
+          mondayScores: scores,
+        };
+
+        resolve(combinedResults);
       })
       .catch((error) => {
         console.error("Error fetching data:", error);

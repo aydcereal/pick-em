@@ -69,3 +69,16 @@
 .t img{
     width: 100%;
 }
+
+.tie {
+    font-family: Arial Narrow, Segoe UI, Arial;
+    text-align: center;
+}
+
+.tb {
+    font-size: 11px;
+    color: #888888;
+    padding-left: 3px;
+
+
+}
