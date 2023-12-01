@@ -7,6 +7,7 @@ import {
   faTasksAlt,
   faUser,
 } from "@fortawesome/free-solid-svg-icons";
+import Calendar from "../components/Calendar";
 
 const overview = () => {
   return (
@@ -98,29 +99,7 @@ const overview = () => {
             </div>
           </div>
           <div className="row">
-            <div className="col-xs-12 col-sm-4 col-md-6">
-              <div className="widgetBox">
-                <div className="widgetHeader">Week 13 Games</div>
-                <div className="widgetContent">
-                  <div
-                    className="row"
-                    style={{ marginTop: "10px", marginBottom: "5px" }}
-                  >
-                    <div className="counters col-md-6">
-                      2<h4>Total Entries</h4>
-                    </div>
-                    <div className="counters col-md-6">
-                      1<h4>Entries with week 13 picks</h4>
-                    </div>
-                  </div>
-                  <div style={{ padding: "5px", fontSize: "13px" }}>
-                    Your pool members have indicated they would like 2 entries
-                    in total. 1 of these 2 entries have picks entered.
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="col-xs-12 col-sm-4 col-md-6">
+            <div className="col-xs-12 col-sm-4 col-md-4">
               <div className="widgetBox">
                 <div className="widgetHeader">Entry Count</div>
                 <div className="widgetContent">
@@ -140,6 +119,13 @@ const overview = () => {
                     in total. 1 of these 2 entries have picks entered.
                   </div>
                 </div>
+              </div>
+            </div>
+            <div className="col-xs-12 col-sm-4 col-md-4">
+              <div className="widgetBox">
+                <div className="widgetHeader">Week 13 Games</div>
+
+                <Calendar />
               </div>
             </div>
           </div>
