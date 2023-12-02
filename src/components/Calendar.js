@@ -19,7 +19,42 @@ const Calendar = () => {
 
   // Usage:
   const dates = generateCalendar(11, 2023); // December 2023
-  dates.forEach((date) => console.log(date));
+  const dateObject = new Date(dates[0]);
+  const dayOfWeek = dateObject.getDay();
+
+  // Determine how many items to add based on the dayOfWeek
+  const itemsToAdd = dayOfWeek;
+
+  // Create a loop to add items to the beginning of the array
+  for (let i = 1; i < itemsToAdd + 1; i++) {
+    const newDate = new Date(dateObject);
+    // Subtract i days to get previous days
+    newDate.setDate(dateObject.getDate() - i);
+    dates.unshift(newDate);
+  }
+
+  const lastDay = new Date(dates[dates.length - 1]); // 2/28
+  const daysinMonth = dates.length; // 31
+
+  if (daysinMonth < 35) {
+    const remainingDays = 35 - daysinMonth; // 4
+    for (let i = 0; i < remainingDays; i++) {
+      const newDate = new Date(lastDay);
+      newDate.setDate(lastDay.getDate() + i + 1);
+      dates.push(newDate);
+    }
+  }
+
+  let daysOfMonth = [];
+
+  for (const date of dates) {
+    const dayOfMonth = new Date(date).getDate();
+    daysOfMonth.push(dayOfMonth);
+  }
+
+  console.log(daysOfMonth);
+  console.log(dayOfWeek);
+  console.log(dates);
 
   return (
     <div className="responsive-calendar">
@@ -28,7 +63,22 @@ const Calendar = () => {
           return <div className="day header">{day}</div>;
         })}
       </div>
-      <div className="days"></div>
+      <div className="days">
+        {daysOfMonth.map((day) => {
+          return (
+            <div
+              className="day past"
+              style={{
+                backfaceVisibility: "hidden",
+                transition: "-webkit-transform 0.5s ease 0.02s",
+                transform: "rotateY(0deg)",
+              }}
+            >
+              <a>{day}</a>
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 };

@@ -5,7 +5,7 @@ import {
   faPencil,
   faListOl,
   faTasksAlt,
-  faUser,
+  faUserGroup,
 } from "@fortawesome/free-solid-svg-icons";
 import Calendar from "../components/Calendar";
 
@@ -89,8 +89,8 @@ const overview = () => {
                 <div className="featuredBox">
                   <a href="" className="btn btn-default">
                     <FontAwesomeIcon
-                      className="fal fa-desktop fa-2x"
-                      icon={faUser}
+                      className="far fa-desktop fa-2x"
+                      icon={faUserGroup}
                     />
                     <div className="label">Pool Entries</div>
                   </a>

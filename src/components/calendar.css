@@ -22,3 +22,18 @@
     width: 14.285714285714286%;
     text-align: center;
 }
+
+.responsive-calendar .day {
+    display: inline-block;
+    position: relative;
+    font-size: 14px;
+    width: 14.285714285714286%;
+    text-align: center;
+}
+
+.responsive-calendar .day a {
+    border-right: solid 1px gray;
+    border-bottom: solid 1px gray;
+    display: block;
+    padding: 20% 0 20% 0;
+}
