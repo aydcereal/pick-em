@@ -1,6 +1,9 @@
 import TeamNameMapping from "../components/TeamNameMapping";
+import React, { useState } from "react";
 
-const TeamData = (week) => {
+const TeamData = (week, type) => {
+  const [matchData, setMatchData] = useState([]);
+
   return new Promise((resolve, reject) => {
     const API_ENDPOINT_URL = `https://site.api.espn.com/apis/site/v2/sports/football/nfl/scoreboard?seasontype=2&week=${week}&dates=2023`;
 
@@ -16,6 +19,47 @@ const TeamData = (week) => {
         let scores = 0;
 
         const events = data.events || [];
+
+        // Date
+
+        const daysOfWeek = [
+          "Sunday",
+          "Monday",
+          "Tuesday",
+          "Wednesday",
+          "Thursday",
+          "Friday",
+          "Saturday",
+        ];
+        const months = [
+          "January",
+          "February",
+          "March",
+          "April",
+          "May",
+          "June",
+          "July",
+          "August",
+          "September",
+          "October",
+          "November",
+          "December",
+        ];
+
+        events.forEach((event) => {
+          const date = new Date(event.date);
+
+          const dayOfWeek = daysOfWeek[date.getDay()];
+
+          const month = months[date.getMonth()];
+          const day = date.getDate();
+
+          const dateString = `${dayOfWeek}, ${month}, ${day}`;
+
+          setMatchData((prevMatches) => {});
+
+          console.log("date String ", dateString);
+        });
 
         const lastMatchIndex = events.length - 1;
 

@@ -1,25 +1,5 @@
 import calsses from "./calendar.css";
-
-const weekDates = [
-  { week: 18, endDate: "2024-01-13T07:59Z" },
-  { week: 17, endDate: "2024-01-03T07:59Z" },
-  { week: 16, endDate: "2023-12-27T07:59Z" },
-  { week: 15, endDate: "2023-12-20T07:59Z" },
-  { week: 14, endDate: "2023-12-13T07:59Z" },
-  { week: 13, endDate: "2023-12-06T07:59Z" },
-  { week: 12, endDate: "2023-11-29T07:59Z" },
-  { week: 11, endDate: "2023-11-22T07:59Z" },
-  { week: 10, endDate: "2023-11-15T07:59Z" },
-  { week: 9, endDate: "2023-11-08T07:59Z" },
-  { week: 8, endDate: "2023-11-01T06:59Z" },
-  { week: 7, endDate: "2023-10-25T06:59Z" },
-  { week: 6, endDate: "2023-10-18T06:59Z" },
-  { week: 5, endDate: "2023-10-11T06:59Z" },
-  { week: 4, endDate: "2023-10-04T06:59Z" },
-  { week: 3, endDate: "2023-09-27T06:59Z" },
-  { week: 2, endDate: "2023-09-20T06:59Z" },
-  { week: 1, endDate: "2023-09-13T06:59Z" },
-];
+import weekEndDates from "./weekEndDates.json";
 
 const Calendar = () => {
   const weekDays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
@@ -45,7 +25,7 @@ const Calendar = () => {
   const today = new Date();
   let currentWeek;
 
-  for (const weekDate of weekDates) {
+  for (const weekDate of weekEndDates) {
     const endDate = new Date(weekDate.endDate);
 
     if (today < endDate) {
