@@ -15,12 +15,17 @@
     border-bottom: 1px gray solid;
 }
 
+.responsive-calendar .day.Sat a {
+    border-right: solid 0px #eee;
+}
+
 .responsive-calendar .day {
     display: inline-block;
     position: relative;
     font-size: 14px;
     width: 14.285714285714286%;
     text-align: center;
+    padding: 0;
 }
 
 .responsive-calendar .day {

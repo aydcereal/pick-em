@@ -118,7 +118,7 @@
     
     .widgetBox {
         margin: 0px;
-        border: solid 1px #ddd;
+        border: solid 1px gray;
         margin-bottom: 30px;
         width: 100%;
         background-color: #F5F5F5;
@@ -129,7 +129,7 @@
         font-weight: 500;
         font-size: 14px;
         padding: 16px 24px;
-        border-bottom: solid 1px #ddd;
+        border-bottom: solid 1px gray;
     }
 
     .widgetContent {
