@@ -1,5 +1,6 @@
 import calsses from "./calendar.css";
 import weekEndDates from "./weekEndDates.json";
+import MatchDates from "./MatchDates";
 
 const Calendar = () => {
   const weekDays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
@@ -32,7 +33,7 @@ const Calendar = () => {
       currentWeek = weekDate.week;
     }
   }
-
+  MatchDates(currentWeek);
   console.log(currentWeek);
 
   // Determine how many items to add based on the dayOfWeek

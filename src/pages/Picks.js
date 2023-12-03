@@ -4,13 +4,13 @@ import "@fortawesome/fontawesome-free/css/all.css";
 import classes from "./picks.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPrint, faFileExcel } from "@fortawesome/free-solid-svg-icons";
-import TeamData from "./TeamData";
 import TeamLogo from "../components/TeamLogo";
 import { useParams } from "react-router-dom";
 import styles from "../components/ManageEntries.module.css";
 import { app } from "../firebase";
 import "firebase/compat/database";
 import SelectionData from "../components/selectionData";
+import TeamData from "./TeamData";
 
 const Picks = () => {
   const [matchData, setMatchData] = useState([]);
