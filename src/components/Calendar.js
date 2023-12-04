@@ -1,12 +1,14 @@
 import calsses from "./calendar.css";
 import weekEndDates from "./weekEndDates.json";
 import MatchDates from "./MatchDates";
+import { useEffect, useState } from "react";
 
 const Calendar = () => {
   const weekDays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+  const [matchDates, setMatchDates] = useState({});
+  const [daysOfMonth, setDaysOfMonth] = useState([]);
 
   function getDaysInMonth(month, year) {
-    // Since in JavaScript, months are zero-based, we'll increment the month by 1
     return new Date(year, month + 1, 0).getDate();
   }
 
@@ -20,10 +22,16 @@ const Calendar = () => {
   }
 
   // Usage:
-  const dates = generateCalendar(11, 2023); // December 2023
+
+  const today = new Date();
+  const currentMonth = today.getMonth();
+  const currentYear = today.getFullYear();
+  const dates = generateCalendar(currentMonth, currentYear);
   const dateObject = new Date(dates[0]);
   const dayOfWeek = dateObject.getDay();
-  const today = new Date();
+
+  console.log(currentYear);
+
   let currentWeek;
 
   for (const weekDate of weekEndDates) {
@@ -33,26 +41,61 @@ const Calendar = () => {
       currentWeek = weekDate.week;
     }
   }
-  MatchDates(currentWeek);
-  console.log(currentWeek);
 
-  // Determine how many items to add based on the dayOfWeek
+  useEffect(() => {
+    let isMounted = true;
+
+    const matchDatesPromise = MatchDates(currentWeek);
+
+    matchDatesPromise
+      .then((result) => {
+        const updatedDaysOfMonth = dates.map((date) => {
+          const dayOfMonth = date.getDate();
+          const dayOfWeek = weekDays[date.getDay()];
+          const month = date.getMonth();
+          const year = date.getFullYear();
+          const dateString = date.toLocaleDateString();
+          const matchingValue = result[dateString];
+
+          return {
+            dayOfMonth,
+            dayOfWeek,
+            month,
+            year,
+            current: month === currentMonth,
+            dateString,
+            numberOfMatches: matchingValue !== undefined ? matchingValue : 0,
+            active: matchingValue !== undefined ? "Active" : "",
+          };
+        });
+
+        if (isMounted) {
+          setDaysOfMonth(updatedDaysOfMonth);
+          setMatchDates(result);
+        }
+      })
+      .catch((error) => {
+        console.error("Error fetching match dates:", error);
+      });
+
+    return () => {
+      isMounted = false;
+    };
+  }, [currentWeek, currentMonth]);
+
   const itemsToAdd = dayOfWeek;
 
-  // Create a loop to add items to the beginning of the array
   for (let i = 1; i < itemsToAdd + 1; i++) {
     const newDate = new Date(dateObject);
-    // Subtract i days to get previous days
     newDate.setDate(dateObject.getDate() - i);
     dates.unshift(newDate);
   }
 
-  const lastDay = new Date(dates[dates.length - 1]); // 2/28
-  const daysinMonth = dates.length; // 31
-  const dayNames = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+  const lastDay = new Date(dates[dates.length - 1]);
+  const daysinMonth = dates.length;
 
   if (daysinMonth < 35) {
-    const remainingDays = 35 - daysinMonth; // 4
+    const remainingDays = 35 - daysinMonth;
     for (let i = 0; i < remainingDays; i++) {
       const newDate = new Date(lastDay);
       newDate.setDate(lastDay.getDate() + i + 1);
@@ -60,20 +103,7 @@ const Calendar = () => {
     }
   }
 
-  let daysOfMonth = [];
-
-  for (const date of dates) {
-    const dayOfMonth = new Date(date).getDate();
-    const dayOfWeek = date.getDay();
-
-    if (date.getDate() == today.getDate()) {
-    }
-
-    daysOfMonth.push({
-      dayOfMonth,
-      dayOfWeek: dayNames[dayOfWeek],
-    });
-  }
+  console.log(daysOfMonth);
 
   return (
     <div className="responsive-calendar">
@@ -83,20 +113,28 @@ const Calendar = () => {
         })}
       </div>
       <div className="days">
-        {daysOfMonth.map(({ dayOfMonth, dayOfWeek }) => {
-          return (
-            <div
-              className={`day ${dayOfWeek} past`}
-              style={{
-                backfaceVisibility: "hidden",
-                transition: "-webkit-transform 0.5s ease 0.02s",
-                transform: "rotateY(0deg)",
-              }}
-            >
-              <a>{dayOfMonth}</a>
-            </div>
-          );
-        })}
+        {daysOfMonth.map(
+          ({ dayOfMonth, dayOfWeek, current, dateString, active }) => {
+            let classes = `day past ${dayOfWeek} ${active}`;
+
+            if (!current) {
+              classes += " not-current";
+            }
+            return (
+              <div
+                className={classes}
+                style={{
+                  backfaceVisibility: "hidden",
+                  transition: "-webkit-transform 0.5s ease 0.02s",
+                  transform: "rotateY(0deg)",
+                }}
+              >
+                <span className="badge">{matchDates[dateString]}</span>
+                <a>{dayOfMonth}</a>
+              </div>
+            );
+          }
+        )}
       </div>
     </div>
   );

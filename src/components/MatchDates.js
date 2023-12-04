@@ -10,7 +10,7 @@ const MatchDates = (week) => {
           return;
         }
 
-        const dates = [];
+        const dateCounts = {};
 
         const events = data.events || [];
 
@@ -21,18 +21,22 @@ const MatchDates = (week) => {
               return;
             }
 
-            const day = new Date(event.date).getDate();
+            const day = new Date(event.date);
+            const date = day.toLocaleDateString();
+            console.log(day.toLocaleDateString());
 
-            dates.push(day);
-
-            console.log(event.date);
+            if (dateCounts.hasOwnProperty(date)) {
+              dateCounts[date]++;
+            } else {
+              dateCounts[date] = 1;
+            }
           } catch (error) {
             console.error("Error processing event:", error);
             reject(error);
           }
         });
-        const uniqueDates = [...new Set(dates)];
-        console.log(uniqueDates);
+
+        resolve(dateCounts);
       });
   });
 };

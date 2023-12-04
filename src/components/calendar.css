@@ -26,19 +26,49 @@
     width: 14.285714285714286%;
     text-align: center;
     padding: 0;
+
+
 }
 
-.responsive-calendar .day {
-    display: inline-block;
-    position: relative;
-    font-size: 14px;
-    width: 14.285714285714286%;
-    text-align: center;
+.responsive-calendar .day a:hover {
+    background-color: #d6d6d6;
+    text-decoration: none;
 }
+
 
 .responsive-calendar .day a {
     border-right: solid 1px gray;
     border-bottom: solid 1px gray;
     display: block;
     padding: 20% 0 20% 0;
+
+
+}
+
+.responsive-calendar .day.not-current a {
+    color: #ddd;
+}
+
+.responsive-calendar .day .badge {
+    padding: 1px 2px 3px 3px;
+    border-radius: 0px;
+    border-bottom-left-radius: 5px;
+    background-color: #f89406;
+    top: 0px;
+    right: 1px;
+    font-size: 10px;
+    z-index: 1;
+    position: absolute;
+}
+
+.responsive-calendar .day.Active a {
+    background-color: #d3ecfc;
+    color: #000;
+    font-weight: bold;
+    border-right: solid 1px gray;
+    border-bottom: solid 1px gray;
+}
+
+.responsive-calendar .day.Active a:hover {
+    background-color: #ccc;
 }
