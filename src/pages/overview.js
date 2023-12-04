@@ -8,8 +8,12 @@ import {
   faUserGroup,
 } from "@fortawesome/free-solid-svg-icons";
 import Calendar from "../components/Calendar";
+import { useParams } from "react-router-dom";
 
-const overview = () => {
+const Overview = () => {
+  const { poolKey } = useParams();
+  console.log(poolKey);
+
   return (
     <div className="content-area">
       <div className="container">
@@ -135,4 +139,4 @@ const overview = () => {
   );
 };
 
-export default overview;
+export default Overview;

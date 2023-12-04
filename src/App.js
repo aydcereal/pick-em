@@ -28,7 +28,7 @@ import ManageEntries from "./components/ManageEntries";
 import Invite from "./pages/Invite";
 import InviteLandingPage from "./pages/InviteLandingPage";
 import Picks from "./pages/Picks";
-import Overview from "./pages/overview";
+import Overview from "./pages/Overview";
 
 function ProtectedRoute() {
   const { isAuthenticated } = useContext(AuthContext);
@@ -69,7 +69,7 @@ const router = createBrowserRouter([
 
       { path: "/join", element: <InviteLandingPage /> },
       { path: "/Picks", element: <Picks /> },
-      { path: "/overview", element: <Overview /> },
+      { path: "/Overview/:poolKey", element: <Overview /> },
       {
         path: "/pools/start",
         element: <ProtectedRoute />,

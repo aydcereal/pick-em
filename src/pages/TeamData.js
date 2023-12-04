@@ -17,6 +17,8 @@ const TeamData = (week) => {
 
         const events = data.events || [];
 
+        events.sort((a, b) => new Date(a.date) - new Date(b.date));
+
         const lastMatchIndex = events.length - 1;
 
         const mondayMatchDate = new Date(
@@ -30,8 +32,6 @@ const TeamData = (week) => {
           // Compare the two formatted dates
           return itemDateWithoutTime === mondayMatchDate;
         });
-
-        console.log(matchesOnMonday);
 
         const mondayScores = () => {
           matchesOnMonday.map((item) => {

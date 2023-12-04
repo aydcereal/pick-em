@@ -60,7 +60,7 @@ export default function PoolCardContainer(props) {
             props.pools.map((pool, index) => (
               <SectionItem key={index}>
                 <PoolCardDefaultContainer>
-                  <TopContainer to={`/selections/${pool.key}`}>
+                  <TopContainer to={`/Overview/${pool.key}`}>
                     <Container>
                       <Avatar>
                         <svg

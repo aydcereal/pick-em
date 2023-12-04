@@ -6,14 +6,6 @@ import styles from "./ManageEntries.module.css";
 import { useParams } from "react-router-dom";
 import TeamLogo from "./TeamLogo";
 
-const LoadingState = () => {
-  return (
-    <div>
-      <h2>Loading...</h2>
-    </div>
-  );
-};
-
 const ManageEntries = () => {
   const [selections, setSelections] = useState([]);
   const [matchingWeek, SetMachingWeek] = useState(false);

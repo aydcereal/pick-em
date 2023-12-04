@@ -94,12 +94,15 @@ const Picks = () => {
   const weeks = Array.from({ length: 18 }, (_, index) => `Week ${index + 1}`);
 
   useEffect(() => {
-    TeamData(week).then((data) => {
-      setMatchData(data.matches);
-      setResults(data.results);
-      setMNScores(data.mondayScores);
-      console.log(data.mondayScores);
-    });
+    TeamData(week).then(
+      (data) => {
+        setMatchData(data.matches);
+        setResults(data.results);
+        setMNScores(data.mondayScores);
+        console.log(data.mondayScores);
+      },
+      [week]
+    );
 
     SelectionData(week, poolId).then((data) => {
       setSelections(data);
