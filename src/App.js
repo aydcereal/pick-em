@@ -68,7 +68,7 @@ const router = createBrowserRouter([
       { path: "/pools/:poolId/invite", element: <Invite /> },
 
       { path: "/join", element: <InviteLandingPage /> },
-      { path: "/Picks", element: <Picks /> },
+      { path: "/Picks/:poolKey", element: <Picks /> },
       { path: "/Overview/:poolKey", element: <Overview /> },
       {
         path: "/pools/start",

@@ -106,37 +106,42 @@ const Calendar = () => {
   console.log(daysOfMonth);
 
   return (
-    <div className="responsive-calendar">
-      <div className="day-headers">
-        {weekDays.map((day) => {
-          return <div className="day header">{day}</div>;
-        })}
-      </div>
-      <div className="days">
-        {daysOfMonth.map(
-          ({ dayOfMonth, dayOfWeek, current, dateString, active }) => {
-            let classes = `day past ${dayOfWeek} ${active}`;
+    <>
+      <div className="widgetHeader">Week {currentWeek} Games</div>
+      <div className="responsive-calendar">
+        <div className="day-headers">
+          {weekDays.map((day) => {
+            return <div className="day header">{day}</div>;
+          })}
+        </div>
+        <div className="days">
+          {daysOfMonth.map(
+            ({ dayOfMonth, dayOfWeek, current, dateString, active }) => {
+              let classes = `day past ${dayOfWeek} ${active}`;
 
-            if (!current) {
-              classes += " not-current";
+              if (!current) {
+                classes += " not-current";
+              }
+              return (
+                <>
+                  <div
+                    className={classes}
+                    style={{
+                      backfaceVisibility: "hidden",
+                      transition: "-webkit-transform 0.5s ease 0.02s",
+                      transform: "rotateY(0deg)",
+                    }}
+                  >
+                    <span className="badge">{matchDates[dateString]}</span>
+                    <a>{dayOfMonth}</a>
+                  </div>
+                </>
+              );
             }
-            return (
-              <div
-                className={classes}
-                style={{
-                  backfaceVisibility: "hidden",
-                  transition: "-webkit-transform 0.5s ease 0.02s",
-                  transform: "rotateY(0deg)",
-                }}
-              >
-                <span className="badge">{matchDates[dateString]}</span>
-                <a>{dayOfMonth}</a>
-              </div>
-            );
-          }
-        )}
+          )}
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

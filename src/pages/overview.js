@@ -9,17 +9,32 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import Calendar from "../components/Calendar";
 import { useParams } from "react-router-dom";
+import { fetchPoolData } from "../components/fetchPoolData";
+import { useEffect, useState } from "react";
 
 const Overview = () => {
   const { poolKey } = useParams();
-  console.log(poolKey);
+  const [poolName, setName] = useState();
+
+  useEffect(() => {
+    fetchPoolData(poolKey)
+      .then((data) => {
+        console.log("Fetched data:", data);
+        setName(data.poolName);
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+      });
+  }, [poolKey]);
+
+  console.log(poolName);
 
   return (
     <div className="content-area">
       <div className="container">
         <div className="overview-title">
           <div className="league-name">
-            <h1>Are You Down</h1>
+            <h1>{poolName}</h1>
           </div>
         </div>
         <div style={{ fontFamily: "Segoe UI, Arial", fontSize: "14px" }}>
@@ -52,13 +67,17 @@ const Overview = () => {
                       className="far fa-desktop fa-2x"
                       icon={faDesktop}
                     />
+
                     <div className="label">Commish Console</div>
                   </a>
                 </div>
               </div>
               <div className="col-6 col-sm-6 col-md-2 col-lg-2">
                 <div className="featuredBox">
-                  <a href="" className="btn btn-default">
+                  <a
+                    href={`/selections/${poolKey}`}
+                    className="btn btn-default"
+                  >
                     <FontAwesomeIcon
                       className="far fa-desktop fa-2x"
                       icon={faPencil}
@@ -80,7 +99,7 @@ const Overview = () => {
               </div>
               <div className="col-6 col-sm-6 col-md-2 col-lg-2">
                 <div className="featuredBox">
-                  <a href="" className="btn btn-default">
+                  <a href={`/picks/${poolKey}`} className="btn btn-default">
                     <FontAwesomeIcon
                       className="far fa-desktop fa-2x"
                       icon={faTasksAlt}
@@ -127,8 +146,6 @@ const Overview = () => {
             </div>
             <div className="col-xs-12 col-sm-4 col-md-4">
               <div className="widgetBox">
-                <div className="widgetHeader">Week 13 Games</div>
-
                 <Calendar />
               </div>
             </div>

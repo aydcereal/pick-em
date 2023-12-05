@@ -7,8 +7,6 @@ import { faPrint, faFileExcel } from "@fortawesome/free-solid-svg-icons";
 import TeamLogo from "../components/TeamLogo";
 import { useParams } from "react-router-dom";
 import styles from "../components/ManageEntries.module.css";
-import { app } from "../firebase";
-import "firebase/compat/database";
 import SelectionData from "../components/selectionData";
 import TeamData from "./TeamData";
 
@@ -20,6 +18,7 @@ const Picks = () => {
   const [points, setPoints] = useState([]);
   const [usersData, setUsersData] = useState([]);
   const [mNScores, setMNScores] = useState();
+  const { poolKey } = useParams();
 
   useEffect(() => {
     const newUsersData = selections.map((item) => {
@@ -89,8 +88,6 @@ const Picks = () => {
     setPoints(newPoints);
   }, [selections, results]);
 
-  // const { poolId } = useParams();
-  const poolId = "-NkN4le9I5JNY92sXeUH"; // Temp
   const weeks = Array.from({ length: 18 }, (_, index) => `Week ${index + 1}`);
 
   useEffect(() => {
@@ -104,10 +101,10 @@ const Picks = () => {
       [week]
     );
 
-    SelectionData(week, poolId).then((data) => {
+    SelectionData(week, poolKey).then((data) => {
       setSelections(data);
     });
-  }, [week, poolId]);
+  }, [week, poolKey]);
 
   return (
     <div className="content-area">

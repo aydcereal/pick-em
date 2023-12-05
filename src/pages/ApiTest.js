@@ -7,6 +7,7 @@ import { app } from "../firebase";
 import "firebase/compat/database";
 import TeamLogo from "../components/TeamLogo";
 import { ref, onValue } from "firebase/database";
+import { fetchPoolData } from "../components/fetchPoolData";
 
 const database = app.database();
 
@@ -18,7 +19,21 @@ const ApiTest = ({ poolKey, week }) => {
   const [playerName, SetPlayerName] = useState("");
   const [userData, setUserData] = useState("");
   const [fullName, setFullName] = useState("");
+  const [admin, setAdmin] = useState();
   const { currentUser } = useContext(AuthContext);
+
+  useEffect(() => {
+    fetchPoolData(poolKey)
+      .then((data) => {
+        console.log("Fetched data:", data);
+        setAdmin(data.poolFormat);
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+      });
+  }, [poolKey]);
+
+  console.log(poolKey);
 
   const userId = currentUser.uid;
 
@@ -411,22 +426,32 @@ const ApiTest = ({ poolKey, week }) => {
                     </>
                   );
                 })}
-                <tr>
-                  <td colSpan="3" align="center" style={{ paddingTop: "15px" }}>
-                    <strong>Name</strong>:
-                    <input
-                      onChange={playerNameHandler}
-                      id="playerName"
-                      type="text"
-                      className="form-control"
-                      style={{
-                        display: "inline-block",
-                        width: "150px",
-                        textAlign: "center",
-                      }}
-                    ></input>
-                  </td>
-                </tr>
+
+                {admin ? (
+                  <tr>
+                    <td
+                      colSpan="3"
+                      align="center"
+                      style={{ paddingTop: "15px" }}
+                    >
+                      <strong>Name</strong>:
+                      <input
+                        onChange={playerNameHandler}
+                        id="playerName"
+                        type="text"
+                        className="form-control"
+                        style={{
+                          display: "inline-block",
+                          width: "150px",
+                          textAlign: "center",
+                        }}
+                      ></input>
+                    </td>
+                  </tr>
+                ) : (
+                  ""
+                )}
+
                 <tr>
                   <td colSpan="3" align="center" style={{ paddingTop: "15px" }}>
                     <strong>

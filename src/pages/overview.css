@@ -98,7 +98,17 @@
 		
 
 
-	.featuredBox {margin:15px auto;width:200px;padding-top:0px;padding-bottom:5px;border-radius:4px;font-size:18px;text-align:center;}
+	.featuredBox {
+        margin:15px auto;
+        width:200px;
+        padding-top:0px;
+        padding-bottom:5px;
+        border-radius:4px;
+        font-size:18px;
+        text-align:center;
+        
+    
+    }
 
     @media (max-width:992px) {
 		.featuredBox {width:150px;max-width:150px;}
@@ -206,4 +216,5 @@
   .counters:hover span.counter-icon i {
      border-color: #000;
    }
+   
    
