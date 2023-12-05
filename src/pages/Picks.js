@@ -3,12 +3,17 @@ import ProgressCircle from "../components/ProgressCircle";
 import "@fortawesome/fontawesome-free/css/all.css";
 import classes from "./picks.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPrint, faFileExcel } from "@fortawesome/free-solid-svg-icons";
+import {
+  faPrint,
+  faFileExcel,
+  faCrown,
+} from "@fortawesome/free-solid-svg-icons";
 import TeamLogo from "../components/TeamLogo";
 import { useParams } from "react-router-dom";
 import styles from "../components/ManageEntries.module.css";
 import SelectionData from "../components/selectionData";
 import TeamData from "./TeamData";
+import { getCurrentWeek } from "../components/Calendar";
 
 const Picks = () => {
   const [matchData, setMatchData] = useState([]);
@@ -17,13 +22,24 @@ const Picks = () => {
   const [results, setResults] = useState([]);
   const [points, setPoints] = useState([]);
   const [usersData, setUsersData] = useState([]);
+  const [sortedUsersData, setSortedUsersData] = useState([]);
+  const [sort, setSort] = useState(1);
   const [mNScores, setMNScores] = useState();
   const { poolKey } = useParams();
+  let isChampion = false;
+
+  console.log(week);
+  useEffect(() => {
+    setWeek(getCurrentWeek());
+  }, []);
+
+  console.log(week);
 
   useEffect(() => {
+    console.log("newUsersData");
     const newUsersData = selections.map((item) => {
-      const playerName = item.playerName;
-      const fullName = item.fullName;
+      const playerName = item.playerName ? item.playerName : item.fullName;
+
       const tieBreakValue = item.tiebreakValue;
 
       let selectionObject = 0; // Initialize with a default value
@@ -39,7 +55,6 @@ const Picks = () => {
 
       return {
         playerName,
-        fullName,
         tieBreakValue,
         selections: item.selections,
         wins: selectionObject,
@@ -49,23 +64,13 @@ const Picks = () => {
     setUsersData(newUsersData);
   }, [selections, results]);
 
-  const sortPicks = (event) => {
-    console.log(event.target.value);
-
-    if (event.target.value == 3) {
-      const sortedData = [...usersData].sort((a, b) => b.wins - a.wins);
-      setUsersData(sortedData);
-    } else if (event.target.value == 1) {
-      const sortedData = [...usersData].sort((a, b) =>
-        a.playerName.localeCompare(b.playerName)
-      );
-      setUsersData(sortedData);
-    }
+  const sortPicksHandler = (event) => {
+    setSort(event.target.value);
   };
 
   useEffect(() => {
     const newPoints = selections.map((item) => {
-      const playerName = item.playerName;
+      const playerName = item.playerName ? item.playerName : item.fullName;
       let selectionObject = 0; // Initialize with a default value
       item.selections.forEach((selection) => {
         const resultItem = results.find(
@@ -87,24 +92,39 @@ const Picks = () => {
 
     setPoints(newPoints);
   }, [selections, results]);
+  console.log(points);
 
   const weeks = Array.from({ length: 18 }, (_, index) => `Week ${index + 1}`);
 
   useEffect(() => {
-    TeamData(week).then(
-      (data) => {
-        setMatchData(data.matches);
-        setResults(data.results);
-        setMNScores(data.mondayScores);
-        console.log(data.mondayScores);
-      },
-      [week]
-    );
+    TeamData(week).then((data) => {
+      setMatchData(data.matches);
+      setResults(data.results);
+      setMNScores(data.mondayScores);
+      console.log(data);
+    });
 
     SelectionData(week, poolKey).then((data) => {
       setSelections(data);
     });
   }, [week, poolKey]);
+
+  const sortPicks = () => {
+    if (sort == 3) {
+      const sortedData = [...usersData].sort((a, b) => b.wins - a.wins);
+      setSortedUsersData(sortedData);
+    } else if (sort == 1) {
+      const sortedData = [...usersData].sort((a, b) =>
+        a.playerName.localeCompare(b.playerName)
+      );
+      setSortedUsersData(sortedData);
+      console.log("setUsersData");
+    }
+  };
+
+  useEffect(() => {
+    sortPicks();
+  }, [sort, usersData]);
 
   return (
     <div className="content-area">
@@ -161,6 +181,7 @@ const Picks = () => {
                       onChange={(e) => {
                         setWeek(e.target.value);
                       }}
+                      value={week}
                       className="form-select"
                       name="week"
                       id="week"
@@ -179,7 +200,7 @@ const Picks = () => {
                   </label>
                   <div className="col-md-8" style={{ marginBottom: "10px" }}>
                     <select
-                      onChange={sortPicks}
+                      onChange={sortPicksHandler}
                       className="form-select"
                       name="sort"
                       id="sort"
@@ -251,10 +272,11 @@ const Picks = () => {
                     </strong>
                   </td>
                 </tr>
-                {usersData.map((item, rowIndex) => {
+                {sortedUsersData.map((item, rowIndex) => {
                   const pointItem = points.find((obj) =>
                     obj.hasOwnProperty(item.playerName)
                   );
+
                   const pointValue = pointItem ? pointItem[item.playerName] : 0;
 
                   return (
@@ -262,7 +284,15 @@ const Picks = () => {
                       <td className="sticky headcell" width="100">
                         <span className="n">
                           <b>
-                            {item.fullName ? item.fullName : item.playerName}
+                            {item.playerName}{" "}
+                            {isChampion ? (
+                              <FontAwesomeIcon
+                                icon={faCrown}
+                                style={{ color: "#c7b43b" }}
+                              />
+                            ) : (
+                              ""
+                            )}
                           </b>
                           <span className="pts">{pointValue} Points</span>
                         </span>

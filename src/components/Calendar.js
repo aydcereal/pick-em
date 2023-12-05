@@ -3,6 +3,20 @@ import weekEndDates from "./weekEndDates.json";
 import MatchDates from "./MatchDates";
 import { useEffect, useState } from "react";
 
+export const getCurrentWeek = () => {
+  const today = new Date();
+  let currentWeek;
+
+  for (const weekDate of weekEndDates) {
+    const endDate = new Date(weekDate.endDate);
+
+    if (today < endDate) {
+      currentWeek = weekDate.week;
+    }
+  }
+  return currentWeek;
+};
+
 const Calendar = () => {
   const weekDays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
   const [matchDates, setMatchDates] = useState({});
@@ -32,15 +46,7 @@ const Calendar = () => {
 
   console.log(currentYear);
 
-  let currentWeek;
-
-  for (const weekDate of weekEndDates) {
-    const endDate = new Date(weekDate.endDate);
-
-    if (today < endDate) {
-      currentWeek = weekDate.week;
-    }
-  }
+  let currentWeek = getCurrentWeek();
 
   useEffect(() => {
     let isMounted = true;
