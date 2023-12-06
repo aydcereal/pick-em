@@ -15,10 +15,12 @@ import SelectionData from "../components/selectionData";
 import TeamData from "./TeamData";
 import { getCurrentWeek } from "../components/Calendar";
 
+import VictoryResolver from "../components/VictoryResolver";
+
 const Picks = () => {
   const [matchData, setMatchData] = useState([]);
   const [selections, setSelections] = useState([]);
-  const [week, setWeek] = useState(1);
+  const [week, setWeek] = useState();
   const [results, setResults] = useState([]);
   const [points, setPoints] = useState([]);
   const [usersData, setUsersData] = useState([]);
@@ -26,17 +28,14 @@ const Picks = () => {
   const [sort, setSort] = useState(1);
   const [mNScores, setMNScores] = useState();
   const { poolKey } = useParams();
-  let isChampion = false;
+  let isChampion = true;
+  let allMatchesOver = true;
 
-  console.log(week);
   useEffect(() => {
     setWeek(getCurrentWeek());
   }, []);
 
-  console.log(week);
-
   useEffect(() => {
-    console.log("newUsersData");
     const newUsersData = selections.map((item) => {
       const playerName = item.playerName ? item.playerName : item.fullName;
 
@@ -63,6 +62,8 @@ const Picks = () => {
 
     setUsersData(newUsersData);
   }, [selections, results]);
+
+  const championData = VictoryResolver(usersData, mNScores);
 
   const sortPicksHandler = (event) => {
     setSort(event.target.value);
@@ -92,7 +93,6 @@ const Picks = () => {
 
     setPoints(newPoints);
   }, [selections, results]);
-  console.log(points);
 
   const weeks = Array.from({ length: 18 }, (_, index) => `Week ${index + 1}`);
 
@@ -101,13 +101,14 @@ const Picks = () => {
       setMatchData(data.matches);
       setResults(data.results);
       setMNScores(data.mondayScores);
-      console.log(data);
     });
 
     SelectionData(week, poolKey).then((data) => {
       setSelections(data);
     });
   }, [week, poolKey]);
+
+  console.log(usersData);
 
   const sortPicks = () => {
     if (sort == 3) {
@@ -118,7 +119,6 @@ const Picks = () => {
         a.playerName.localeCompare(b.playerName)
       );
       setSortedUsersData(sortedData);
-      console.log("setUsersData");
     }
   };
 
