@@ -1,4 +1,6 @@
 export const VictoryResolver = (usersData, mNScores) => {
+  let closestPlayer;
+
   usersData.sort((a, b) => b.wins - a.wins);
 
   const highestWins = usersData[0];
@@ -7,15 +9,13 @@ export const VictoryResolver = (usersData, mNScores) => {
     (player) => player.wins === highestWins.wins
   );
 
-  console.log("Tied players", tiedPlayers);
-
-  if (tiedPlayers.lenght > 1) {
+  if (tiedPlayers.length > 1) {
     tiedPlayers.sort((a, b) => a.tieBreakValue - b.tieBreakValue);
 
-    let closestPlayer = tiedPlayers[0];
+    closestPlayer = tiedPlayers[0];
     let closestDifference = Math.abs(tiedPlayers[0].tieBreakValue - mNScores);
 
-    for (let i = 1; i < tiedPlayers.lenght; i++) {
+    for (let i = 1; i < tiedPlayers.length; i++) {
       const currentDifference = Math.abs(
         tiedPlayers[i].tieBreakValue - mNScores
       );
@@ -24,15 +24,25 @@ export const VictoryResolver = (usersData, mNScores) => {
         closestDifference = currentDifference;
       }
     }
-
-    console.log("The winner is :", closestPlayer);
   } else {
-    console.log("The winner is :", highestWins);
+    closestPlayer = highestWins;
   }
+  const newUserData = usersData.map((item) => {
+    const closestPlayerData =
+      closestPlayer && closestPlayer.playerName === item.playerName
+        ? true
+        : false;
 
-  console.log(usersData);
+    return {
+      playerName: item.playerName,
+      tieBreakValue: item.tieBreakValue,
+      selections: item.selections,
+      wins: item.wins,
+      champion: closestPlayerData,
+    };
+  });
 
-  return;
+  return newUserData;
 };
 
 export default VictoryResolver;

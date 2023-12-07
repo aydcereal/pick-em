@@ -28,7 +28,7 @@ const Picks = () => {
   const [sort, setSort] = useState(1);
   const [mNScores, setMNScores] = useState();
   const { poolKey } = useParams();
-  let isChampion = true;
+
   let allMatchesOver = true;
 
   useEffect(() => {
@@ -64,6 +64,7 @@ const Picks = () => {
   }, [selections, results]);
 
   const championData = VictoryResolver(usersData, mNScores);
+  console.log(championData);
 
   const sortPicksHandler = (event) => {
     setSort(event.target.value);
@@ -112,10 +113,10 @@ const Picks = () => {
 
   const sortPicks = () => {
     if (sort == 3) {
-      const sortedData = [...usersData].sort((a, b) => b.wins - a.wins);
+      const sortedData = [...championData].sort((a, b) => b.wins - a.wins);
       setSortedUsersData(sortedData);
     } else if (sort == 1) {
-      const sortedData = [...usersData].sort((a, b) =>
+      const sortedData = [...championData].sort((a, b) =>
         a.playerName.localeCompare(b.playerName)
       );
       setSortedUsersData(sortedData);
@@ -285,7 +286,7 @@ const Picks = () => {
                         <span className="n">
                           <b>
                             {item.playerName}{" "}
-                            {isChampion ? (
+                            {item.champion ? (
                               <FontAwesomeIcon
                                 icon={faCrown}
                                 style={{ color: "#c7b43b" }}
