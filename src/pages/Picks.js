@@ -14,7 +14,7 @@ import styles from "../components/ManageEntries.module.css";
 import SelectionData from "../components/selectionData";
 import TeamData from "./TeamData";
 import { getCurrentWeek } from "../components/Calendar";
-
+import matchesOver from "../components/matchesOver";
 import VictoryResolver from "../components/VictoryResolver";
 
 const Picks = () => {
@@ -25,11 +25,18 @@ const Picks = () => {
   const [points, setPoints] = useState([]);
   const [usersData, setUsersData] = useState([]);
   const [sortedUsersData, setSortedUsersData] = useState([]);
+  const [allMatchesOver, setAllMatchesOver] = useState();
   const [sort, setSort] = useState(1);
   const [mNScores, setMNScores] = useState();
   const { poolKey } = useParams();
 
-  let allMatchesOver = true;
+  useEffect(() => {
+    matchesOver(week).then((data) => {
+      setAllMatchesOver(data);
+    });
+  }, [week]);
+
+  console.log(allMatchesOver);
 
   useEffect(() => {
     setWeek(getCurrentWeek());
@@ -286,7 +293,7 @@ const Picks = () => {
                         <span className="n">
                           <b>
                             {item.playerName}{" "}
-                            {item.champion ? (
+                            {item.champion && allMatchesOver ? (
                               <FontAwesomeIcon
                                 icon={faCrown}
                                 style={{ color: "#c7b43b" }}
