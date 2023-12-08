@@ -53,12 +53,18 @@ const OverViewNavbar = ({
               <span className="navbar-toggler-icon"></span>
             </button>
             <div className="authentication logged-in">
-              <NavLink className="btn btn-plain btn-md dropdown-toggle">
+              <NavLink
+                className="btn btn-plain btn-md dropdown-toggle"
+                id="usernameDropdown"
+              >
                 <FontAwesomeIcon
                   className="fas fa-user d-inline-block d-lg-none"
                   icon={faUser}
-                  style={{ color: "#fafafa" }}
+                  style={{ color: "#212529" }}
                 />
+                <span className="d-none d-lg-inline-block">
+                  {userData.displayName}
+                </span>
               </NavLink>
             </div>
           </div>

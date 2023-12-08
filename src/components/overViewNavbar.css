@@ -46,7 +46,7 @@
     margin-left: auto;
 }
 
-.fa-user{
+.fas{
     color: black;
 }
 
@@ -54,10 +54,32 @@
     background-image: url('data:image/svg+xml,%3csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30"%3e%3cpath stroke="rgba(0, 0, 0, 0.55)" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"/%3e%3c/svg%3e');
 }
 
+.navbar #usernameDropdown {
+    font-family: "Bebas Neue", sans-serif;
+    font-size: 24px;
+    padding: 8px 23px 9px 23px !important;
+}
+
+.navbar #usernameDropdown.btn-plain {
+    padding: 8px 5px 9px 5px !important;
+}
+
+.navbar .authentication {
+    margin-left: 40px;
+    float: right;
+    margin-top: 0px;
+}
+
 
 @media (max-width: 991px){
+    
+
     .navbar .authentication.logged-in #usernameDropdown {
         padding: 2px 15px 6px 15px !important;
+    }
+
+    .navbar #usernameDropdown {
+        font-size: 24px;
     }
 
     .navbar .authentication {
@@ -80,7 +102,57 @@
         margin-bottom: 4px;
     }
 
+    
+    .navbar .authentication.logged-in .fa-user {
+        margin-right: 0px;
+    }
+
+    .superNav{
+        display: none;
+    }
+
+    
+}
+
+@media (min-width: 991px){
+    .d-lg-inline-block {
+        display: inline-block!important;
+    }
+
+    .navbar .authentication.logged-in {
+        display: flex;
+        flex-direction: row-reverse;
+    }
+
+    .navbar-expand-lg .navbar-toggler {
+        display: none;
+    }
+    
     .superNav {
         display: inline-block;
     }
+
+    .top-navigation .authentication.logged-in #usernameDropdown {
+        background-color: inherit;
+        color: #000000 !important;
+        border-width: 0px;
+        padding-right: 0px !important;
+        padding-bottom: 0px !important;
+        text-align: right;
+        display: flex;
+        align-items: center;
+        margin-top: -35px !important;
+    }
+    .top-navigation .authentication.logged-in #usernameDropdown {
+        margin-top: -10px !important;
+    }
+    .navbar .top-navigation {
+        width: 160px;
+    }
 }
+
+@media (max-width: 576px)
+    {.top-navigation {
+        white-space: nowrap;
+        margin-left: 15px;
+    }}
