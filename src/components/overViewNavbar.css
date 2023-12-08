@@ -56,7 +56,7 @@
 
 .navbar #usernameDropdown {
     font-family: "Bebas Neue", sans-serif;
-    font-size: 24px;
+    font-size: 28px;
     padding: 8px 23px 9px 23px !important;
 }
 
@@ -72,14 +72,19 @@
 
 
 @media (max-width: 991px){
+
+    .navbar #usernameDropdown.btn-plain {
+        border-color: rgba(0,0,0,.1);
+        box-shadow: 0px 0px 4px rgb(0 0 0 / 10%) !important;
+    }
     
 
     .navbar .authentication.logged-in #usernameDropdown {
-        padding: 2px 15px 6px 15px !important;
+        padding: 11.3px 15px 11.3px 15px !important;
     }
 
     .navbar #usernameDropdown {
-        font-size: 24px;
+        font-size: 14px;
     }
 
     .navbar .authentication {

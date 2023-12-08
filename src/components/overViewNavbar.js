@@ -9,6 +9,7 @@ import classes from "./overViewNavbar.css";
 import arrow from "../images/down_arrow.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
+import FlyoutMenu from "./FlyoutMenu";
 
 const db = getDatabase();
 
@@ -25,6 +26,7 @@ const OverViewNavbar = ({
   logoutHandler,
   shouldHide,
   handleFlyoutMenuClick,
+  handleLogout,
 }) => {
   const { currentUser } = useContext(AuthContext);
   const [userData, setUserData] = useState("");
@@ -40,7 +42,7 @@ const OverViewNavbar = ({
       <div className="container-wrapper">
         <div className="container branding-standard navbanner-container">
           <div className="branding">
-            <NavLink>
+            <NavLink to={"/"}>
               <img className="navLogo" src={logo} />
             </NavLink>
           </div>
@@ -52,8 +54,11 @@ const OverViewNavbar = ({
             <button className="navbar-toggler" type="button">
               <span className="navbar-toggler-icon"></span>
             </button>
-            <div className="authentication logged-in">
-              <NavLink
+            <div
+              className="authentication logged-in"
+              onClick={handleFlyoutMenuClick}
+            >
+              <a
                 className="btn btn-plain btn-md dropdown-toggle"
                 id="usernameDropdown"
               >
@@ -65,7 +70,12 @@ const OverViewNavbar = ({
                 <span className="d-none d-lg-inline-block">
                   {userData.displayName}
                 </span>
-              </NavLink>
+              </a>
+              <FlyoutMenu
+                handleLogout={handleLogout}
+                logoutHandler={logoutHandler}
+                shouldHide={shouldHide}
+              />
             </div>
           </div>
         </div>
