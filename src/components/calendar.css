@@ -72,3 +72,68 @@
 .responsive-calendar .day.Active a:hover {
     background-color: #ccc;
 }
+
+
+/* Existing styles for animation */
+.responsive-calendar .day.animate {
+    opacity: 0;
+    transform: rotateY(90deg);
+    transform-origin: center;
+    animation: rotateIn 0.5s ease-out; /* Removed 'forwards' */
+    animation-fill-mode: forwards; /* Retain styles from last keyframe */
+}
+
+@keyframes rotateIn {
+    from {
+        opacity: 0;
+        transform: rotateY(90deg);
+    }
+    to {
+        opacity: 1;
+        transform: rotateY(0deg);
+    }
+}
+
+/* Stagger the animation for each day with a small delay */
+.responsive-calendar .days .day.animate:nth-child(1) { animation-delay: 0.01s; }
+.responsive-calendar .days .day.animate:nth-child(2) { animation-delay: 0.02s; }
+.responsive-calendar .days .day.animate:nth-child(3) { animation-delay: 0.03s; }
+.responsive-calendar .days .day.animate:nth-child(4) { animation-delay: 0.04s; }
+.responsive-calendar .days .day.animate:nth-child(5) { animation-delay: 0.05s; }
+.responsive-calendar .days .day.animate:nth-child(6) { animation-delay: 0.06s; }
+.responsive-calendar .days .day.animate:nth-child(7) { animation-delay: 0.07s; }
+.responsive-calendar .days .day.animate:nth-child(8) { animation-delay: 0.08s; }
+.responsive-calendar .days .day.animate:nth-child(9) { animation-delay: 0.09s; }
+.responsive-calendar .days .day.animate:nth-child(10) { animation-delay: 0.1s; }
+.responsive-calendar .days .day.animate:nth-child(11) { animation-delay: 0.11s; }
+.responsive-calendar .days .day.animate:nth-child(12) { animation-delay: 0.12s; }
+.responsive-calendar .days .day.animate:nth-child(13) { animation-delay: 0.13s; }
+.responsive-calendar .days .day.animate:nth-child(14) { animation-delay: 0.14s; }
+.responsive-calendar .days .day.animate:nth-child(15) { animation-delay: 0.15s; }
+.responsive-calendar .days .day.animate:nth-child(16) { animation-delay: 0.16s; }
+.responsive-calendar .days .day.animate:nth-child(17) { animation-delay: 0.17s; }
+.responsive-calendar .days .day.animate:nth-child(18) { animation-delay: 0.18s; }
+.responsive-calendar .days .day.animate:nth-child(19) { animation-delay: 0.19s; }
+.responsive-calendar .days .day.animate:nth-child(20) { animation-delay: 0.2s; }
+.responsive-calendar .days .day.animate:nth-child(21) { animation-delay: 0.21s; }
+.responsive-calendar .days .day.animate:nth-child(22) { animation-delay: 0.22s; }
+.responsive-calendar .days .day.animate:nth-child(23) { animation-delay: 0.23s; }
+.responsive-calendar .days .day.animate:nth-child(24) { animation-delay: 0.24s; }
+.responsive-calendar .days .day.animate:nth-child(25) { animation-delay: 0.25s; }
+.responsive-calendar .days .day.animate:nth-child(26) { animation-delay: 0.26s; }
+.responsive-calendar .days .day.animate:nth-child(27) { animation-delay: 0.27s; }
+.responsive-calendar .days .day.animate:nth-child(28) { animation-delay: 0.28s; }
+.responsive-calendar .days .day.animate:nth-child(29) { animation-delay: 0.29s; }
+.responsive-calendar .days .day.animate:nth-child(30) { animation-delay: 0.3s; }
+.responsive-calendar .days .day.animate:nth-child(31) { animation-delay: 0.31s; }
+.responsive-calendar .days .day.animate:nth-child(32) { animation-delay: 0.32s; }
+.responsive-calendar .days .day.animate:nth-child(33) { animation-delay: 0.33s; }
+.responsive-calendar .days .day.animate:nth-child(34) { animation-delay: 0.34s; }
+.responsive-calendar .days .day.animate:nth-child(35) { animation-delay: 0.35s; }
+.responsive-calendar .days .day.animate:nth-child(36) { animation-delay: 0.36s; }
+
+/* Add more rules for additional days as needed */
+
+
+  
+  

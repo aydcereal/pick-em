@@ -21,6 +21,12 @@ const Calendar = () => {
   const weekDays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
   const [matchDates, setMatchDates] = useState({});
   const [daysOfMonth, setDaysOfMonth] = useState([]);
+  const [isAnimated, setIsAnimated] = useState(false);
+
+  useEffect(() => {
+    // Trigger animation after the component has mounted
+    setIsAnimated(true);
+  }, []);
 
   function getDaysInMonth(month, year) {
     return new Date(year, month + 1, 0).getDate();
@@ -123,21 +129,16 @@ const Calendar = () => {
         <div className="days">
           {daysOfMonth.map(
             ({ dayOfMonth, dayOfWeek, current, dateString, active }) => {
-              let classes = `day past ${dayOfWeek} ${active}`;
+              let classes = `day past ${dayOfWeek} ${active} ${
+                isAnimated ? "animate" : ""
+              }`;
 
               if (!current) {
                 classes += " not-current";
               }
               return (
                 <>
-                  <div
-                    className={classes}
-                    style={{
-                      backfaceVisibility: "hidden",
-                      transition: "-webkit-transform 0.5s ease 0.02s",
-                      transform: "rotateY(0deg)",
-                    }}
-                  >
+                  <div className={classes}>
                     <span className="badge">{matchDates[dateString]}</span>
                     <a>{dayOfMonth}</a>
                   </div>
