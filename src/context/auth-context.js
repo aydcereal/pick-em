@@ -3,6 +3,7 @@ import {
   getAuth,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  fetchSignInMethodsForEmail,
 } from "firebase/auth";
 import {
   getDatabase,
@@ -58,15 +59,16 @@ export const AuthProvider = ({ children }) => {
 
     console.log(isUnique);
 
-    if (isUnique) {
-      console.error("Display name is not unique. Choose another display name.");
+    if (!isUnique) {
+      console.log("Display name is not unique. Choose another display name.");
       // You might want to throw an error or handle the error in another way
-      return;
+      return false;
     }
 
     // Continue with saving the user data since the display name is unique
     set(ref(db, `users/${userId}`), userData);
     console.log("User data saved successfully");
+    return true;
   };
 
   const updateEmail = (newEmail) => {
@@ -132,6 +134,21 @@ export const AuthProvider = ({ children }) => {
       });
   };
 
+  const checkIfEmailExists = async (email) => {
+    try {
+      const signInMethods = await fetchSignInMethodsForEmail(auth, email);
+      if (signInMethods.length === 0) {
+        console.log("Email not found");
+        return false;
+      } else {
+        console.log("Email is already registered");
+        return true;
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   const value = {
     currentUser,
     isAuthenticated,
@@ -142,6 +159,7 @@ export const AuthProvider = ({ children }) => {
     updatePassword,
     email,
     saveUserData,
+    checkIfEmailExists,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

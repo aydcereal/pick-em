@@ -32,9 +32,11 @@ import Overview from "./pages/Overview";
 
 function ProtectedRoute() {
   const { isAuthenticated } = useContext(AuthContext);
+
   if (!isAuthenticated) {
     return <Navigate to="/login" />;
   }
+
   return <Outlet />;
 }
 
