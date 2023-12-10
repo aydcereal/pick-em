@@ -10,6 +10,7 @@ import arrow from "../images/down_arrow.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 import FlyoutMenu from "./FlyoutMenu";
+import NavbarDropDown from "./NavbarDropDown.js";
 
 const db = getDatabase();
 
@@ -30,12 +31,20 @@ const OverViewNavbar = ({
 }) => {
   const { currentUser } = useContext(AuthContext);
   const [userData, setUserData] = useState("");
+  const [isHidden, setIsHidden] = useState(true);
 
   useEffect(() => {
     if (currentUser) {
       getUserData(currentUser.uid, setUserData);
     }
   }, [currentUser]);
+
+  const handleNavbarTogglerClick = () => {
+    // Toggle the isHidden state
+
+    setIsHidden((prevState) => !prevState);
+    // Additional logic if needed
+  };
 
   return (
     <header className="navbar navbar-expand-lg navbar-light">
@@ -51,13 +60,14 @@ const OverViewNavbar = ({
             <NavLink className="superNavItem">Connections</NavLink>
           </div>
           <div className="top-navigation">
-            <button className="navbar-toggler" type="button">
+            <button
+              className="navbar-toggler"
+              type="button"
+              onClick={handleNavbarTogglerClick}
+            >
               <span className="navbar-toggler-icon"></span>
             </button>
-            <div
-              className="authentication logged-in"
-              onClick={handleFlyoutMenuClick}
-            >
+            <div className="authentication logged-in">
               <a
                 className="btn btn-plain btn-md dropdown-toggle"
                 id="usernameDropdown"
@@ -76,6 +86,7 @@ const OverViewNavbar = ({
                 logoutHandler={logoutHandler}
                 shouldHide={shouldHide}
               />
+              <NavbarDropDown isHidden={isHidden} />
             </div>
           </div>
         </div>

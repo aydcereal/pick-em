@@ -70,8 +70,61 @@
     margin-top: 0px;
 }
 
+.navbar-nav {
+    vertical-align: middle;
+    display: flex;
+    flex-direction: column;
+    padding-left: 0;
+    margin-bottom: 0;
+    list-style: none;
+}
+
+.pool-nav-tabs .tab-item .nav-link {
+    padding: 15px 0px;
+    margin: 0 15px;
+    color: #5D6268;
+    font-weight: 500;
+}
+
+.hidden {
+    display: none;
+}
+
+
+
 
 @media (max-width: 991px){
+
+    .navbar .nav-item, .navbar .tab-item {
+        border-bottom: solid 1px #e5e5e5;
+        margin-left: 0 !important;
+    }
+
+    .pool-nav-tabs .tab-item {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+    .navbar .navbar-collapse {
+        position: absolute;
+        width: 100%;
+        max-width: 550px;
+        left: 0;
+        right: 0;
+        margin: auto;
+        margin-top: 20px;
+        background-color: #ffffff;
+        float: none;
+        z-index: 1000;
+        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.08);
+        border: solid 1px #eeeeee;
+        padding-left: 0px;
+        padding-right: 0px;
+    }
+
+    .navbar .navbar-nav {
+        margin-bottom: 0px !important;
+    }
 
     .navbar #usernameDropdown.btn-plain {
         border-color: rgba(0,0,0,.1);

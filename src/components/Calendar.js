@@ -106,8 +106,8 @@ const Calendar = () => {
   const lastDay = new Date(dates[dates.length - 1]);
   const daysinMonth = dates.length;
 
-  if (daysinMonth < 35) {
-    const remainingDays = 35 - daysinMonth;
+  if (daysinMonth < 42) {
+    const remainingDays = 42 - daysinMonth;
     for (let i = 0; i < remainingDays; i++) {
       const newDate = new Date(lastDay);
       newDate.setDate(lastDay.getDate() + i + 1);
