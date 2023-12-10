@@ -67,7 +67,10 @@ const OverViewNavbar = ({
             >
               <span className="navbar-toggler-icon"></span>
             </button>
-            <div className="authentication logged-in">
+            <div
+              className="authentication logged-in"
+              onClick={handleFlyoutMenuClick}
+            >
               <a
                 className="btn btn-plain btn-md dropdown-toggle"
                 id="usernameDropdown"
