@@ -6,7 +6,14 @@ import { useEffect } from "react";
 import { useContext } from "react";
 import { Link } from "react-router-dom";
 
-import classes from "./DashboardNavigation.css";
+import {
+  OuterContainer,
+  MidContainer,
+  InnerContainer,
+  FlyoutHeader,
+  FlyoutTitle,
+  FlyoutActionsWrapper,
+} from "./FlyoutMenu.styled";
 
 const db = getDatabase();
 
@@ -34,21 +41,21 @@ const FlyoutMenu = ({ handleLogout, logoutHandler, shouldHide }) => {
   }, [currentUser]);
 
   return (
-    <div className={`FlyoutContainer container ${shouldHide ? "hidden" : ""}`}>
-      <div className="gCnJAE">
-        <div className="jZdOJn">
+    <OuterContainer className={shouldHide ? "Hidden" : ""}>
+      <MidContainer>
+        <InnerContainer>
           {userData && (
-            <div className="iyZekZ">
-              <h3 className="eiPLGK">{userData.displayName}</h3>
-              <div className="kuExIK">
+            <FlyoutHeader>
+              <FlyoutTitle>{userData.displayName}</FlyoutTitle>
+              <FlyoutActionsWrapper>
                 <Link to="/edit-account">Edit account</Link>
                 <Link onClick={handleClick}>Sign Out</Link>
-              </div>
-            </div>
+              </FlyoutActionsWrapper>
+            </FlyoutHeader>
           )}
-        </div>
-      </div>
-    </div>
+        </InnerContainer>
+      </MidContainer>
+    </OuterContainer>
   );
 };
 

@@ -47,7 +47,7 @@ const OverViewNavbar = ({
   };
 
   return (
-    <header className="navbar navbar-expand-lg navbar-light">
+    <header className="overview navbar navbar-expand-lg navbar-light">
       <div className="container-wrapper">
         <div className="container branding-standard navbanner-container">
           <div className="branding">

@@ -15,7 +15,7 @@ export default function Root() {
   const { isAuthenticated, handleLogout } = useContext(AuthContext);
   const [shouldHide, setShouldHide] = useState(true);
   const location = useLocation();
-  const isDashboard = location.pathname === "/dashboard";
+  const isDashboard = location.pathname.startsWith("/dashboard");
   const isOverView =
     location.pathname.startsWith("/Overview") ||
     location.pathname.startsWith("/picks");

@@ -1,0 +1,13 @@
+.FlyoutContainer {
+    position: absolute;
+    width: max-content;
+    z-index: 8995;
+    top: 100%;
+    right: 76px;
+}
+
+.FlyoutContainer.hidden {
+    display: none;
+}
+
+
