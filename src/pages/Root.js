@@ -16,7 +16,9 @@ export default function Root() {
   const [shouldHide, setShouldHide] = useState(true);
   const location = useLocation();
   const isDashboard = location.pathname === "/dashboard";
-  const isOverView = location.pathname.startsWith("/Overview");
+  const isOverView =
+    location.pathname.startsWith("/Overview") ||
+    location.pathname.startsWith("/picks");
 
   const navigate = useNavigate();
 

@@ -7,6 +7,7 @@ const NavbarDropDown = ({ isHidden }) => {
 
   return (
     <div
+      id="navbarDropdown"
       className={`container-nav  navbar-collapse collapse ${
         !isHidden ? "show" : ""
       }`}
