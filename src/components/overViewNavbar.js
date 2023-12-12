@@ -56,8 +56,12 @@ const OverViewNavbar = ({
             </NavLink>
           </div>
           <div className="superNav">
-            <NavLink className="superNavItem">Dashboard</NavLink>
-            <NavLink className="superNavItem">Connections</NavLink>
+            <NavLink to={"/dashboard"} className="superNavItem">
+              Dashboard
+            </NavLink>
+            <NavLink to={"/overview"} className="superNavItem">
+              Connections
+            </NavLink>
           </div>
           <div className="top-navigation">
             <button

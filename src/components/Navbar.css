@@ -90,6 +90,11 @@
       flex-direction: row-reverse;
   
     }
+
+    
+.authentication .btn-dash {
+    margin-top: 9px;
+}
   }
 
   .navbar .authentication {
