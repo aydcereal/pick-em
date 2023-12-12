@@ -71,7 +71,6 @@ const Picks = () => {
   }, [selections, results]);
 
   const championData = VictoryResolver(usersData, mNScores);
-  console.log(championData);
 
   const sortPicksHandler = (event) => {
     setSort(event.target.value);
@@ -115,8 +114,6 @@ const Picks = () => {
       setSelections(data);
     });
   }, [week, poolKey]);
-
-  console.log(usersData);
 
   const sortPicks = () => {
     if (sort == 3) {

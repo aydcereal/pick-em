@@ -14,12 +14,15 @@ const matchesOver = (week) => {
 
         const events = data.events || [];
 
-        const allDatesAreBeforeToday = events.every((event) => {
-          const eventDate = new Date(event.date);
-          return eventDate < today;
+        console.log(events);
+
+        const allGamesAreCompleted = events.every((event) => {
+          const status = event.status.type;
+
+          return status && status.completed;
         });
 
-        resolve(allDatesAreBeforeToday);
+        resolve(allGamesAreCompleted);
       })
       .catch((error) => {
         console.error("Error fetching data:", error);

@@ -55,29 +55,34 @@ const DashboardNavbar = ({
             className="Container__HeaderRightSlot"
           >
             <div className="UserPanel__UserPanelContainer">
-              <span className="MediaQuery__DesktopAndTablet">
-                <a className="userMenu">
-                  <span>{userData.displayName}</span>
-                  <img src={arrow} />
-                </a>
-              </span>
+              <div className="components__UserMenuContainer">
+                <span className="MediaQuery__DesktopAndTablet">
+                  <div style={{ position: "relative" }}>
+                    <div className="sc-dSbvwS boPoRC">
+                      <a className="userMenu">
+                        <span>{userData.displayName}</span>
+                        <img src={arrow} />
+                      </a>
+                      <FlyoutMenu
+                        handleLogout={handleLogout}
+                        logoutHandler={logoutHandler}
+                        shouldHide={shouldHide}
+                      />
+                    </div>
+                  </div>
+                </span>
+              </div>
             </div>
 
             <span className="MediaQuery__MobileOnly">
-              <button className="components__UserMenuTriggerMobile">
+              <a className="components__UserMenuTriggerMobile">
                 <FontAwesomeIcon
                   className="icon"
                   icon={faUser}
                   style={{ color: "#fafafa" }}
                 />
-              </button>
+              </a>
             </span>
-
-            <FlyoutMenu
-              handleLogout={handleLogout}
-              logoutHandler={logoutHandler}
-              shouldHide={shouldHide}
-            />
           </div>
         </div>
       </div>

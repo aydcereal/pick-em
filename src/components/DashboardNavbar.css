@@ -150,6 +150,13 @@
 .MediaQuery__MobileOnly{
     display: none;
 }
+.components__UserMenuContainer {
+    position: relative;
+    height: 100%;
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+}
 
 
 
