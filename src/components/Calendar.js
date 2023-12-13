@@ -128,10 +128,10 @@ const Calendar = () => {
         </div>
         <div className="days">
           {daysOfMonth.map(
-            ({ dayOfMonth, dayOfWeek, current, dateString, active }) => {
-              let classes = `day past ${dayOfWeek} ${active} ${
-                isAnimated ? "animate" : ""
-              }`;
+            ({ dayOfMonth, dayOfWeek, current, dateString, active }, index) => {
+              let classes = `day past item-${
+                index + 1
+              } ${dayOfWeek} ${active} ${isAnimated ? "animate" : ""}`;
 
               if (!current) {
                 classes += " not-current";

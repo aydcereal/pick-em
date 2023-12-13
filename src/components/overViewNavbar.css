@@ -255,6 +255,7 @@
     }
     .navbar .top-navigation {
         width: 120px;
+        position: relative;
     }
 }
 
