@@ -95,48 +95,60 @@
 }
 
 /* Stagger the animation for each day with a small delay */
-.responsive-calendar .days .day.animate:nth-child(1) { animation-delay: 0.01s; }
-.responsive-calendar .days .day.animate:nth-child(2) { animation-delay: 0.01s; }
-.responsive-calendar .days .day.animate:nth-child(3) { animation-delay: 0.01s; }
-.responsive-calendar .days .day.animate:nth-child(4) { animation-delay: 0.01s; }
-.responsive-calendar .days .day.animate:nth-child(5) { animation-delay: 0.01s; }
-.responsive-calendar .days .day.animate:nth-child(6) { animation-delay: 0.01s; }
-.responsive-calendar .days .day.animate:nth-child(7) { animation-delay: 0.01s; }
-.responsive-calendar .days .day.animate:nth-child(8) { animation-delay: 0.20s; }
-.responsive-calendar .days .day.animate:nth-child(9) { animation-delay: 0.20s; }
-.responsive-calendar .days .day.animate:nth-child(10) { animation-delay: 0.20s; }
-.responsive-calendar .days .day.animate:nth-child(11) { animation-delay: 0.20s;; }
-.responsive-calendar .days .day.animate:nth-child(12) { animation-delay: 0.20s;; }
-.responsive-calendar .days .day.animate:nth-child(13) { animation-delay: 0.20s;; }
-.responsive-calendar .days .day.animate:nth-child(14) { animation-delay: 0.20s;; }
-.responsive-calendar .days .day.animate:nth-child(15) { animation-delay: 0.10s; }
-.responsive-calendar .days .day.animate:nth-child(16) { animation-delay: 0.10s; }
-.responsive-calendar .days .day.animate:nth-child(17) { animation-delay: 0.10s; }
-.responsive-calendar .days .day.animate:nth-child(18) { animation-delay: 0.10s; }
-.responsive-calendar .days .day.animate:nth-child(19) { animation-delay: 0.10s; }
-.responsive-calendar .days .day.animate:nth-child(20) { animation-delay: 0.10s; }
-.responsive-calendar .days .day.animate:nth-child(21) { animation-delay: 0.10s; }
-.responsive-calendar .days .day.animate:nth-child(22) { animation-delay: 0.15s; }
-.responsive-calendar .days .day.animate:nth-child(23) { animation-delay: 0.15s; }
-.responsive-calendar .days .day.animate:nth-child(24) { animation-delay: 0.15s; }
-.responsive-calendar .days .day.animate:nth-child(25) { animation-delay: 0.15s; }
-.responsive-calendar .days .day.animate:nth-child(26) { animation-delay: 0.15s; }
-.responsive-calendar .days .day.animate:nth-child(27) { animation-delay: 0.15s; }
-.responsive-calendar .days .day.animate:nth-child(28) { animation-delay: 0.15s; }
-.responsive-calendar .days .day.animate:nth-child(29) { animation-delay: 0.20s; }
-.responsive-calendar .days .day.animate:nth-child(30) { animation-delay: 0.20s; }
-.responsive-calendar .days .day.animate:nth-child(31) { animation-delay: 0.20s; }
-.responsive-calendar .days .day.animate:nth-child(32) { animation-delay: 0.20s; }
-.responsive-calendar .days .day.animate:nth-child(33) { animation-delay: 0.20s; }
-.responsive-calendar .days .day.animate:nth-child(34) { animation-delay: 0.20s; }
-.responsive-calendar .days .day.animate:nth-child(35) { animation-delay: 0.20s; }
-.responsive-calendar .days .day.animate:nth-child(36) { animation-delay: 0.25s; }
-.responsive-calendar .days .day.animate:nth-child(37) { animation-delay: 0.25s; }
-.responsive-calendar .days .day.animate:nth-child(38) { animation-delay: 0.25s; }
-.responsive-calendar .days .day.animate:nth-child(39) { animation-delay: 0.25s; }
-.responsive-calendar .days .day.animate:nth-child(40) { animation-delay: 0.25s; }
-.responsive-calendar .days .day.animate:nth-child(41) { animation-delay: 0.25s; }
-.responsive-calendar .days .day.animate:nth-child(42) { animation-delay: 0.25s; }
+.responsive-calendar .days .day.animate.item-1 { animation-delay: 0.01s; }
+.responsive-calendar .days .day.animate.item-2 { animation-delay: 0.01s; }
+.responsive-calendar .days .day.animate.item-3 { animation-delay: 0.01s; }
+.responsive-calendar .days .day.animate.item-4 { animation-delay: 0.01s; }
+.responsive-calendar .days .day.animate.item-5 { animation-delay: 0.01s; }
+.responsive-calendar .days .day.animate.item-6 { animation-delay: 0.01s; }
+.responsive-calendar .days .day.animate.item-7 { animation-delay: 0.01s; }
+
+
+.responsive-calendar .days .day.animate.item-8 { animation-delay: 0.10s; }
+.responsive-calendar .days .day.animate.item-9 { animation-delay: 0.10s; }
+.responsive-calendar .days .day.animate.item-10 { animation-delay: 0.10s; }
+.responsive-calendar .days .day.animate.item-11 { animation-delay: 0.10s; }
+.responsive-calendar .days .day.animate.item-12 { animation-delay: 0.10s; }
+.responsive-calendar .days .day.animate.item-13 { animation-delay: 0.10s; }
+.responsive-calendar .days .day.animate.item-14 { animation-delay: 0.10s; }
+
+
+.responsive-calendar .days .day.animate.item-15 { animation-delay: 0.20s; }
+.responsive-calendar .days .day.animate.item-16 { animation-delay: 0.20s; }
+.responsive-calendar .days .day.animate.item-17 { animation-delay: 0.20s; }
+.responsive-calendar .days .day.animate.item-18 { animation-delay: 0.20s; }
+.responsive-calendar .days .day.animate.item-19 { animation-delay: 0.20s; }
+.responsive-calendar .days .day.animate.item-20 { animation-delay: 0.20s; }
+.responsive-calendar .days .day.animate.item-21 { animation-delay: 0.20s; }
+
+
+.responsive-calendar .days .day.animate.item-22 { animation-delay: 0.30s; }
+.responsive-calendar .days .day.animate.item-23 { animation-delay: 0.30s; }
+.responsive-calendar .days .day.animate.item-24 { animation-delay: 0.30s; }
+.responsive-calendar .days .day.animate.item-25 { animation-delay: 0.30s; }
+.responsive-calendar .days .day.animate.item-26 { animation-delay: 0.30s; }
+.responsive-calendar .days .day.animate.item-27 { animation-delay: 0.30s; }
+.responsive-calendar .days .day.animate.item-28 { animation-delay: 0.30s; }
+
+
+.responsive-calendar .days .day.animate.item-29 { animation-delay: 0.40s; }
+.responsive-calendar .days .day.animate.item-30 { animation-delay: 0.40s; }
+.responsive-calendar .days .day.animate.item-31 { animation-delay: 0.40s; }
+.responsive-calendar .days .day.animate.item-32 { animation-delay: 0.40s; }
+.responsive-calendar .days .day.animate.item-33 { animation-delay: 0.40s; }
+.responsive-calendar .days .day.animate.item-34 { animation-delay: 0.40s; }
+.responsive-calendar .days .day.animate.item-35 { animation-delay: 0.40s; }
+
+
+.responsive-calendar .days .day.animate.item-36 { animation-delay: 0.50s; }
+.responsive-calendar .days .day.animate.item-37 { animation-delay: 0.50s; }
+.responsive-calendar .days .day.animate.item-38 { animation-delay: 0.50s; }
+.responsive-calendar .days .day.animate.item-39 { animation-delay: 0.50s; }
+.responsive-calendar .days .day.animate.item-40 { animation-delay: 0.50s; }
+.responsive-calendar .days .day.animate.item-41 { animation-delay: 0.50s; }
+.responsive-calendar .days .day.animate.item-42 { animation-delay: 0.50s; }
+
+
 /* Add more rules for additional days as needed */
 
 

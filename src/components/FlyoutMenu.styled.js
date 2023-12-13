@@ -5,7 +5,7 @@ import { NavLink } from "react-router-dom";
 export const OuterContainer = styled.div`
   position: absolute;
   z-index: 8995;
-  top: 160%;
+  top: 100%;
   right: 0px;
   width: 350px;
 

@@ -87,12 +87,13 @@ const OverViewNavbar = ({
                 <span className="d-none d-lg-inline-block">
                   {userData.displayName}
                 </span>
+                <FlyoutMenu
+                  handleLogout={handleLogout}
+                  logoutHandler={logoutHandler}
+                  shouldHide={shouldHide}
+                />
               </a>
-              <FlyoutMenu
-                handleLogout={handleLogout}
-                logoutHandler={logoutHandler}
-                shouldHide={shouldHide}
-              />
+
               <NavbarDropDown isHidden={isHidden} />
             </div>
           </div>
