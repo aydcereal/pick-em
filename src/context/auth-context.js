@@ -12,6 +12,7 @@ import {
   query,
   orderByChild,
   get,
+  onValue,
 } from "firebase/database";
 import { equalTo } from "firebase/database";
 
@@ -24,9 +25,25 @@ const db = getDatabase();
 export const AuthProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [displayName, setDisplayName] = useState();
+  const [userData, setUserData] = useState("");
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  useEffect(() => {
+    if (currentUser) {
+      getUserData(currentUser.uid, setUserData);
+    }
+  }, [currentUser]);
+
+  const getUserData = (userId, callback) => {
+    const userRef = ref(db, `users/${userId}`);
+    onValue(userRef, (snapshot) => {
+      const userData = snapshot.val();
+      callback(userData);
+    });
+  };
 
   const isDisplayNameUnique = async (displayName) => {
     const usersRef = ref(db, "users");
@@ -37,8 +54,6 @@ export const AuthProvider = ({ children }) => {
       orderByChild("displayName"),
       equalTo(displayName)
     );
-
-    console.log(displayNameQuery); // Add this line for debugging
 
     try {
       const snapshot = await get(displayNameQuery);
@@ -56,8 +71,6 @@ export const AuthProvider = ({ children }) => {
     console.log("userData: ", userData);
 
     const isUnique = await isDisplayNameUnique(displayName);
-
-    console.log(isUnique);
 
     if (!isUnique) {
       console.log("Display name is not unique. Choose another display name.");
@@ -160,6 +173,7 @@ export const AuthProvider = ({ children }) => {
     email,
     saveUserData,
     checkIfEmailExists,
+    userData,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

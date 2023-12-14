@@ -12,16 +12,6 @@ import { faUser } from "@fortawesome/free-solid-svg-icons";
 import FlyoutMenu from "./FlyoutMenu";
 import NavbarDropDown from "./NavbarDropDown.js";
 
-const db = getDatabase();
-
-const getUserData = (userId, callback) => {
-  const userRef = ref(db, `users/${userId}`);
-  onValue(userRef, (snapshot) => {
-    const userData = snapshot.val();
-    callback(userData);
-  });
-};
-
 const OverViewNavbar = ({
   onLogout,
   logoutHandler,
@@ -29,15 +19,16 @@ const OverViewNavbar = ({
   handleFlyoutMenuClick,
   handleLogout,
 }) => {
-  const { currentUser } = useContext(AuthContext);
-  const [userData, setUserData] = useState("");
+  const { userData } = useContext(AuthContext);
+
   const [isHidden, setIsHidden] = useState(true);
+  const [displayName, setDisplayName] = useState();
 
   useEffect(() => {
-    if (currentUser) {
-      getUserData(currentUser.uid, setUserData);
+    if (userData) {
+      setDisplayName(userData.displayName);
     }
-  }, [currentUser]);
+  }, [userData]);
 
   const handleNavbarTogglerClick = () => {
     // Toggle the isHidden state
@@ -84,9 +75,7 @@ const OverViewNavbar = ({
                   icon={faUser}
                   style={{ color: "#212529" }}
                 />
-                <span className="d-none d-lg-inline-block">
-                  {userData.displayName}
-                </span>
+                <span className="d-none d-lg-inline-block">{displayName}</span>
                 <FlyoutMenu
                   handleLogout={handleLogout}
                   logoutHandler={logoutHandler}

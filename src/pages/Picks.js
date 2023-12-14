@@ -11,7 +11,7 @@ import {
 import TeamLogo from "../components/TeamLogo";
 import { useParams } from "react-router-dom";
 import styles from "../components/ManageEntries.module.css";
-import SelectionData from "../components/selectionData";
+import { SelectionData, getEntries } from "../components/selectionData";
 import TeamData from "./TeamData";
 import { getCurrentWeek } from "../components/Calendar";
 import matchesOver from "../components/matchesOver";
@@ -28,6 +28,7 @@ const Picks = () => {
   const [allMatchesOver, setAllMatchesOver] = useState();
   const [sort, setSort] = useState(1);
   const [mNScores, setMNScores] = useState();
+  const [activeEntries, setActiveEntries] = useState();
   const { poolKey } = useParams();
 
   useEffect(() => {
@@ -115,6 +116,11 @@ const Picks = () => {
     });
   }, [week, poolKey]);
 
+  console.log(poolKey);
+  getEntries(poolKey).then((data) => {
+    setActiveEntries(data);
+  });
+
   const sortPicks = () => {
     if (sort == 3) {
       const sortedData = [...championData].sort((a, b) => b.wins - a.wins);
@@ -144,7 +150,7 @@ const Picks = () => {
                 id={"gray"}
                 title={"Active Entries"}
                 action={"View all members"}
-                value={2}
+                value={activeEntries}
               ></ProgressCircle>
               <ProgressCircle
                 progress={50}

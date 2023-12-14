@@ -29,12 +29,17 @@ export default function NewPool() {
   const [startingWeek, setStartingWeek] = useState(1);
   const [poolVisibility, setPoolVisibility] = useState("");
 
-  const { currentUser } = useContext(AuthContext);
+  const { currentUser, userData } = useContext(AuthContext);
 
   const currentUserID = currentUser && currentUser.uid;
 
   const handleSubmit = (event) => {
     event.preventDefault();
+
+    const currentUserObject = {
+      userId: currentUserID,
+      displayName: userData.displayName || null,
+    };
 
     database.ref("pools").push({
       poolName: poolName,
@@ -43,7 +48,9 @@ export default function NewPool() {
       startingWeek: startingWeek,
       poolVisibility: poolVisibility,
       creator: currentUserID,
-      members: { [currentUserID]: true },
+      members: {
+        [currentUserID]: currentUserObject,
+      },
     });
   };
 

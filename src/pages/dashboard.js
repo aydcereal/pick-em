@@ -52,8 +52,9 @@ export default function Dashboard() {
   useEffect(() => {
     database
       .ref("pools")
-      .orderByChild(`members/${currentUserID}`)
-      .equalTo(true)
+      .orderByChild(`members/${currentUserID}/userId`) // Check if userId exists in the members object
+      .startAt("") // Start at an empty string to include all nodes with the specified child key
+      .endAt("\uf8ff") // End at '\uf8ff' to include all nodes with the specified child key
       .on("value", (snapshot) => {
         const newPools = [];
         snapshot.forEach((childSnapshot) => {
