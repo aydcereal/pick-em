@@ -11,24 +11,30 @@ import {
 import TeamLogo from "../components/TeamLogo";
 import { useParams } from "react-router-dom";
 import styles from "../components/ManageEntries.module.css";
-import { SelectionData, getEntries } from "../components/selectionData";
+import {
+  SelectionData,
+  getEntries,
+  getActiveEntries,
+} from "../components/selectionData";
 import TeamData from "./TeamData";
 import { getCurrentWeek } from "../components/Calendar";
 import matchesOver from "../components/matchesOver";
 import VictoryResolver from "../components/VictoryResolver";
 
 const Picks = () => {
+  const MemoizedTeamLogo = React.memo(TeamLogo);
   const [matchData, setMatchData] = useState([]);
   const [selections, setSelections] = useState([]);
   const [week, setWeek] = useState();
-  const [results, setResults] = useState([]);
+
   const [points, setPoints] = useState([]);
   const [usersData, setUsersData] = useState([]);
   const [sortedUsersData, setSortedUsersData] = useState([]);
   const [allMatchesOver, setAllMatchesOver] = useState();
   const [sort, setSort] = useState(1);
-  const [mNScores, setMNScores] = useState();
-  const [activeEntries, setActiveEntries] = useState();
+  const [activeEntries, setActiveEntries] = useState({});
+  const [totalPick, setTotalPick] = useState({});
+  const [picksIn, setPicksIn] = useState();
   const { poolKey } = useParams();
 
   useEffect(() => {
@@ -37,11 +43,35 @@ const Picks = () => {
     });
   }, [week]);
 
-  console.log(allMatchesOver);
-
   useEffect(() => {
     setWeek(getCurrentWeek());
   }, []);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const [matchData, selectionsData, entriesData] = await Promise.all([
+        TeamData(week),
+        SelectionData(week, poolKey),
+        getEntries(poolKey, week),
+      ]);
+
+      setMatchData(matchData);
+
+      setSelections(selectionsData);
+
+      setActiveEntries(entriesData.membersCount);
+      setPicksIn(entriesData.activeSelections);
+      setTotalPick(entriesData.totalSelections);
+    };
+
+    fetchData();
+  }, [week, poolKey]);
+
+  useEffect(() => {
+    console.log(activeEntries);
+    console.log(picksIn);
+    console.log(totalPick);
+  }, [week]);
 
   useEffect(() => {
     const newUsersData = selections.map((item) => {
@@ -51,7 +81,7 @@ const Picks = () => {
 
       let selectionObject = 0; // Initialize with a default value
       item.selections.forEach((selection) => {
-        const resultItem = results.find(
+        const resultItem = matchData.results.find(
           (result) => result.id === selection.toString()
         );
         const isWinner = resultItem ? resultItem.winner : false;
@@ -69,9 +99,9 @@ const Picks = () => {
     });
 
     setUsersData(newUsersData);
-  }, [selections, results]);
+  }, [selections, matchData]);
 
-  const championData = VictoryResolver(usersData, mNScores);
+  const championData = VictoryResolver(usersData, matchData.mondayScores);
 
   const sortPicksHandler = (event) => {
     setSort(event.target.value);
@@ -82,7 +112,7 @@ const Picks = () => {
       const playerName = item.playerName ? item.playerName : item.fullName;
       let selectionObject = 0; // Initialize with a default value
       item.selections.forEach((selection) => {
-        const resultItem = results.find(
+        const resultItem = matchData.results.find(
           (result) => result.id === selection.toString()
         );
 
@@ -100,26 +130,9 @@ const Picks = () => {
     });
 
     setPoints(newPoints);
-  }, [selections, results]);
+  }, [selections, matchData]);
 
   const weeks = Array.from({ length: 18 }, (_, index) => `Week ${index + 1}`);
-
-  useEffect(() => {
-    TeamData(week).then((data) => {
-      setMatchData(data.matches);
-      setResults(data.results);
-      setMNScores(data.mondayScores);
-    });
-
-    SelectionData(week, poolKey).then((data) => {
-      setSelections(data);
-    });
-  }, [week, poolKey]);
-
-  console.log(poolKey);
-  getEntries(poolKey).then((data) => {
-    setActiveEntries(data);
-  });
 
   const sortPicks = () => {
     if (sort == 3) {
@@ -150,7 +163,7 @@ const Picks = () => {
                 id={"gray"}
                 title={"Active Entries"}
                 action={"View all members"}
-                value={activeEntries}
+                value={typeof activeEntries === "number" ? activeEntries : ""}
               ></ProgressCircle>
               <ProgressCircle
                 progress={50}
@@ -158,7 +171,7 @@ const Picks = () => {
                 id={"green"}
                 title={`Week ${week} Picks in`}
                 action={"View members with picks"}
-                value={1}
+                value={typeof totalPick === "number" ? totalPick : ""}
               ></ProgressCircle>
               <ProgressCircle
                 progress={50}
@@ -166,7 +179,11 @@ const Picks = () => {
                 id={"red"}
                 title={`Week ${week} Picks not in`}
                 action={"View members without picks"}
-                value={1}
+                value={
+                  typeof activeEntries === "number"
+                    ? activeEntries - totalPick
+                    : ""
+                }
               ></ProgressCircle>
               <div className="col-12 col-md-4 noprint form-horizontal">
                 <div
@@ -243,8 +260,10 @@ const Picks = () => {
                     <span className="pts">Weekly Points</span>
                   </td>
 
-                  {matchData && matchData && matchData.length > 0 ? (
-                    matchData.map((match, index) => {
+                  {matchData.matches &&
+                  matchData.matches &&
+                  matchData.matches.length > 0 ? (
+                    matchData.matches.map((match, index) => {
                       return (
                         <React.Fragment>
                           <td
@@ -309,7 +328,7 @@ const Picks = () => {
                         </span>
                       </td>
                       {item.selections.map((teamId, colIndex) => {
-                        const resultItem = results.find(
+                        const resultItem = matchData.results.find(
                           (result) => result.id === teamId.toString()
                         );
                         const isWinner = resultItem ? resultItem.winner : false;
@@ -324,14 +343,14 @@ const Picks = () => {
 
                         return (
                           <td className={tdClass} key={colIndex}>
-                            <TeamLogo teamId={teamId} type={"picks"} />
+                            <MemoizedTeamLogo teamId={teamId} type={"picks"} />
                           </td>
                         );
                       })}
                       <td className="tie">
                         {item.tieBreakValue}
                         <span className="tb">
-                          ({item.tieBreakValue - mNScores})
+                          ({item.tieBreakValue - matchData.mondayScores})
                         </span>
                       </td>
                     </tr>

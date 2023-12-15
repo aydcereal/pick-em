@@ -16,11 +16,11 @@ const ApiTest = ({ poolKey, week }) => {
   const [selections, setSelections] = useState({});
   const [selected, setSelected] = useState([]);
   const [tiebreakValue, SetTiebreakvalue] = useState();
-  const [playerName, SetPlayerName] = useState("");
-  const [userData, setUserData] = useState("");
+  const [playerName, SetPlayerName] = useState();
+
   const [fullName, setFullName] = useState("");
   const [admin, setAdmin] = useState();
-  const { currentUser } = useContext(AuthContext);
+  const { currentUser, userData } = useContext(AuthContext);
 
   useEffect(() => {
     fetchPoolData(poolKey)
@@ -33,26 +33,11 @@ const ApiTest = ({ poolKey, week }) => {
       });
   }, [poolKey]);
 
-  console.log(poolKey);
-
   const userId = currentUser.uid;
 
-  const getUserData = (userId, callback) => {
-    const userRef = ref(database, `users/${userId}`);
-    onValue(userRef, (snapshot) => {
-      const userData = snapshot.val();
-      callback(userData);
-    });
-  };
-
   useEffect(() => {
-    if (userId) {
-      getUserData(userId, (userData) => {
-        setUserData(userData);
-        setFullName(userData.firstName + " " + userData.lastName);
-      });
-    }
-  }, [userId, currentUser]);
+    SetPlayerName(userData.displayName);
+  }, [userData]);
 
   let lastDate = "";
 
