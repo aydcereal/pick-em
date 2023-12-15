@@ -96,6 +96,7 @@ const InviteLandingPage = () => {
         <Row>
           <PoolCardContainer
             poolData={poolData}
+            display={"block"}
             joinHandler={joinHandler}
           ></PoolCardContainer>
         </Row>

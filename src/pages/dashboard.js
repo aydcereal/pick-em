@@ -251,7 +251,7 @@ export default function Dashboard() {
           </ToolbarContainer>
         </ComponentsContent2>
 
-        <PoolCardContainer pools={pools}></PoolCardContainer>
+        <PoolCardContainer pools={pools} display={"flex"}></PoolCardContainer>
       </ComponentsContent1>
     </PageContainer>
   );
