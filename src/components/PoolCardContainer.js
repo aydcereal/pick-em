@@ -54,7 +54,7 @@ export default function PoolCardContainer(props) {
 
   return (
     <div>
-      <MainContainer>
+      <MainContainer width={props.width}>
         <SectionItems display={props.display}>
           {Array.isArray(props.pools) ? (
             props.pools.map((pool, index) => (

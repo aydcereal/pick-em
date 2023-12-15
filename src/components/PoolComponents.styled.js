@@ -7,7 +7,12 @@ export const MainContainer = styled.div`
   @media (max-width: 1304px) {
     width: 100vw;
     padding: 0px 16px 16px;
-    margin: 0px;
+    width: ${(props) => props.width};
+  }
+
+  @media (max-width: 600px) {
+    width: ${(props) => (props.width ? "100%" : "100vw")};
+    padding: ${(props) => (props.width ? "0px%" : "0px 16px 16px")};
   }
 `;
 

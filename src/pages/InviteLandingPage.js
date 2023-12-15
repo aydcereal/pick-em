@@ -14,7 +14,6 @@ const database = app.database();
 const InviteLandingPage = () => {
   const [searchParams] = useSearchParams();
   const poolID = searchParams.get("poolID");
-  const invitationID = searchParams.get("invitationID");
   const [poolData, setPoolData] = useState(null);
   const { userData, currentUser } = useContext(AuthContext);
 
@@ -97,6 +96,7 @@ const InviteLandingPage = () => {
           <PoolCardContainer
             poolData={poolData}
             display={"block"}
+            width={"600px"}
             joinHandler={joinHandler}
           ></PoolCardContainer>
         </Row>

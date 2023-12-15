@@ -33,13 +33,19 @@ const Picks = () => {
   const [allMatchesOver, setAllMatchesOver] = useState();
   const [sort, setSort] = useState(1);
   const [activeEntries, setActiveEntries] = useState({});
-  const [totalPick, setTotalPick] = useState({});
-  const [picksIn, setPicksIn] = useState();
+  const [picksIn, setPicksIn] = useState({});
+  const [picksInNames, setPicksInNames] = useState();
   const { poolKey } = useParams();
 
   useEffect(() => {
     matchesOver(week).then((data) => {
       setAllMatchesOver(data);
+    });
+
+    getEntries(poolKey, week).then((data) => {
+      setActiveEntries(data.membersCount);
+      setPicksInNames(data.activeSelections);
+      setPicksIn(data.totalSelections);
     });
   }, [week]);
 
@@ -60,8 +66,8 @@ const Picks = () => {
       setSelections(selectionsData);
 
       setActiveEntries(entriesData.membersCount);
-      setPicksIn(entriesData.activeSelections);
-      setTotalPick(entriesData.totalSelections);
+      setPicksInNames(entriesData.activeSelections);
+      setPicksIn(entriesData.totalSelections);
     };
 
     fetchData();
@@ -69,8 +75,8 @@ const Picks = () => {
 
   useEffect(() => {
     console.log(activeEntries);
+    console.log(picksInNames);
     console.log(picksIn);
-    console.log(totalPick);
   }, [week]);
 
   useEffect(() => {
@@ -150,6 +156,19 @@ const Picks = () => {
     sortPicks();
   }, [sort, usersData]);
 
+  if (picksIn > activeEntries) {
+    setActiveEntries(picksIn);
+  }
+
+  const progressIn = (picksIn / activeEntries) * 100;
+  console.log("Progress In:", picksIn, activeEntries, progressIn);
+
+  const progressNotIn =
+    activeEntries - picksIn !== 0
+      ? ((activeEntries - picksIn) / activeEntries) * 100
+      : 0;
+  console.log("Progress Not In:", progressNotIn, activeEntries - picksIn);
+
   return (
     <div className="content-area">
       <div className="container">
@@ -166,22 +185,22 @@ const Picks = () => {
                 value={typeof activeEntries === "number" ? activeEntries : ""}
               ></ProgressCircle>
               <ProgressCircle
-                progress={50}
+                progress={progressIn ? progressIn : 0}
                 gradientColor={"green"}
                 id={"green"}
                 title={`Week ${week} Picks in`}
                 action={"View members with picks"}
-                value={typeof totalPick === "number" ? totalPick : ""}
+                value={typeof picksIn === "number" ? picksIn : ""}
               ></ProgressCircle>
               <ProgressCircle
-                progress={50}
+                progress={progressNotIn ? progressNotIn : 0}
                 gradientColor={"red"}
                 id={"red"}
                 title={`Week ${week} Picks not in`}
                 action={"View members without picks"}
                 value={
                   typeof activeEntries === "number"
-                    ? activeEntries - totalPick
+                    ? activeEntries - picksIn
                     : ""
                 }
               ></ProgressCircle>
