@@ -28,7 +28,8 @@
     "reactstrap": "^9.2.0",
     "redux": "^4.2.1",
     "styled-components": "^6.0.7",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "xlsx": "^0.18.5"
   },
   "scripts": {
     "start": "react-scripts start",

@@ -29,6 +29,7 @@ import Invite from "./pages/Invite";
 import InviteLandingPage from "./pages/InviteLandingPage";
 import Picks from "./pages/Picks";
 import Overview from "./pages/Overview";
+import ExcelReader from "./pages/ExcelReader";
 
 function ProtectedRoute() {
   const { isAuthenticated } = useContext(AuthContext);
@@ -68,6 +69,7 @@ const router = createBrowserRouter([
       },
 
       { path: "/pools/:poolId/invite", element: <Invite /> },
+      { path: "/upload", element: <ExcelReader /> },
 
       { path: "/join", element: <InviteLandingPage /> },
       { path: "/Picks/:poolKey", element: <Picks /> },
