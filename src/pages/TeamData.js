@@ -1,4 +1,4 @@
-import TeamNameMapping from "../components/TeamNameMapping";
+import { TeamAbbrMapping } from "../components/TeamNameMapping";
 
 const TeamData = (week) => {
   return new Promise((resolve, reject) => {
@@ -69,11 +69,11 @@ const TeamData = (week) => {
                 const team1Abbr = competitors[1].team.abbreviation;
                 const team2Abbr = competitors[0].team.abbreviation;
 
-                const team1Info = TeamNameMapping[team1Abbr] || {
+                const team1Info = TeamAbbrMapping[team1Abbr] || {
                   name: team1Abbr,
                   id: -1,
                 };
-                const team2Info = TeamNameMapping[team2Abbr] || {
+                const team2Info = TeamAbbrMapping[team2Abbr] || {
                   name: team2Abbr,
                   id: -1,
                 };

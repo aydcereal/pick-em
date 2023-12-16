@@ -1,4 +1,4 @@
-const TeamNameMapping = {
+export const TeamAbbrMapping = {
   ARI: { name: "Arizona", id: 22 },
   ATL: { name: "Atlanta", id: 1 },
   BAL: { name: "Baltimore", id: 33 },
@@ -33,4 +33,41 @@ const TeamNameMapping = {
   WSH: { name: "Washington", id: 28 },
 };
 
-export default TeamNameMapping;
+
+export const TeamNameMapping = {
+  "CARDINALS": { code: "ARI", id: 22 },
+  "FALCONS": { code: "ATL", id: 1 },
+  "RAVENS": { code: "BAL", id: 33 },
+  "BILLS": { code: "BUF", id: 2 },
+  "PANTHERS": { code: "CAR", id: 29 },
+  "BEARS": { code: "CHI", id: 3 },
+  "BENGALS": { code: "CIN", id: 4 },
+  "BROWNS": { code: "CLE", id: 5 },
+  "COWBOYS": { code: "DAL", id: 6 },
+  "BRONCOS": { code: "DEN", id: 7 },
+  "LIONS": { code: "DET", id: 8 },
+  "PACKERS": { code: "GB", id: 9 },
+  "TEXANS": { code: "HOU", id: 34 },
+  "COLTS": { code: "IND", id: 11 },
+  "JAGUARS": { code: "JAX", id: 30 },
+  "CHIEFS": { code: "KC", id: 12 },
+  "CHARGERS": { code: "LAC", id: 24 },
+  "RAMS": { code: "LAR", id: 14 },
+  "RAIDERS": { code: "LV", id: 13 },
+  "DOLPHINS": { code: "MIA", id: 15 },
+  "VIKINGS": { code: "MIN", id: 16 },
+  "PATRIOTS": { code: "NE", id: 17 },
+  "SAINTS": { code: "NO", id: 18 },
+  "GIANTS": { code: "NYG", id: 19 },
+  "JETS": { code: "NYJ", id: 20 },
+  "EAGLES": { code: "PHI", id: 21 },
+  "STEELERS": { code: "PIT", id: 23 },
+  "SEAHAWKS": { code: "SEA", id: 26 },
+  "49ERS": { code: "SF", id: 25 },
+  "BUCCANEERS": { code: "TB", id: 27 },
+  "TITANS": { code: "TEN", id: 10 },
+  "COMMANDERS": { code: "WSH", id: 28 },
+};
+
+
+

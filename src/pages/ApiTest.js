@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import AuthContext from "../context/auth-context";
-import teamNameMapping from "../components/TeamNameMapping";
+import { TeamAbbrMapping } from "../components/TeamNameMapping";
 import classes from "./apiTest.css";
 import logo from "../images/team logos/1.png";
 import { app } from "../firebase";
@@ -110,11 +110,11 @@ const ApiTest = ({ poolKey, week }) => {
 
               const dateString = `${dayOfWeek}, ${month}, ${day}`;
 
-              const team1Info = teamNameMapping[team1Abbr] || {
+              const team1Info = TeamAbbrMapping[team1Abbr] || {
                 name: team1Abbr,
                 id: -1,
               };
-              const team2Info = teamNameMapping[team2Abbr] || {
+              const team2Info = TeamAbbrMapping[team2Abbr] || {
                 name: team2Abbr,
                 id: -1,
               };
@@ -184,12 +184,12 @@ const ApiTest = ({ poolKey, week }) => {
     for (const key in selections) {
       if (selections.hasOwnProperty(key)) {
         const teamId = selections[key];
-        const teamAbbreviation = Object.keys(teamNameMapping).find(
-          (abbr) => teamNameMapping[abbr].id === teamId
+        const teamAbbreviation = Object.keys(TeamAbbrMapping).find(
+          (abbr) => TeamAbbrMapping[abbr].id === teamId
         );
 
         if (teamAbbreviation) {
-          numberToNameMapping[key] = teamNameMapping[teamAbbreviation].name;
+          numberToNameMapping[key] = TeamAbbrMapping[teamAbbreviation].name;
         }
       }
     }

@@ -65,6 +65,7 @@ const Picks = () => {
 
       setSelections(selectionsData);
 
+      console.log(entriesData);
       setActiveEntries(entriesData.membersCount);
       setPicksInNames(entriesData.activeSelections);
       setPicksIn(entriesData.totalSelections);

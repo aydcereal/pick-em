@@ -1,5 +1,3 @@
-import TeamNameMapping from "../components/TeamNameMapping";
-
 const matchesOver = (week) => {
   return new Promise((resolve, reject) => {
     const API_ENDPOINT_URL = `https://site.api.espn.com/apis/site/v2/sports/football/nfl/scoreboard?seasontype=2&week=${week}&dates=2023`;
