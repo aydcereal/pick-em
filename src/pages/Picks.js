@@ -37,48 +37,52 @@ const Picks = () => {
   const [picksInNames, setPicksInNames] = useState();
   const { poolKey } = useParams();
 
+  const currentWeek = getCurrentWeek();
+
+  useEffect(() => {
+    setWeek(currentWeek);
+  }, [currentWeek]);
+
   useEffect(() => {
     matchesOver(week).then((data) => {
       setAllMatchesOver(data);
-    });
-
-    getEntries(poolKey, week).then((data) => {
-      setActiveEntries(data.membersCount);
-      setPicksInNames(data.activeSelections);
-      setPicksIn(data.totalSelections);
-    });
+    }, []);
   }, [week]);
 
   useEffect(() => {
-    setWeek(getCurrentWeek());
-  }, []);
+    let isMounted = true; // Add this line
+
+    const fetchData = async () => {
+      const entriesData = await getEntries(poolKey, week);
+      if (isMounted) {
+        // Check if the component is still mounted
+        setActiveEntries(entriesData.membersCount);
+        setPicksInNames(entriesData.activeSelections);
+        setPicksIn(entriesData.totalSelections);
+      }
+    };
+
+    fetchData();
+
+    return () => {
+      isMounted = false; // Set isMounted to false when the component unmounts
+    };
+  }, [poolKey, week]);
 
   useEffect(() => {
     const fetchData = async () => {
-      const [matchData, selectionsData, entriesData] = await Promise.all([
+      const [matchData, selectionsData] = await Promise.all([
         TeamData(week),
         SelectionData(week, poolKey),
-        getEntries(poolKey, week),
       ]);
 
       setMatchData(matchData);
 
       setSelections(selectionsData);
-
-      console.log(entriesData);
-      setActiveEntries(entriesData.membersCount);
-      setPicksInNames(entriesData.activeSelections);
-      setPicksIn(entriesData.totalSelections);
     };
 
     fetchData();
   }, [week, poolKey]);
-
-  useEffect(() => {
-    console.log(activeEntries);
-    console.log(picksInNames);
-    console.log(picksIn);
-  }, [week]);
 
   useEffect(() => {
     const newUsersData = selections.map((item) => {
@@ -149,6 +153,7 @@ const Picks = () => {
       const sortedData = [...championData].sort((a, b) =>
         a.playerName.localeCompare(b.playerName)
       );
+
       setSortedUsersData(sortedData);
     }
   };
@@ -162,13 +167,11 @@ const Picks = () => {
   }
 
   const progressIn = (picksIn / activeEntries) * 100;
-  console.log("Progress In:", picksIn, activeEntries, progressIn);
 
   const progressNotIn =
     activeEntries - picksIn !== 0
       ? ((activeEntries - picksIn) / activeEntries) * 100
       : 0;
-  console.log("Progress Not In:", progressNotIn, activeEntries - picksIn);
 
   return (
     <div className="content-area">
