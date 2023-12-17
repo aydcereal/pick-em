@@ -1,4 +1,4 @@
-import calsses from "./calendar.css";
+import classes from "./calendar.css";
 import weekEndDates from "./weekEndDates.json";
 import MatchDates from "./MatchDates";
 import { useEffect, useState } from "react";
@@ -68,6 +68,8 @@ const Calendar = () => {
           const year = date.getFullYear();
           const dateString = date.toLocaleDateString();
           const matchingValue = result[dateString];
+
+          console.log(dateString);
 
           return {
             dayOfMonth,

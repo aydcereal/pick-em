@@ -196,7 +196,9 @@ const ApiTest = ({ poolKey, week }) => {
 
     const compoundKey = `${playerName}_${poolKey}_${week}`;
 
-    const existingEntryRef = database.ref("selections").child(compoundKey);
+    const existingEntryRef = database
+      .ref(`selections/${poolKey}/Week ${week}`)
+      .child(compoundKey);
 
     existingEntryRef.once("value", (snapshot) => {
       if (snapshot.exists()) {
@@ -210,7 +212,7 @@ const ApiTest = ({ poolKey, week }) => {
         });
       } else {
         database
-          .ref("selections")
+          .ref(`selections/${poolKey}/Week ${week}`)
           .child(compoundKey)
           .set({
             playerName: playerName,
