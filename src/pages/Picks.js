@@ -50,12 +50,11 @@ const Picks = () => {
   }, [week]);
 
   useEffect(() => {
-    let isMounted = true; // Add this line
+    let isMounted = true;
 
     const fetchData = async () => {
       const entriesData = await getEntries(poolKey, week);
       if (isMounted) {
-        // Check if the component is still mounted
         setActiveEntries(entriesData.membersCount);
         setPicksInNames(entriesData.activeSelections);
         setPicksIn(entriesData.totalSelections);
@@ -65,7 +64,7 @@ const Picks = () => {
     fetchData();
 
     return () => {
-      isMounted = false; // Set isMounted to false when the component unmounts
+      isMounted = false; // cleanup function
     };
   }, [poolKey, week]);
 

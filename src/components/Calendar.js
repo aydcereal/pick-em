@@ -50,11 +50,10 @@ const Calendar = () => {
   const dateObject = new Date(dates[0]);
   const dayOfWeek = dateObject.getDay();
 
-  console.log(currentYear);
-
   let currentWeek = getCurrentWeek();
 
   useEffect(() => {
+    console.log("MatchDates: ", matchDates);
     let isMounted = true;
 
     const matchDatesPromise = MatchDates(currentWeek);
@@ -68,8 +67,6 @@ const Calendar = () => {
           const year = date.getFullYear();
           const dateString = date.toLocaleDateString();
           const matchingValue = result[dateString];
-
-          console.log(dateString);
 
           return {
             dayOfMonth,
@@ -116,8 +113,6 @@ const Calendar = () => {
       dates.push(newDate);
     }
   }
-
-  console.log(daysOfMonth);
 
   return (
     <>

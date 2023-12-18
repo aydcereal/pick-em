@@ -23,7 +23,6 @@ const MatchDates = (week) => {
 
             const day = new Date(event.date);
             const date = day.toLocaleDateString();
-            console.log(day.toLocaleDateString());
 
             if (dateCounts.hasOwnProperty(date)) {
               dateCounts[date]++;

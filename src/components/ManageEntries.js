@@ -5,18 +5,39 @@ import "firebase/compat/database";
 import styles from "./ManageEntries.module.css";
 import { useParams } from "react-router-dom";
 import TeamLogo from "./TeamLogo";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faPencil,
+  faEllipsisVertical,
+} from "@fortawesome/free-solid-svg-icons";
+import { getCurrentWeek } from "./Calendar";
+import cutOffDates from "./cutOffDates";
 
 const ManageEntries = () => {
   const [selections, setSelections] = useState([]);
   const [matchingWeek, SetMachingWeek] = useState(false);
   const [currentSelectedWeek, SetCurrentSelectedWeek] = useState(1);
   const [fullName, setFullName] = useState("");
+  const [deadlineDates, setDeadlineDates] = useState([]);
   const { poolId } = useParams();
   const { currentUser } = useContext(AuthContext);
   const userId = currentUser ? currentUser.uid : null;
 
-  console.log(userId);
   const weeks = Array.from({ length: 18 }, (_, index) => `Week ${index + 1}`);
+
+  useEffect(() => {
+    const getCutOffDates = async () => {
+      const dates = await cutOffDates(currentSelectedWeek);
+      setDeadlineDates(dates);
+    };
+    getCutOffDates();
+  }, [currentSelectedWeek]);
+
+  console.log(deadlineDates);
+
+  useEffect(() => {
+    SetCurrentSelectedWeek(getCurrentWeek());
+  }, []);
 
   useEffect(() => {
     if (!currentUser) {
@@ -54,8 +75,8 @@ const ManageEntries = () => {
       <div className="container">
         <h1>Manage Entries</h1>
         <p className={styles.managinEntries_p}>
-          Make your picks for each entry below. The first game for week 9 starts
-          Thursday,
+          Make your picks for each entry below. The first game for week{" "}
+          {currentSelectedWeek} starts Thursday,
           <b>November 2 at 8:15 PM ET.</b> You can modify your other picks up
           until the final pick deadline on Sunday, November 5 at 1:00 PM ET.
         </p>
@@ -73,6 +94,7 @@ const ManageEntries = () => {
                       className={styles.form_select}
                       name="picks"
                       id="picks"
+                      value={currentSelectedWeek}
                       onChange={(e) => {
                         SetCurrentSelectedWeek(e.target.value);
                       }}
@@ -127,7 +149,10 @@ const ManageEntries = () => {
                         href={`/pools/${poolId}/${currentSelectedWeek}`}
                         class="btn btn-danger"
                       >
-                        <i className="far fa-pencil pe-1 d-none d-md-inline"></i>
+                        <FontAwesomeIcon
+                          className="far fa-pencil pe-2 d-none d-md-inline"
+                          icon={faPencil}
+                        />
                         Make Your Picks
                       </a>
                     </td>
@@ -143,7 +168,10 @@ const ManageEntries = () => {
                           data-bs-toggle="dropdown"
                           aria-expanded="false"
                         >
-                          <span className="far fa-ellipsis-v fa-2x"></span>
+                          <FontAwesomeIcon
+                            className="far fa-ellipsis-v fa-2x"
+                            icon={faEllipsisVertical}
+                          />
                         </button>
                       </div>
                     </td>
