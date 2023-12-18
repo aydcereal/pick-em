@@ -25,7 +25,7 @@ const db = getDatabase();
 export const AuthProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [displayName, setDisplayName] = useState();
+
   const [userData, setUserData] = useState("");
 
   const [email, setEmail] = useState("");
@@ -137,6 +137,7 @@ export const AuthProvider = ({ children }) => {
   }, [setCurrentUser, setIsAuthenticated]);
 
   const handleLogout = () => {
+    console.log("handleLogout");
     auth
       .signOut()
       .then(() => {

@@ -1,4 +1,3 @@
-import DashboardLinks from "../DashboardLinks";
 import AuthContext from "../../context/auth-context";
 import { useState } from "react";
 import { getDatabase, ref, onValue } from "firebase/database";
@@ -15,19 +14,9 @@ import {
   FlyoutActionsWrapper,
 } from "./FlyoutMenu.styled";
 
-const db = getDatabase();
-
-const getUserData = (userId, callback) => {
-  const userRef = ref(db, `users/${userId}`);
-  onValue(userRef, (snapshot) => {
-    const userData = snapshot.val();
-    callback(userData);
-  });
-};
-
-const FlyoutMenu = ({ handleLogout, logoutHandler, shouldHide }) => {
-  const { currentUser } = useContext(AuthContext);
-  const [userData, setUserData] = useState("");
+const FlyoutMenu = ({ shouldHide, logoutHandler }) => {
+  const { userData, handleLogout } = useContext(AuthContext);
+  const [displayName, setDisplayName] = useState("");
 
   const handleClick = () => {
     logoutHandler();
@@ -35,10 +24,10 @@ const FlyoutMenu = ({ handleLogout, logoutHandler, shouldHide }) => {
   };
 
   useEffect(() => {
-    if (currentUser) {
-      getUserData(currentUser.uid, setUserData);
+    if (userData) {
+      setDisplayName(userData.displayName);
     }
-  }, [currentUser]);
+  }, [userData]);
 
   return (
     <OuterContainer className={shouldHide ? "Hidden" : ""}>
@@ -46,7 +35,7 @@ const FlyoutMenu = ({ handleLogout, logoutHandler, shouldHide }) => {
         <InnerContainer>
           {userData && (
             <FlyoutHeader>
-              <FlyoutTitle>{userData.displayName}</FlyoutTitle>
+              <FlyoutTitle>{displayName}</FlyoutTitle>
               <FlyoutActionsWrapper>
                 <Link to="/edit-account">Edit account</Link>
                 <Link onClick={handleClick}>Sign Out</Link>
