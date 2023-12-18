@@ -1,15 +1,15 @@
-import AuthContext from "../context/auth-context";
+import AuthContext from "../../context/auth-context.js";
 import { useState } from "react";
 import { getDatabase, ref, onValue } from "firebase/database";
 import { useEffect } from "react";
 import { useContext } from "react";
 import { NavLink } from "react-router-dom";
-import logo from "../images/logos/blackLogo.png";
+import logo from "../../images/logos/blackLogo.png";
 import classes from "./overViewNavbar.css";
-import arrow from "../images/down_arrow.png";
+import arrow from "../../images/down_arrow.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
-import FlyoutMenu from "./FlyoutMenu";
+import FlyoutMenu from "../Flyouts/FlyoutMenu.js";
 import NavbarDropDown from "./NavbarDropDown.js";
 
 const OverViewNavbar = ({

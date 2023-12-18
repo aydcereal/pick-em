@@ -18,7 +18,7 @@ import {
   PoolCardButton,
 } from "./PoolComponents.styled";
 import { TileConatiner } from "./Components.styled";
-import FlyoutMoreActions from "./FlyoutMoreActions";
+import FlyoutMoreActions from "./Flyouts/FlyoutMoreActions";
 import { useState } from "react";
 import { useEffect } from "react";
 

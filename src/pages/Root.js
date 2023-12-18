@@ -1,5 +1,5 @@
 import { Outlet } from "react-router-dom";
-import Navbar from "../components/navbar";
+import Navbar from "../components/Navbars/navbar";
 import { useNavigate } from "react-router-dom";
 import { setShowAlert, setShouldHideAlert } from "../redux/store";
 import { useDispatch } from "react-redux";
@@ -7,8 +7,8 @@ import SignoutAlert from "../components/SignoutAlert";
 import AuthContext from "../context/auth-context";
 import { useContext } from "react";
 import { useLocation } from "react-router-dom";
-import DashboardNavbar from "../components/DashboardNavbar";
-import OverViewNavbar from "../components/overViewNavbar";
+import DashboardNavbar from "../components/Navbars/DashboardNavbar";
+import OverViewNavbar from "../components/Navbars/OverViewNavbar";
 import { useState } from "react";
 
 export default function Root() {

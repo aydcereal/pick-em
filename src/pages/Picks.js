@@ -10,7 +10,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import TeamLogo from "../components/TeamLogo";
 import { useParams } from "react-router-dom";
-import styles from "../components/ManageEntries.module.css";
+import styles from "./ManageEntries.module.css";
 import {
   SelectionData,
   getEntries,

@@ -4,19 +4,19 @@ import { app } from "../firebase";
 import "firebase/compat/database";
 import styles from "./ManageEntries.module.css";
 import { useParams } from "react-router-dom";
-import TeamLogo from "./TeamLogo";
+import TeamLogo from "../components/TeamLogo";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faPencil,
   faEllipsisVertical,
 } from "@fortawesome/free-solid-svg-icons";
-import { getCurrentWeek } from "./Calendar";
-import cutOffDates from "./cutOffDates";
+import { getCurrentWeek } from "../components/Calendar";
+import cutOffDates from "../components/cutOffDates";
 
 const ManageEntries = () => {
   const [selections, setSelections] = useState([]);
   const [matchingWeek, SetMachingWeek] = useState(false);
-  const [currentSelectedWeek, SetCurrentSelectedWeek] = useState(1);
+  const [currentSelectedWeek, SetCurrentSelectedWeek] = useState();
   const [playerName, setplayerName] = useState("");
   const [deadlineDates, setDeadlineDates] = useState([]);
   const { poolId } = useParams();
@@ -26,16 +26,19 @@ const ManageEntries = () => {
   const weeks = Array.from({ length: 18 }, (_, index) => `Week ${index + 1}`);
 
   useEffect(() => {
+    SetCurrentSelectedWeek(getCurrentWeek());
+  }, []);
+
+  useEffect(() => {
+    console.log(currentSelectedWeek);
+
     const getCutOffDates = async () => {
       const dates = await cutOffDates(currentSelectedWeek);
       setDeadlineDates(dates);
     };
+
     getCutOffDates();
   }, [currentSelectedWeek]);
-
-  useEffect(() => {
-    SetCurrentSelectedWeek(getCurrentWeek());
-  }, []);
 
   useEffect(() => {
     if (!currentUser) {
@@ -138,6 +141,7 @@ const ManageEntries = () => {
                             className="far fa-ellipsis-v fa-2x"
                             icon={faEllipsisVertical}
                           />
+                          {/* <PicksFlyout /> */}
                         </button>
                       </div>
                     </td>

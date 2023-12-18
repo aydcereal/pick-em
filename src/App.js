@@ -24,7 +24,7 @@ import NewPool from "./pages/NewPool";
 import Connections from "./pages/connections";
 import ApiTest from "./pages/ApiTest";
 import PoolDetail from "./pages/PoolDetail";
-import ManageEntries from "./components/ManageEntries";
+import ManageEntries from "./pages/ManageEntries";
 import Invite from "./pages/Invite";
 import InviteLandingPage from "./pages/InviteLandingPage";
 import Picks from "./pages/Picks";

@@ -1,13 +1,13 @@
-import DashboardLinks from "./DashboardLinks";
-import AuthContext from "../context/auth-context";
+import DashboardLinks from "../DashboardLinks";
+import AuthContext from "../../context/auth-context";
 import { useState } from "react";
 import { getDatabase, ref, onValue } from "firebase/database";
 import { useEffect } from "react";
 import { useContext } from "react";
-import arrow from "../images/down_arrow.png";
-import FlyoutMenu from "./FlyoutMenu";
+import arrow from "../../images/down_arrow.png";
+import FlyoutMenu from "../Flyouts/FlyoutMenu";
 import { NavLink } from "react-router-dom";
-import logo from "../images/logos/blackLogo.png";
+import logo from "../../images/logos/blackLogo.png";
 import classes from "./DashboardNavbar.css";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
