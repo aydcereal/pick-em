@@ -2,7 +2,7 @@
     padding-left: 4px;
     padding-right: 4px;
     display: inline-block;
-    line-height: 14px;
+    line-height: 1.5;
     font-size: 14px;
     font-family: 'Inter', sans-serif;
     
@@ -17,6 +17,10 @@
     width: 35px;
     
     
+}
+
+.deadline{
+    font-weight: bold;
 }
 
 .form_select {
@@ -51,3 +55,23 @@
     text-align: left !important; 
 }
 
+
+
+@media (max-width: 768px) {
+    
+    .form_select {
+        
+        padding: 8px 8px 8px 12px;
+    }
+
+    .entries th{
+        padding: 2px;
+        padding-bottom: 12px;
+        padding-top: 12px;
+
+    }
+
+    th:first-child {
+        padding-left: 10px !important;
+    }
+}

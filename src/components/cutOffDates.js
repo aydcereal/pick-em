@@ -38,8 +38,6 @@ const cutOffDates = (week) => {
 
         const events = data.events || [];
 
-        console.log(events);
-
         events.forEach((event) => {
           try {
             if (!event || !Array.isArray(event.competitions)) {
@@ -49,22 +47,10 @@ const cutOffDates = (week) => {
 
             const day = new Date(event.date);
 
-            const dayOfWeek = daysOfWeek[day.getDay()];
-            const month = months[day.getMonth()];
-            const dayNumber = day.getDate();
-            const time = day.toLocaleTimeString("en-US", {
-              timeZone: "America/Los_Angeles",
-            });
-            const year = day.getFullYear();
-
-            const fullDate = `${dayOfWeek}, ${month} ${dayNumber} ${year} ${time}`;
-
-            console.log(fullDate);
-
-            if (dateCounts.hasOwnProperty(fullDate)) {
-              dateCounts[fullDate]++;
+            if (dateCounts.hasOwnProperty(day)) {
+              dateCounts[day]++;
             } else {
-              dateCounts[fullDate] = 1;
+              dateCounts[day] = 1;
             }
           } catch (error) {
             console.error("Error processing event:", error);
@@ -73,13 +59,13 @@ const cutOffDates = (week) => {
         });
 
         const dateKeys = Object.keys(dateCounts);
-        let earliestDate = new Date(Date.parse(dateKeys[0]));
-        let earliestSunday = dateKeys.find(
-          (key) => new Date(key).getDay() === 0
+        let earliestDate = new Date(dateKeys[0]);
+        let earliestSunday = new Date(
+          dateKeys.find((key) => new Date(key).getDay() === 0)
         );
 
         dateKeys.forEach((key) => {
-          const currentDate = new Date(Date.parse(key));
+          const currentDate = new Date(key);
           const dayOfWeek = currentDate.getDay();
 
           if (currentDate < earliestDate) {
@@ -87,14 +73,31 @@ const cutOffDates = (week) => {
           }
 
           if (dayOfWeek === 0 && currentDate < new Date(earliestSunday)) {
-            earliestSunday = key;
+            earliestSunday = currentDate;
           }
         });
 
-        console.log("Earliest Thursday", earliestDate);
-        console.log("earliest Sunday", earliestSunday);
+        const dateArray = [earliestDate, earliestSunday];
 
-        resolve(dateCounts);
+        let deadlines = [];
+
+        dateArray.forEach((date, index) => {
+          const dayOfWeek = daysOfWeek[date.getDay()];
+          const month = months[date.getMonth()];
+          const dayNumber = date.getDate();
+          const time = date.toLocaleTimeString("en-US", {
+            hour: "numeric",
+            minute: "numeric",
+            hour12: true,
+            timeZone: "America/Los_Angeles",
+          });
+
+          const fullDate = `${dayOfWeek}, ${month} ${dayNumber} ${time} PT`;
+
+          deadlines.push(fullDate);
+        });
+
+        resolve(deadlines);
       });
   });
 };

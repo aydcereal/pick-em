@@ -17,7 +17,7 @@ const ManageEntries = () => {
   const [selections, setSelections] = useState([]);
   const [matchingWeek, SetMachingWeek] = useState(false);
   const [currentSelectedWeek, SetCurrentSelectedWeek] = useState(1);
-  const [fullName, setFullName] = useState("");
+  const [playerName, setplayerName] = useState("");
   const [deadlineDates, setDeadlineDates] = useState([]);
   const { poolId } = useParams();
   const { currentUser } = useContext(AuthContext);
@@ -33,8 +33,6 @@ const ManageEntries = () => {
     getCutOffDates();
   }, [currentSelectedWeek]);
 
-  console.log(deadlineDates);
-
   useEffect(() => {
     SetCurrentSelectedWeek(getCurrentWeek());
   }, []);
@@ -46,7 +44,9 @@ const ManageEntries = () => {
 
     const database = app.database();
 
-    const dataRef = database.ref("selections");
+    const dataRef = database.ref(
+      `selections/${poolId}/Week ${currentSelectedWeek}`
+    );
     dataRef.on("value", (snapshot) => {
       const dataObject = snapshot.val();
       if (dataObject) {
@@ -58,7 +58,7 @@ const ManageEntries = () => {
         );
         console.log(userData);
         if (userData) {
-          setFullName(userData.fullName);
+          setplayerName(userData.playerName);
           setSelections(userData.selections || []);
           SetMachingWeek(true);
         } else {
@@ -76,9 +76,9 @@ const ManageEntries = () => {
         <h1>Manage Entries</h1>
         <p className={styles.managinEntries_p}>
           Make your picks for each entry below. The first game for week{" "}
-          {currentSelectedWeek} starts Thursday,
-          <b>November 2 at 8:15 PM ET.</b> You can modify your other picks up
-          until the final pick deadline on Sunday, November 5 at 1:00 PM ET.
+          {currentSelectedWeek} starts <strong>{deadlineDates[0]}</strong> You
+          can modify your other picks up until the final pick deadline on{" "}
+          <strong>{deadlineDates[1]}</strong>
         </p>
 
         <div className={`row ${styles.entries}`}>
@@ -113,7 +113,7 @@ const ManageEntries = () => {
                 {(matchingWeek && (
                   <tr className={styles.pickRow}>
                     <td className={`col-md-2 vert-align ${styles.entry}`}>
-                      <div>{fullName}</div>
+                      <div>{playerName}</div>
                     </td>
                     <td className="col-md-7 vert-align text-center pickCell">
                       {selections.map((item, index) => (
@@ -122,7 +122,7 @@ const ManageEntries = () => {
                         </span>
                       ))}
                     </td>
-                    <td className="cold-md-1 text-center vert-align">
+                    <td className="cold-md-1 text-center vert-align d-none">
                       <span className={styles.statusAlive}>0-0</span>
                     </td>
                     <td className="col-md-1 text-center vert-align">
@@ -134,7 +134,10 @@ const ManageEntries = () => {
                           data-bs-toggle="dropdown"
                           aria-expanded="false"
                         >
-                          <span className={styles.statusAlive}>0-0</span>
+                          <FontAwesomeIcon
+                            className="far fa-ellipsis-v fa-2x"
+                            icon={faEllipsisVertical}
+                          />
                         </button>
                       </div>
                     </td>
@@ -142,7 +145,7 @@ const ManageEntries = () => {
                 )) || (
                   <tr className={styles.pickRow}>
                     <td className={`col-md-2 vert-align ${styles.entry}`}>
-                      <div>{fullName} </div>
+                      <div>{playerName} </div>
                     </td>
                     <td className="col-md-7 vert-align text-center pickCell">
                       <a
@@ -156,7 +159,7 @@ const ManageEntries = () => {
                         Make Your Picks
                       </a>
                     </td>
-                    <td className="cold-md-1 text-center vert-align">
+                    <td className="cold-md-1 text-center vert-align d-none">
                       <span className="statusAlive">0-0</span>
                     </td>
                     <td className="col-md-1 text-center vert-align">
