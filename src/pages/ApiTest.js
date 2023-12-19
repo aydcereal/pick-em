@@ -223,7 +223,7 @@ const ApiTest = ({ poolKey, week }) => {
           });
       }
     });
-    navigate("/Picksin");
+    navigate(`/Picksin/${poolKey}`);
   };
 
   let indexCounter = 1;

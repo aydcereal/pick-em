@@ -74,7 +74,7 @@ const router = createBrowserRouter([
 
       { path: "/join", element: <InviteLandingPage /> },
       { path: "/Picks/:poolKey", element: <Picks /> },
-      { path: "/Picksin", element: <PicksIn /> },
+      { path: "/Picksin/:poolKey", element: <PicksIn /> },
       { path: "/Overview/:poolKey", element: <Overview /> },
       {
         path: "/pools/start",

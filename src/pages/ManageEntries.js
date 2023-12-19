@@ -13,7 +13,6 @@ import {
 import { getCurrentWeek } from "../components/Calendar";
 import cutOffDates from "../components/cutOffDates";
 import FlyoutPoolSettings from "../components/Flyouts/FlyoutPoolSettings";
-import { set } from "firebase/database";
 
 const ManageEntries = () => {
   const [selections, setSelections] = useState([]);
