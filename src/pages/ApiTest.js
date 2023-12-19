@@ -2,11 +2,10 @@ import React, { useState, useEffect, useContext } from "react";
 import AuthContext from "../context/auth-context";
 import { TeamAbbrMapping } from "../components/TeamNameMapping";
 import classes from "./apiTest.css";
-import logo from "../images/team logos/1.png";
 import { app } from "../firebase";
 import "firebase/compat/database";
 import TeamLogo from "../components/TeamLogo";
-import { ref, onValue } from "firebase/database";
+import { useNavigate } from "react-router-dom";
 import { fetchPoolData } from "../components/fetchPoolData";
 
 const database = app.database();
@@ -18,9 +17,9 @@ const ApiTest = ({ poolKey, week }) => {
   const [tiebreakValue, SetTiebreakvalue] = useState();
   const [playerName, SetPlayerName] = useState();
 
-  const [fullName, setFullName] = useState("");
   const [admin, setAdmin] = useState();
   const { currentUser, userData } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetchPoolData(poolKey)
@@ -224,6 +223,7 @@ const ApiTest = ({ poolKey, week }) => {
           });
       }
     });
+    navigate("/Picksin");
   };
 
   let indexCounter = 1;

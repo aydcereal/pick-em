@@ -1,0 +1,23 @@
+.flyout-menu {
+    position: absolute;
+    inset: 0px auto auto 0px;
+    margin: 0px;
+    transform: translate(-110px, 58px);
+}
+
+.dropdown-item{
+    font-family: 'Inter', sans-serif ;
+    font-size: 1rem;
+}
+
+.mr-2{
+    margin-right: 5px;
+}
+
+.dropdown-item:hover{
+   text-decoration: underline;
+
+}
+
+
+

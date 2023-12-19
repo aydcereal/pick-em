@@ -12,6 +12,8 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { getCurrentWeek } from "../components/Calendar";
 import cutOffDates from "../components/cutOffDates";
+import FlyoutPoolSettings from "../components/Flyouts/FlyoutPoolSettings";
+import { set } from "firebase/database";
 
 const ManageEntries = () => {
   const [selections, setSelections] = useState([]);
@@ -21,9 +23,21 @@ const ManageEntries = () => {
   const [deadlineDates, setDeadlineDates] = useState([]);
   const { poolId } = useParams();
   const { currentUser } = useContext(AuthContext);
+  const [showFlyout, setShowFlyout] = useState(false);
   const userId = currentUser ? currentUser.uid : null;
 
   const weeks = Array.from({ length: 18 }, (_, index) => `Week ${index + 1}`);
+
+  const handleFlyoutMenuClick = (type) => {
+    console.log("handleFlyoutMenuClick", type._reactName);
+    if (type._reactName === "onBlur") {
+      console.log("onBlur");
+      setShowFlyout(false);
+    }
+    if (type._reactName == "onClick") {
+      setShowFlyout(!showFlyout);
+    }
+  };
 
   useEffect(() => {
     SetCurrentSelectedWeek(getCurrentWeek());
@@ -110,7 +124,7 @@ const ManageEntries = () => {
                     </select>
                     <span style={{ marginLeft: "5px" }}>Picks</span>
                   </th>
-                  <th className="d-none d-md-table-cell">Record W-L</th>
+
                   <th></th>
                 </tr>
                 {(matchingWeek && (
@@ -136,13 +150,18 @@ const ManageEntries = () => {
                           class="btn btn-default"
                           data-bs-toggle="dropdown"
                           aria-expanded="false"
+                          onClick={handleFlyoutMenuClick}
                         >
                           <FontAwesomeIcon
                             className="far fa-ellipsis-v fa-2x"
                             icon={faEllipsisVertical}
                           />
-                          {/* <PicksFlyout /> */}
                         </button>
+                        <FlyoutPoolSettings
+                          poolId={poolId}
+                          currentSelectedWeek={currentSelectedWeek}
+                          show={showFlyout}
+                        />
                       </div>
                     </td>
                   </tr>
@@ -163,9 +182,7 @@ const ManageEntries = () => {
                         Make Your Picks
                       </a>
                     </td>
-                    <td className="cold-md-1 text-center vert-align d-none">
-                      <span className="statusAlive">0-0</span>
-                    </td>
+
                     <td className="col-md-1 text-center vert-align">
                       <div className="btn-group">
                         <button
@@ -174,12 +191,7 @@ const ManageEntries = () => {
                           class="btn btn-default"
                           data-bs-toggle="dropdown"
                           aria-expanded="false"
-                        >
-                          <FontAwesomeIcon
-                            className="far fa-ellipsis-v fa-2x"
-                            icon={faEllipsisVertical}
-                          />
-                        </button>
+                        ></button>
                       </div>
                     </td>
                   </tr>
