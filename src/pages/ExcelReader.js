@@ -2,7 +2,7 @@ import { TeamNameMapping } from "../components/TeamNameMapping";
 import React, { useEffect, useState } from "react";
 import { PageContainer } from "../components/Components.styled";
 import TeamLogo from "../components/TeamLogo";
-import TeamData from "./TeamData";
+import { TeamData } from "./TeamData";
 import { getCurrentWeek } from "../components/Calendar";
 import { app } from "../firebase";
 import * as XLSX from "xlsx";

@@ -7,6 +7,10 @@ import "firebase/compat/database";
 import TeamLogo from "../components/TeamLogo";
 import { useNavigate } from "react-router-dom";
 import { fetchPoolData } from "../components/fetchPoolData";
+import { SelectionData } from "../components/selectionData";
+import { TeamData, MatchData } from "./TeamData";
+import cutOffDates from "../components/cutOffDates";
+import { set } from "firebase/database";
 
 const database = app.database();
 
@@ -16,10 +20,44 @@ const ApiTest = ({ poolKey, week }) => {
   const [selected, setSelected] = useState([]);
   const [tiebreakValue, SetTiebreakvalue] = useState();
   const [playerName, SetPlayerName] = useState();
+  const [deadlineDates, setDeadlineDates] = useState([]);
 
   const [admin, setAdmin] = useState();
   const { currentUser, userData } = useContext(AuthContext);
+  const userId = currentUser.uid;
   const navigate = useNavigate();
+
+  console.log(matchData);
+  console.log(deadlineDates);
+
+  useEffect(() => {
+    cutOffDates(week).then((data) => {
+      setDeadlineDates(data);
+    });
+
+    MatchData(week).then((data) => {
+      setMatchData(data);
+    });
+  }, [week]);
+
+  useEffect(() => {
+    SelectionData(week, poolKey)
+      .then((data) => {
+        console.log("Fetched data:", data[0].selections);
+
+        const newSelections = data[0].selections.map((teamId, index) => {
+          return {
+            index: index,
+            teamId: teamId,
+          };
+        });
+
+        setSelected(newSelections);
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+      });
+  }, []);
 
   useEffect(() => {
     fetchPoolData(poolKey)
@@ -31,8 +69,6 @@ const ApiTest = ({ poolKey, week }) => {
         console.error("Error fetching data:", error);
       });
   }, [poolKey]);
-
-  const userId = currentUser.uid;
 
   useEffect(() => {
     SetPlayerName(userData.displayName);
@@ -48,124 +84,6 @@ const ApiTest = ({ poolKey, week }) => {
     SetPlayerName(event.target.value);
     console.log(playerName);
   };
-
-  useEffect(() => {
-    const API_ENDPOINT_URL = `https://site.api.espn.com/apis/site/v2/sports/football/nfl/scoreboard?seasontype=2&week=${week}&dates=2023`;
-
-    fetch(API_ENDPOINT_URL)
-      .then((response) => response.json())
-      .then((data) => {
-        if (!data || !Array.isArray(data.events)) {
-          console.error("Data structure is not as expected");
-          return;
-        }
-        const events = data.events || [];
-
-        events.forEach((event) => {
-          if (!event || !Array.isArray(event.competitions)) {
-            console.error("Event structure is not as expected");
-            return;
-          }
-
-          const competitions = event.competitions || [];
-
-          competitions.forEach((competition) => {
-            const competitors = competition.competitors;
-
-            if (competitors.length === 2) {
-              const team1Abbr = competitors[1].team.abbreviation;
-              const team2Abbr = competitors[0].team.abbreviation;
-
-              const date = new Date(event.date);
-
-              const daysOfWeek = [
-                "Sunday",
-                "Monday",
-                "Tuesday",
-                "Wednesday",
-                "Thursday",
-                "Friday",
-                "Saturday",
-              ];
-              const months = [
-                "January",
-                "February",
-                "March",
-                "April",
-                "May",
-                "June",
-                "July",
-                "August",
-                "September",
-                "October",
-                "November",
-                "December",
-              ];
-
-              const dayOfWeek = daysOfWeek[date.getDay()];
-
-              const month = months[date.getMonth()];
-              const day = date.getDate();
-
-              const dateString = `${dayOfWeek}, ${month}, ${day}`;
-
-              const team1Info = TeamAbbrMapping[team1Abbr] || {
-                name: team1Abbr,
-                id: -1,
-              };
-              const team2Info = TeamAbbrMapping[team2Abbr] || {
-                name: team2Abbr,
-                id: -1,
-              };
-
-              const team1 = team1Info.name;
-              const team2 = team2Info.name;
-              const record1 = competitors[1].records[0].summary;
-              const record2 = competitors[0].records[0].summary;
-              const team1Id = team1Info.id;
-              const team2Id = team2Info.id;
-
-              setMatchData((prevMatches) => {
-                // Check if an item with the same properties already exists
-                const itemExists = prevMatches.some(
-                  (item) =>
-                    item.team1 === team1 &&
-                    item.record1 === record1 &&
-                    item.team1Id === team1Id &&
-                    item.team2 === team2 &&
-                    item.record2 === record2 &&
-                    item.team2Id === team2Id &&
-                    item.dateString === dateString
-                );
-
-                // Only add the new item if it doesn't already exist
-                if (!itemExists) {
-                  return [
-                    ...prevMatches,
-                    {
-                      team1,
-                      record1,
-                      team1Id,
-                      team2,
-                      record2,
-                      team2Id,
-                      dateString,
-                      team1Abbr,
-                      team2Abbr,
-                    },
-                  ];
-                } else {
-                  return prevMatches;
-                }
-              });
-            }
-          });
-        });
-      })
-      .catch((error) => {
-        console.error("Error fetching data:", error);
-      });
-  }, []);
 
   const handleSelection = (matchId, teamId) => {
     setSelections((prevSelections) => ({
@@ -442,7 +360,15 @@ const ApiTest = ({ poolKey, week }) => {
                 <tr>
                   <td colSpan="3" align="center" style={{ paddingTop: "15px" }}>
                     <strong>
-                      Tiebreak (combined points in Las Vegas/Detroit game)
+                      Tiebreak (combined points in{" "}
+                      {matchData[matchData.length - 1]
+                        ? matchData[matchData.length - 1].team1
+                        : ""}
+                      /
+                      {matchData[matchData.length - 1]
+                        ? matchData[matchData.length - 1].team2
+                        : ""}
+                      )
                     </strong>
                     :
                     <input
@@ -499,7 +425,7 @@ const ApiTest = ({ poolKey, week }) => {
             </li>
             <li>
               This week's final pick deadline is{" "}
-              <b>Sunday 10/29/2023 1:00 PM ET</b>. After this no picks can be
+              <strong>{deadlineDates[1]}</strong>. After this no picks can be
               entered/modified.
             </li>
 

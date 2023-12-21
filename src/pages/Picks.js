@@ -16,7 +16,7 @@ import {
   getEntries,
   getActiveEntries,
 } from "../components/selectionData";
-import TeamData from "./TeamData";
+import { TeamData } from "./TeamData";
 import { getCurrentWeek } from "../components/Calendar";
 import matchesOver from "../components/matchesOver";
 import VictoryResolver from "../components/VictoryResolver";
