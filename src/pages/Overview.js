@@ -17,14 +17,9 @@ const Overview = () => {
   const [poolName, setName] = useState();
 
   useEffect(() => {
-    fetchPoolData(poolKey)
-      .then((data) => {
-        console.log("Fetched data:", data);
-        setName(data.poolName);
-      })
-      .catch((error) => {
-        console.error("Error fetching data:", error);
-      });
+    fetchPoolData(poolKey, (data) => {
+      setName(data.poolName);
+    });
   }, [poolKey]);
 
   console.log(poolName);
