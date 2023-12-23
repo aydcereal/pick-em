@@ -10,7 +10,7 @@ import AuthContext from "../context/auth-context";
 import { useContext } from "react";
 import { fetchPoolData } from "../components/fetchPoolData";
 import { SyncLoader } from "react-spinners";
-import { Navigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const database = app.database();
 
@@ -114,6 +114,12 @@ const InviteLandingPage = () => {
               joinHandler={joinHandler}
             ></PoolCardContainer>
           </Row>
+          <Link
+            className="btn btn-lg btn-danger nav-btn"
+            to={`/Overview/${poolID}`}
+          >
+            Make Your Picks
+          </Link>
         </Content>
       ) : (
         <Content>
@@ -135,7 +141,6 @@ const InviteLandingPage = () => {
           </Row>
         </Content>
       )}
-      <Navigate to="/dashboard"></Navigate>
     </PageContainer>
   );
 };
