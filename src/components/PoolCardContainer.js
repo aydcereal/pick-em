@@ -51,6 +51,8 @@ export default function PoolCardContainer(props) {
     newShouldHideStates[index] = !newShouldHideStates[index];
     setShouldHideStates(newShouldHideStates);
   };
+  console.log(props);
+  console.log(props.button);
 
   return (
     <div>
@@ -200,7 +202,12 @@ export default function PoolCardContainer(props) {
                 </BottomContainerSlot>
                 <BottomContainerSlot>
                   <ActionsContainer>
-                    <PoolCardButton onClick={joinHandler}>Join</PoolCardButton>
+                    {props.button ? (
+                      <PoolCardButton onClick={joinHandler}>
+                        Join
+                      </PoolCardButton>
+                    ) : null}
+
                     <MoreActionsDropdownButton>
                       <span>
                         <svg

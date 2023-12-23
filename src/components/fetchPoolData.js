@@ -1,23 +1,24 @@
+// fetchPoolData.js
 import { app } from "../firebase";
 import "firebase/compat/database";
 
-export const fetchPoolData = async (poolKey) => {
+export const fetchPoolData = (poolKey, callback) => {
   const database = app.database();
+  const poolsRef = database.ref("/pools");
 
-  try {
-    const poolsRef = database.ref("/pools");
-
-    const snapshot = await poolsRef.child(poolKey).once("value");
-
-    if (snapshot.exists()) {
-      const poolData = snapshot.val();
-      return poolData;
-    } else {
-      console.log("Pool not found");
-      return null;
+  poolsRef.child(poolKey).on(
+    "value",
+    (snapshot) => {
+      if (snapshot.exists()) {
+        const poolData = snapshot.val();
+        callback(poolData);
+      } else {
+        console.log("Pool not found");
+      }
+    },
+    (error) => {
+      console.log("Error fetching pool from Firebase", error);
+      throw error;
     }
-  } catch (error) {
-    console.log("Error fetching pool from Firebase", error);
-    throw error;
-  }
+  );
 };

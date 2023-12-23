@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { PageContainer, Row } from "../components/Components.styled";
+import { PageContainer, PoolLink, Row } from "../components/Components.styled";
 import { Content } from "../components/Containers.styled";
 import { Title, Text } from "../components/Typography.styled";
 import { useSearchParams } from "react-router-dom";
@@ -8,6 +8,8 @@ import { app } from "../firebase";
 import { ref, get, runTransaction } from "firebase/database";
 import AuthContext from "../context/auth-context";
 import { useContext } from "react";
+import { fetchPoolData } from "../components/fetchPoolData";
+import { SyncLoader } from "react-spinners";
 
 const database = app.database();
 
@@ -16,17 +18,45 @@ const InviteLandingPage = () => {
   const poolID = searchParams.get("poolID");
   const [poolData, setPoolData] = useState(null);
   const { userData, currentUser } = useContext(AuthContext);
+  const [displayNameExists, setDisplayNameExists] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const fetchPoolData = async () => {
-      if (poolID) {
-        const poolData = await getPoolData(poolID);
-        setPoolData(poolData);
-      }
-    };
+    fetchPoolData(poolID, (poolData) => {
+      setPoolData(poolData);
+      setIsLoading(false);
+    });
+  }, []);
 
-    fetchPoolData();
-  }, [poolID]);
+  console.log(userData.displayName);
+  console.log(displayNameExists);
+
+  useEffect(() => {
+    if (poolData && poolData.members) {
+      setDisplayNameExists(
+        Object.values(poolData.members).some(
+          (member) => member.displayName == userData.displayName
+        )
+      );
+    }
+  }, [poolData, userData.displayName]);
+
+  console.log(poolData);
+
+  if (isLoading) {
+    return (
+      <div
+        style={{
+          position: "fixed",
+          top: "50%",
+          left: "50%",
+          transform: "translate(-50%, -50%)",
+        }}
+      >
+        <SyncLoader color="#dc3545" />
+      </div>
+    );
+  }
 
   const joinHandler = async () => {
     const userId = currentUser.uid;
@@ -63,44 +93,47 @@ const InviteLandingPage = () => {
     }
   };
 
-  const getPoolData = async (poolId) => {
-    const poolRef = ref(database, `pools/${poolId}`);
-
-    try {
-      const snapshot = await get(poolRef);
-      if (snapshot.exists()) {
-        const poolData = snapshot.val();
-        console.log("Pool Data:", poolData);
-        return poolData;
-      } else {
-        console.log("No such pool exists!");
-        return null;
-      }
-    } catch (error) {
-      console.error("Error fetching pool data:", error);
-      return null;
-    }
-  };
-
   return (
     <PageContainer>
-      <Content>
-        <Title>Join A Pool</Title>
-        <Row>
-          <Text>
-            You’re only one step away from playing! Click the button below to
-            start.
-          </Text>
-        </Row>
-        <Row>
-          <PoolCardContainer
-            poolData={poolData}
-            display={"block"}
-            width={"600px"}
-            joinHandler={joinHandler}
-          ></PoolCardContainer>
-        </Row>
-      </Content>
+      {displayNameExists ? (
+        <Content>
+          <Title>YOU’RE IN THIS POOL</Title>
+          <Row>
+            <Text>
+              You’ve joined this pool. You can find it in your dashboard by
+              clicking the button below.
+            </Text>
+          </Row>
+          <Row>
+            <PoolCardContainer
+              poolData={poolData}
+              display={"block"}
+              width={"600px"}
+              button={false}
+              joinHandler={joinHandler}
+            ></PoolCardContainer>
+          </Row>
+        </Content>
+      ) : (
+        <Content>
+          <Title>Join A Pool</Title>
+          <Row>
+            <Text>
+              You’re only one step away from playing! Click the button below to
+              start.
+            </Text>
+          </Row>
+          <Row>
+            <PoolCardContainer
+              pools={poolData}
+              display={"block"}
+              width={"600px"}
+              button={true}
+              joinHandler={joinHandler}
+            ></PoolCardContainer>
+          </Row>
+        </Content>
+      )}
     </PageContainer>
   );
 };
