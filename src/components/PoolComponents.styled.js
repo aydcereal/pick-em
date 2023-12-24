@@ -65,7 +65,7 @@ export const Container = styled.div`
 `;
 
 export const Avatar = styled.div`
-  background: rgb(0, 52, 206);
+  background: rgb(220, 53, 69);
   position: relative;
   flex-shrink: 0;
   width: 64px;

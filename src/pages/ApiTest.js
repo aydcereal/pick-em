@@ -22,7 +22,6 @@ const ApiTest = ({ poolKey, week }) => {
   const [playerName, SetPlayerName] = useState();
   const [deadlineDates, setDeadlineDates] = useState([]);
 
-  const [admin, setAdmin] = useState();
   const { currentUser, userData } = useContext(AuthContext);
   const userId = currentUser.uid;
   const navigate = useNavigate();
@@ -60,12 +59,6 @@ const ApiTest = ({ poolKey, week }) => {
   }, []);
 
   useEffect(() => {
-    fetchPoolData(poolKey, (data) => {
-      setAdmin(data.poolFormat);
-    });
-  }, [poolKey]);
-
-  useEffect(() => {
     SetPlayerName(userData.displayName);
   }, [userData]);
 
@@ -73,11 +66,6 @@ const ApiTest = ({ poolKey, week }) => {
 
   const tiebreakHandler = (event) => {
     SetTiebreakvalue(event.target.value);
-  };
-
-  const playerNameHandler = (event) => {
-    SetPlayerName(event.target.value);
-    console.log(playerName);
   };
 
   const handleSelection = (matchId, teamId) => {
@@ -326,31 +314,6 @@ const ApiTest = ({ poolKey, week }) => {
                     </>
                   );
                 })}
-
-                {admin ? (
-                  <tr>
-                    <td
-                      colSpan="3"
-                      align="center"
-                      style={{ paddingTop: "15px" }}
-                    >
-                      <strong>Name</strong>:
-                      <input
-                        onChange={playerNameHandler}
-                        id="playerName"
-                        type="text"
-                        className="form-control"
-                        style={{
-                          display: "inline-block",
-                          width: "150px",
-                          textAlign: "center",
-                        }}
-                      ></input>
-                    </td>
-                  </tr>
-                ) : (
-                  ""
-                )}
 
                 <tr>
                   <td colSpan="3" align="center" style={{ paddingTop: "15px" }}>
