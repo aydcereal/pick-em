@@ -60,14 +60,9 @@ const ApiTest = ({ poolKey, week }) => {
   }, []);
 
   useEffect(() => {
-    fetchPoolData(poolKey)
-      .then((data) => {
-        console.log("Fetched data:", data);
-        setAdmin(data.poolFormat);
-      })
-      .catch((error) => {
-        console.error("Error fetching data:", error);
-      });
+    fetchPoolData(poolKey, (data) => {
+      setAdmin(data.poolFormat);
+    });
   }, [poolKey]);
 
   useEffect(() => {
