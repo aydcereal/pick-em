@@ -96,8 +96,6 @@ function ExcelReader() {
         return team.replace(/\s/g, "").toUpperCase();
       });
 
-      console.log(teamNameFormattted);
-
       const selectionIds = teamNameFormattted.map(
         (team) => TeamNameMapping[team]?.id
       );
@@ -114,7 +112,16 @@ function ExcelReader() {
     }
   });
 
+  useEffect(() => {
+    sortedUsersData.forEach((item, index) => {
+      if (item.selections.some((selection) => selection === undefined)) {
+        console.log(`Item at index ${index} has undefined selection.`);
+      }
+    });
+  }, [sortedUsersData]);
+
   console.log(sortedUsersData);
+  console.log(sortedUsersData[0]);
 
   return (
     <div className="container">
@@ -179,9 +186,21 @@ function ExcelReader() {
                   </span>
                 </td>
                 {item.selections.map((teamId, colIndex) => {
-                  const resultItem = matchData.results.find(
-                    (result) => result.id === teamId.toString()
-                  );
+                  if (teamId === undefined) {
+                    alert(
+                      `Undefined teamId for ${
+                        item.playerName
+                      }, on selection number ${colIndex + 1}`
+                    );
+
+                    return null; // or return a default element
+                  }
+
+                  const resultItem = matchData.results
+                    ? matchData.results.find(
+                        (result) => result.id === teamId.toString()
+                      )
+                    : undefined;
                   const isWinner = resultItem ? resultItem.winner : false;
 
                   const tdClass =
