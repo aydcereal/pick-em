@@ -22,7 +22,6 @@ import ErrorPage from "./pages/Error";
 import UserDetailsPage from "./pages/UserDetailsPage";
 import NewPool from "./pages/NewPool";
 import Connections from "./pages/connections";
-import ApiTest from "./pages/ApiTest";
 import PoolDetail from "./pages/PoolDetail";
 import ManageEntries from "./pages/ManageEntries";
 import Invite from "./pages/Invite";
@@ -31,6 +30,7 @@ import Picks from "./pages/Picks";
 import Overview from "./pages/Overview";
 import ExcelReader from "./pages/ExcelReader";
 import PicksIn from "./pages/PicksIn";
+import Leaderboard from "./pages/Leaderboard";
 
 function ProtectedRoute() {
   const { isAuthenticated } = useContext(AuthContext);
@@ -76,6 +76,7 @@ const router = createBrowserRouter([
       { path: "/Picks/:poolKey", element: <Picks /> },
       { path: "/Picksin/:poolKey", element: <PicksIn /> },
       { path: "/Overview/:poolKey", element: <Overview /> },
+      { path: "/Leaderboard/:poolKey", element: <Leaderboard /> },
       {
         path: "/pools/start",
         element: <ProtectedRoute />,

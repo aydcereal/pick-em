@@ -1,0 +1,21 @@
+#advOptionsBtn {
+    float: right;
+    margin-top: 15px;
+}
+
+
+#ytdTable th, #ytdUser th, #weekUser th {
+    padding: 8px;
+    text-align: center;
+    padding-right: 11px;
+}
+
+
+
+
+
+@media (min-width: 992px){
+    .optionsPanel {
+        margin-top: -115px !important;
+    }
+}

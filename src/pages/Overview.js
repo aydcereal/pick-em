@@ -29,7 +29,7 @@ const Overview = () => {
       <div className="container">
         <div className="overview-title">
           <div className="league-name">
-            <h1>{poolName}</h1>
+            <h1 style={{ marginTop: "100px" }}>{poolName}</h1>
           </div>
         </div>
         <div style={{ fontFamily: "Segoe UI, Arial", fontSize: "14px" }}>

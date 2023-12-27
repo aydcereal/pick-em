@@ -41,7 +41,7 @@
     padding: 15px;
 }
 
-.pickRow td:first-child, th:first-child {
+.pickRow td:first-child{
     padding-left: 25px !important;
 }
 
