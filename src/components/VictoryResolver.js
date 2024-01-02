@@ -9,24 +9,33 @@ export const VictoryResolver = (usersData, mNScores) => {
     (player) => player.wins === highestWins.wins
   );
 
-  if (tiedPlayers.length > 1) {
-    tiedPlayers.sort((a, b) => a.tieBreakValue - b.tieBreakValue);
+  closestPlayer = [];
+  let closestDifference = Infinity;
 
-    closestPlayer = tiedPlayers[0];
-    let closestDifference = Math.abs(tiedPlayers[0].tieBreakValue - mNScores);
+  if (tiedPlayers.length > 1) {
+    console.log(tiedPlayers);
+
+    // const tiedScores = tiedPlayers.filter(
+    //   (player) => player.tieBreakValue === closestPlayer.tieBreakValue
+    // );
+    // console.log(tiedScores);
 
     for (let i = 1; i < tiedPlayers.length; i++) {
       const currentDifference = Math.abs(
         tiedPlayers[i].tieBreakValue - mNScores
       );
       if (currentDifference < closestDifference) {
-        closestPlayer = tiedPlayers[i];
+        closestPlayer = [tiedPlayers[i]];
         closestDifference = currentDifference;
+      } else if (currentDifference === closestDifference) {
+        closestPlayer.push(tiedPlayers[i]);
       }
     }
   } else {
     closestPlayer = highestWins;
   }
+
+  console.log(closestPlayer);
   const newUserData = usersData.map((item) => {
     const closestPlayerData =
       closestPlayer && closestPlayer.playerName === item.playerName
@@ -42,6 +51,7 @@ export const VictoryResolver = (usersData, mNScores) => {
     };
   });
 
+  console.log(newUserData);
   return newUserData;
 };
 

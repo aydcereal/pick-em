@@ -28,8 +28,6 @@ export const TeamData = (week) => {
           return;
         }
 
-        console.log(data);
-
         const matches = [];
         let scores = 0;
 
@@ -39,28 +37,20 @@ export const TeamData = (week) => {
 
         const lastMatchIndex = events.length - 1;
 
-        const mondayMatchDate = new Date(
-          events[lastMatchIndex].date
-        ).toLocaleDateString();
+        console.log(events[lastMatchIndex]);
 
-        const matchesOnMonday = events.filter((item) => {
-          // Convert item date to a common format without time
-          const itemDateWithoutTime = new Date(item.date).toLocaleDateString();
+        const lastMatchScores = () => {
+          const score1 = Number(
+            events[lastMatchIndex].competitions[0].competitors[0].score
+          );
+          const score2 = Number(
+            events[lastMatchIndex].competitions[0].competitors[1].score
+          );
 
-          // Compare the two formatted dates
-          return itemDateWithoutTime === mondayMatchDate;
-        });
-
-        const mondayScores = () => {
-          matchesOnMonday.map((item) => {
-            const score1 = Number(item.competitions[0].competitors[0].score);
-            const score2 = Number(item.competitions[0].competitors[1].score);
-
-            scores += score1 + score2;
-          });
+          scores += score1 + score2;
         };
 
-        mondayScores();
+        lastMatchScores();
 
         const results = events.flatMap((event) =>
           event.competitions.flatMap((competition) =>
