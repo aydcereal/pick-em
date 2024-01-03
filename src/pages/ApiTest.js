@@ -21,7 +21,7 @@ const ApiTest = ({ poolKey, week }) => {
   const [deadlineDates, setDeadlineDates] = useState([]);
 
   const { currentUser, userData } = useContext(AuthContext);
-  const [displayName, setDisplayName] = useState(userData.displayName);
+  const [displayName] = useState(userData.displayName);
   const userId = currentUser.uid;
   const navigate = useNavigate();
 
@@ -55,6 +55,7 @@ const ApiTest = ({ poolKey, week }) => {
         console.error("Error fetching data:", error);
       });
   }, []);
+  console.log(selected);
 
   useEffect(() => {
     SetPlayerName(userData.displayName);

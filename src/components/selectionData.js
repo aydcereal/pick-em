@@ -20,11 +20,9 @@ export const SelectionData = (week, poolId, displayName) => {
           if (selectionData.week === parseInt(week, 10)) {
             if (displayName) {
               if (selectionData.playerName === displayName) {
-                totalEntries = totalEntries + 1;
                 result.push({ id: childSnapshot.key, ...selectionData });
               }
             } else {
-              totalEntries = totalEntries + 1;
               result.push({ id: childSnapshot.key, ...selectionData });
             }
           }
