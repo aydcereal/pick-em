@@ -1,4 +1,3 @@
-import { type } from "@testing-library/user-event/dist/type";
 import { app } from "../firebase";
 import "firebase/compat/database";
 
@@ -8,7 +7,7 @@ const getSelectionQuery = (poolId, week) => {
   return selectionRef.orderByChild("poolKey").equalTo(poolId);
 };
 
-export const SelectionData = (week, poolId) => {
+export const SelectionData = (week, poolId, displayName) => {
   return new Promise((resolve, reject) => {
     try {
       const query = getSelectionQuery(poolId, week);
@@ -19,9 +18,15 @@ export const SelectionData = (week, poolId) => {
         snapshot.forEach((childSnapshot) => {
           const selectionData = childSnapshot.val();
           if (selectionData.week === parseInt(week, 10)) {
-            totalEntries = totalEntries + 1;
-
-            result.push({ id: childSnapshot.key, ...selectionData });
+            if (displayName) {
+              if (selectionData.playerName === displayName) {
+                totalEntries = totalEntries + 1;
+                result.push({ id: childSnapshot.key, ...selectionData });
+              }
+            } else {
+              totalEntries = totalEntries + 1;
+              result.push({ id: childSnapshot.key, ...selectionData });
+            }
           }
         });
 

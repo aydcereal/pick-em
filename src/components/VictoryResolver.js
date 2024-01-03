@@ -13,35 +13,39 @@ export const VictoryResolver = (usersData, mNScores) => {
   let closestDifference = Infinity;
 
   if (tiedPlayers.length > 1) {
-    console.log(tiedPlayers);
-
     // const tiedScores = tiedPlayers.filter(
     //   (player) => player.tieBreakValue === closestPlayer.tieBreakValue
     // );
     // console.log(tiedScores);
-
-    for (let i = 1; i < tiedPlayers.length; i++) {
+    console.log(tiedPlayers);
+    for (let i = 0; i < tiedPlayers.length; i++) {
+      console.log(tiedPlayers[i]);
       const currentDifference = Math.abs(
         tiedPlayers[i].tieBreakValue - mNScores
       );
+      console.log(currentDifference);
+      console.log(closestDifference);
       if (currentDifference < closestDifference) {
         closestPlayer = [tiedPlayers[i]];
+        console.log(closestPlayer);
         closestDifference = currentDifference;
-      } else if (currentDifference === closestDifference) {
+      } else if (currentDifference == closestDifference) {
         closestPlayer.push(tiedPlayers[i]);
       }
     }
   } else {
-    closestPlayer = highestWins;
+    closestPlayer = [highestWins];
   }
 
   console.log(closestPlayer);
   const newUserData = usersData.map((item) => {
     const closestPlayerData =
-      closestPlayer && closestPlayer.playerName === item.playerName
+      closestPlayer &&
+      closestPlayer.some((player) => player.playerName === item.playerName)
         ? true
         : false;
 
+    console.log(closestPlayerData);
     return {
       playerName: item.playerName,
       tieBreakValue: item.tieBreakValue,

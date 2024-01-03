@@ -6,11 +6,9 @@ import { app } from "../firebase";
 import "firebase/compat/database";
 import TeamLogo from "../components/TeamLogo";
 import { useNavigate } from "react-router-dom";
-import { fetchPoolData } from "../components/fetchPoolData";
 import { SelectionData } from "../components/selectionData";
-import { TeamData, MatchData } from "./TeamData";
+import { MatchData } from "./TeamData";
 import cutOffDates from "../components/cutOffDates";
-import { set } from "firebase/database";
 
 const database = app.database();
 
@@ -23,11 +21,11 @@ const ApiTest = ({ poolKey, week }) => {
   const [deadlineDates, setDeadlineDates] = useState([]);
 
   const { currentUser, userData } = useContext(AuthContext);
+  const [displayName, setDisplayName] = useState(userData.displayName);
   const userId = currentUser.uid;
   const navigate = useNavigate();
 
-  console.log(matchData);
-  console.log(deadlineDates);
+  console.log(displayName);
 
   useEffect(() => {
     cutOffDates(week).then((data) => {
@@ -40,7 +38,7 @@ const ApiTest = ({ poolKey, week }) => {
   }, [week]);
 
   useEffect(() => {
-    SelectionData(week, poolKey)
+    SelectionData(week, poolKey, displayName)
       .then((data) => {
         console.log("Fetched data:", data[0].selections);
 
