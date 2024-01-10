@@ -36,7 +36,7 @@ const Leaderboard = () => {
                 }}
               >
                 <thead>
-                  <tr className="row">
+                  <tr role="row">
                     <th
                       aria-controls="ytdTable"
                       className="sorting_asc"
@@ -56,18 +56,44 @@ const Leaderboard = () => {
                     >
                       Entry Name
                     </th>
-                    <th>Pts</th>
-                    <th>W</th>
-                    <th>L</th>
+                    <th
+                      className="n sorting_asc"
+                      aria-controls="ytdTable"
+                      aria-label="Pts: activate to sort column descending"
+                      style={{ width: "50px" }}
+                    >
+                      Pts
+                    </th>
+                    <th
+                      className="n sorting_asc"
+                      aria-controls="ytdTable"
+                      aria-label="W: activate to sort column descending"
+                      style={{ width: "50px" }}
+                    >
+                      W
+                    </th>
+                    <th
+                      className="n sorting_asc"
+                      aria-controls="ytdTable"
+                      aria-label="L: activate to sort column descending"
+                      style={{ width: "50px" }}
+                    >
+                      L
+                    </th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr className="row">
-                    <td>1</td>
-                    <td>Jordy Figueroa</td>
-                    <td>120</td>
-                    <td>120</td>
-                    <td>50</td>
+                  <tr role="row" className="odd">
+                    <td aria-controls="ytdTable">1</td>
+                    <td
+                      aria-controls="ytdTable"
+                      aria-label="Entry Name: activate to sort column descending"
+                    >
+                      Jordy Figueroa
+                    </td>
+                    <td aria-controls="ytdTable">120</td>
+                    <td aria-controls="ytdTable">120</td>
+                    <td aria-controls="ytdTable">50</td>
                   </tr>
                 </tbody>
               </table>
