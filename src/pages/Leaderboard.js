@@ -1,8 +1,10 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFileExcel } from "@fortawesome/free-solid-svg-icons";
+import ytdData from "../components/ytdData";
 import classes from "./Leaderboard.css";
 
 const Leaderboard = () => {
+  ytdData();
   return (
     <div className="content-area">
       <div className="container">

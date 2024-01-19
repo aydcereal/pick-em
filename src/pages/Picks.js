@@ -84,6 +84,7 @@ const Picks = () => {
   }, [week, poolKey]);
 
   useEffect(() => {
+    console.log(selections);
     const newUsersData = selections.map((item) => {
       const playerName = item.playerName ? item.playerName : item.fullName;
 

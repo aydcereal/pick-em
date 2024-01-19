@@ -13,7 +13,6 @@ export const SelectionData = (week, poolId, displayName) => {
       const query = getSelectionQuery(poolId, week);
 
       query.once("value", (snapshot) => {
-        let totalEntries = 0;
         const result = [];
         snapshot.forEach((childSnapshot) => {
           const selectionData = childSnapshot.val();

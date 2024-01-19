@@ -1,6 +1,8 @@
 export const VictoryResolver = (usersData, mNScores) => {
   let closestPlayer;
 
+  console.log(usersData);
+
   usersData.sort((a, b) => b.wins - a.wins);
 
   const highestWins = usersData[0];
