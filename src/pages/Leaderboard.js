@@ -4,7 +4,8 @@ import ytdData from "../components/ytdData";
 import classes from "./Leaderboard.css";
 
 const Leaderboard = () => {
-  ytdData();
+  const scores = ytdData();
+  console.log(scores);
   return (
     <div className="content-area">
       <div className="container">
@@ -84,20 +85,38 @@ const Leaderboard = () => {
                     </th>
                   </tr>
                 </thead>
-                <tbody>
-                  <tr role="row" className="odd">
-                    <td aria-controls="ytdTable">1</td>
-                    <td
-                      aria-controls="ytdTable"
-                      aria-label="Entry Name: activate to sort column descending"
-                    >
-                      Jordy Figueroa
-                    </td>
-                    <td aria-controls="ytdTable">120</td>
-                    <td aria-controls="ytdTable">120</td>
-                    <td aria-controls="ytdTable">50</td>
-                  </tr>
-                </tbody>
+
+                {console.log(scores, "scores")}
+
+                {scores &&
+                  scores.map((item, index) => {
+                    return (
+                      <tbody>
+                        <tr role="row" className="odd">
+                          <td aria-controls="ytdTable">{index + 1}</td>
+                          <td
+                            aria-controls="ytdTable"
+                            aria-label="Entry Name: activate to sort column descending"
+                          >
+                            {item.name}
+                          </td>
+                          <td aria-controls="ytdTable">{item.totalPoints}</td>
+                        </tr>
+                      </tbody>
+                    );
+                  })}
+                {/* <tr role="row" className="odd">
+                  <td aria-controls="ytdTable">1</td>
+                  <td
+                    aria-controls="ytdTable"
+                    aria-label="Entry Name: activate to sort column descending"
+                  >
+                    Jordy Figueroa
+                  </td>
+                  <td aria-controls="ytdTable">120</td>
+                  <td aria-controls="ytdTable">120</td>
+                  <td aria-controls="ytdTable">50</td>
+                </tr> */}
               </table>
             </div>
             <div className="col-12 col-lg-6 pe-lg-5">

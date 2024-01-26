@@ -105,7 +105,7 @@ function ExcelReader() {
         playerName: playerName,
         selections: selectionIds,
         tiebreakValue: item[item.length - 1],
-        poolKey: "-NlkF8jv4xU80aYhu4SA",
+        poolKey: "-NkN4le9I5JNY92sXeUH",
         userId: "xsg02hTTKkaOsRU1vRv5okUz1Zx1",
         week: week,
       };

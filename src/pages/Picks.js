@@ -11,15 +11,14 @@ import {
 import TeamLogo from "../components/TeamLogo";
 import { useParams } from "react-router-dom";
 import styles from "./ManageEntries.module.css";
-import {
-  SelectionData,
-  getEntries,
-  getActiveEntries,
-} from "../components/selectionData";
+import { SelectionData, getEntries } from "../components/selectionData";
 import { TeamData } from "./TeamData";
 import { getCurrentWeek } from "../components/Calendar";
 import matchesOver from "../components/matchesOver";
 import VictoryResolver from "../components/VictoryResolver";
+
+import { app } from "../firebase";
+import "firebase/compat/database";
 
 const Picks = () => {
   const MemoizedTeamLogo = React.memo(TeamLogo);
@@ -38,6 +37,16 @@ const Picks = () => {
   const { poolKey } = useParams();
 
   const currentWeek = getCurrentWeek();
+
+  const database = app.database();
+  const selectionRef = database.ref(`selections/${poolKey}/Week ${week}`);
+  selectionRef.orderByChild("poolKey").equalTo(poolKey);
+
+  console.log(selectionRef);
+  selectionRef.once("value", (snapshot) => {
+    const dataObject = snapshot.val();
+    console.log(dataObject);
+  });
 
   useEffect(() => {
     setWeek(currentWeek);
@@ -86,9 +95,10 @@ const Picks = () => {
   useEffect(() => {
     console.log(selections);
     const newUsersData = selections.map((item) => {
+      console.log(item);
       const playerName = item.playerName ? item.playerName : item.fullName;
 
-      const tieBreakValue = item.tiebreakValue;
+      const tiebreakValue = item.tiebreakValue;
 
       let selectionObject = 0; // Initialize with a default value
       item.selections.forEach((selection) => {
@@ -101,15 +111,23 @@ const Picks = () => {
         }
       });
 
-      return {
+      const key = `${playerName}_${item.poolKey}_${item.week}`;
+      console.log(key);
+
+      const playerData = {
         playerName,
-        tieBreakValue,
+        tiebreakValue,
         selections: item.selections,
         wins: selectionObject,
       };
+
+      selectionRef.child(key).update(playerData);
+
+      return playerData;
     });
 
     setUsersData(newUsersData);
+    console.log(newUsersData);
   }, [selections, matchData]);
 
   const championData = VictoryResolver(usersData, matchData.mondayScores);
