@@ -344,6 +344,7 @@ const Picks = () => {
                   </td>
                 </tr>
                 {sortedUsersData.map((item, rowIndex) => {
+                  console.log(item);
                   const pointItem = points.find((obj) =>
                     obj.hasOwnProperty(item.playerName)
                   );
@@ -389,9 +390,9 @@ const Picks = () => {
                         );
                       })}
                       <td className="tie">
-                        {item.tieBreakValue}
+                        {item.tiebreakValue}
                         <span className="tb">
-                          ({item.tieBreakValue - matchData.mondayScores})
+                          ({item.tiebreakValue - matchData.mondayScores})
                         </span>
                       </td>
                     </tr>

@@ -2,10 +2,20 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFileExcel } from "@fortawesome/free-solid-svg-icons";
 import ytdData from "../components/ytdData";
 import classes from "./Leaderboard.css";
+import { useState, useEffect } from "react";
 
 const Leaderboard = () => {
-  const scores = ytdData();
-  console.log(scores);
+  const [ytdScores, setYtdScores] = useState([]);
+
+  useEffect(() => {
+    const fetchMatchData = async () => {
+      const scores = await ytdData();
+      setYtdScores(scores);
+    };
+    fetchMatchData();
+  }, []);
+
+  console.log(ytdScores);
   return (
     <div className="content-area">
       <div className="container">
@@ -75,23 +85,15 @@ const Leaderboard = () => {
                     >
                       W
                     </th>
-                    <th
-                      className="n sorting_asc"
-                      aria-controls="ytdTable"
-                      aria-label="L: activate to sort column descending"
-                      style={{ width: "50px" }}
-                    >
-                      L
-                    </th>
                   </tr>
                 </thead>
 
-                {console.log(scores, "scores")}
+                {console.log(ytdScores, "scores")}
 
-                {scores &&
-                  scores.map((item, index) => {
-                    return (
-                      <tbody>
+                <tbody>
+                  {ytdScores &&
+                    ytdScores.map((item, index) => {
+                      return (
                         <tr role="row" className="odd">
                           <td aria-controls="ytdTable">{index + 1}</td>
                           <td
@@ -101,10 +103,11 @@ const Leaderboard = () => {
                             {item.name}
                           </td>
                           <td aria-controls="ytdTable">{item.totalPoints}</td>
+                          <td aria-controls="ytdTable">{item.totalPoints}</td>
                         </tr>
-                      </tbody>
-                    );
-                  })}
+                      );
+                    })}
+                </tbody>
                 {/* <tr role="row" className="odd">
                   <td aria-controls="ytdTable">1</td>
                   <td
