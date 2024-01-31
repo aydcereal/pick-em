@@ -16,6 +16,19 @@
     text-align: center;
 }
 
+table.dataTable.stripe tbody tr.odd, table.dataTable.display tbody tr.odd {
+    background-color: #f9f9f9;
+}
+
+tbody {
+    border-top-width: 1px;
+    border-top: black;
+    border-top-style: solid;
+    border-bottom: black;
+    border-bottom-style: solid;
+   
+}
+
 
 
 

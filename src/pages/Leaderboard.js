@@ -94,7 +94,7 @@ const Leaderboard = () => {
                   {ytdScores &&
                     ytdScores.map((item, index) => {
                       return (
-                        <tr role="row" className="odd">
+                        <tr role="row" className={index % 2 ? "odd" : "even"}>
                           <td aria-controls="ytdTable">{index + 1}</td>
                           <td
                             aria-controls="ytdTable"
