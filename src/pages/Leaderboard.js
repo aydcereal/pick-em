@@ -7,6 +7,12 @@ import { useState, useEffect } from "react";
 const Leaderboard = () => {
   const [ytdScores, setYtdScores] = useState([]);
 
+  const [selectedColumn, setSelectedColumn] = useState(null);
+
+  const handleColumnClick = (columnName) => {
+    setSelectedColumn(columnName);
+  };
+
   useEffect(() => {
     const fetchMatchData = async () => {
       const scores = await ytdData();
@@ -52,36 +58,50 @@ const Leaderboard = () => {
                   <tr role="row">
                     <th
                       aria-controls="ytdTable"
-                      className="sorting_asc"
+                      className={
+                        selectedColumn === "Rank" ? "sorting_asc" : "sorting"
+                      }
                       style={{
                         maxWidth: "30px",
                         paddingLeft: "5px",
                         width: "30px",
                       }}
+                      onClick={() => handleColumnClick("Rank")}
                     >
                       Rank
                     </th>
                     <th
-                      className="n sorting_asc"
+                      className={
+                        selectedColumn === "Entry Name"
+                          ? "sorting_asc"
+                          : "sorting"
+                      }
                       aria-controls="ytdTable"
                       aria-label="Entry Name: activate to sort column descending"
                       style={{ width: "125px" }}
+                      onClick={() => handleColumnClick("Entry Name")}
                     >
                       Entry Name
                     </th>
                     <th
-                      className="n sorting_asc"
+                      className={
+                        selectedColumn === "pts" ? "sorting_asc" : "sorting"
+                      }
                       aria-controls="ytdTable"
                       aria-label="Pts: activate to sort column descending"
                       style={{ width: "50px" }}
+                      onClick={() => handleColumnClick("pts")}
                     >
                       Pts
                     </th>
                     <th
-                      className="n sorting_asc"
+                      className={
+                        selectedColumn === "w" ? "sorting_asc" : "sorting"
+                      }
                       aria-controls="ytdTable"
                       aria-label="W: activate to sort column descending"
                       style={{ width: "50px" }}
+                      onClick={() => handleColumnClick("w")}
                     >
                       W
                     </th>
