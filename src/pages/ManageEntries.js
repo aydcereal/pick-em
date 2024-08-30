@@ -46,6 +46,7 @@ const ManageEntries = () => {
     console.log(currentSelectedWeek);
 
     const getCutOffDates = async () => {
+      console.log(currentSelectedWeek);
       const dates = await cutOffDates(currentSelectedWeek);
       setDeadlineDates(dates);
     };

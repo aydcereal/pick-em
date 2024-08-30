@@ -8,6 +8,7 @@ const getSelectionQuery = (poolId, week) => {
 };
 
 export const SelectionData = (week, poolId, displayName) => {
+  console.log(week, poolId, displayName);
   return new Promise((resolve, reject) => {
     try {
       const query = getSelectionQuery(poolId, week);

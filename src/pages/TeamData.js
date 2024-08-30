@@ -1,7 +1,9 @@
 import { TeamAbbrMapping } from "../components/TeamNameMapping";
 
+// Mocking the dataFetching function for demonstration purposes.
 const dataFetching = async (week) => {
-  const API_ENDPOINT_URL = `https://site.api.espn.com/apis/site/v2/sports/football/nfl/scoreboard?seasontype=2&week=${week}&dates=2023`;
+  console.log(week);
+  const API_ENDPOINT_URL = `https://site.api.espn.com/apis/site/v2/sports/football/nfl/scoreboard?seasontype=2&week=${week}&dates=2024`;
   try {
     const response = await fetch(API_ENDPOINT_URL);
     console.log(response);
@@ -10,7 +12,6 @@ const dataFetching = async (week) => {
       console.error("Data structure is not as expected");
       return;
     }
-
     return data;
   } catch (error) {
     console.error("Error fetching data:", error);
@@ -18,7 +19,6 @@ const dataFetching = async (week) => {
 };
 
 export const TeamData = (week) => {
-  console.log("TeamData");
   return new Promise((resolve, reject) => {
     dataFetching(week)
       .then((data) => {
@@ -32,50 +32,64 @@ export const TeamData = (week) => {
         let scores = 0;
 
         const events = data.events || [];
-
         events.sort((a, b) => new Date(a.date) - new Date(b.date));
 
         const lastMatchIndex = events.length - 1;
 
-        console.log(events[lastMatchIndex]);
+        if (lastMatchIndex >= 0) {
+          try {
+            const lastMatchScores = () => {
+              const score1 = Number(
+                events[lastMatchIndex]?.competitions?.[0]?.competitors?.[0]
+                  ?.score || 0
+              );
+              const score2 = Number(
+                events[lastMatchIndex]?.competitions?.[0]?.competitors?.[1]
+                  ?.score || 0
+              );
 
-        const lastMatchScores = () => {
-          const score1 = Number(
-            events[lastMatchIndex].competitions[0].competitors[0].score
-          );
-          const score2 = Number(
-            events[lastMatchIndex].competitions[0].competitors[1].score
-          );
+              scores += score1 + score2;
+            };
+            lastMatchScores();
+          } catch (error) {
+            console.error("Error processing last match scores:", error);
+          }
+        }
 
-          scores += score1 + score2;
-        };
-
-        lastMatchScores();
-
-        const results = events.flatMap((event) =>
-          event.competitions.flatMap((competition) =>
-            competition.competitors.map((competitor) => ({
-              id: competitor.id,
-              winner: competitor.winner,
-            }))
-          )
+        const results = events.flatMap(
+          (event) =>
+            event.competitions?.flatMap(
+              (competition) =>
+                competition.competitors?.map((competitor) => ({
+                  id: competitor.id,
+                  winner: competitor.winner,
+                })) || []
+            ) || []
         );
 
-        events.forEach((event) => {
+        events.forEach((event, eventIndex) => {
           try {
             if (!event || !Array.isArray(event.competitions)) {
-              console.error("Event structure is not as expected");
+              console.error(
+                `Event structure is not as expected at index ${eventIndex}`
+              );
               return;
             }
 
             const competitions = event.competitions || [];
-
-            competitions.forEach((competition) => {
-              const competitors = competition.competitors;
+            competitions.forEach((competition, competitionIndex) => {
+              const competitors = competition.competitors || [];
 
               if (competitors.length === 2) {
-                const team1Abbr = competitors[1].team.abbreviation;
-                const team2Abbr = competitors[0].team.abbreviation;
+                const team1Abbr = competitors[1]?.team?.abbreviation;
+                const team2Abbr = competitors[0]?.team?.abbreviation;
+
+                if (!team1Abbr || !team2Abbr) {
+                  console.error(
+                    `Team abbreviations not found at event ${eventIndex}, competition ${competitionIndex}`
+                  );
+                  return;
+                }
 
                 const team1Info = TeamAbbrMapping[team1Abbr] || {
                   name: team1Abbr,
@@ -87,7 +101,6 @@ export const TeamData = (week) => {
                 };
 
                 const date = new Date(event.date);
-
                 const team1Id = team1Info.id;
                 const team2Id = team2Info.id;
 
@@ -103,7 +116,7 @@ export const TeamData = (week) => {
                   (item) =>
                     item.team1Id === team1Id &&
                     item.team2Id === team2Id &&
-                    item.date === date
+                    item.date.getTime() === date.getTime()
                 );
 
                 if (!itemExists) {
@@ -130,18 +143,18 @@ export const TeamData = (week) => {
       })
       .catch((error) => {
         console.error("Error fetching data:", error);
+        reject(error);
       });
   });
 };
 
 export const MatchData = (week) => {
   return new Promise((resolve, reject) => {
-    const API_ENDPOINT_URL = `https://site.api.espn.com/apis/site/v2/sports/football/nfl/scoreboard?seasontype=2&week=${week}&dates=2023`;
-
-    dataFetching(API_ENDPOINT_URL)
+    dataFetching(week)
       .then((data) => {
         if (!data || !Array.isArray(data.events)) {
-          console.error("Data structure is not as expected");
+          console.error("Data structure is not as expected or no events found");
+          resolve([]); // Return an empty array to avoid errors
           return;
         }
         const events = data.events || [];
@@ -149,20 +162,29 @@ export const MatchData = (week) => {
 
         const matches = [];
 
-        events.forEach((event) => {
+        events.forEach((event, eventIndex) => {
           if (!event || !Array.isArray(event.competitions)) {
-            console.error("Event structure is not as expected");
+            console.error(
+              `Event structure is not as expected at index ${eventIndex}`
+            );
             return;
           }
 
           const competitions = event.competitions || [];
 
-          competitions.forEach((competition) => {
-            const competitors = competition.competitors;
+          competitions.forEach((competition, competitionIndex) => {
+            const competitors = competition.competitors || [];
 
             if (competitors.length === 2) {
-              const team1Abbr = competitors[1].team.abbreviation;
-              const team2Abbr = competitors[0].team.abbreviation;
+              const team1Abbr = competitors[1]?.team?.abbreviation;
+              const team2Abbr = competitors[0]?.team?.abbreviation;
+
+              if (!team1Abbr || !team2Abbr) {
+                console.error(
+                  `Team abbreviations not found at event ${eventIndex}, competition ${competitionIndex}`
+                );
+                return;
+              }
 
               const daysOfWeek = [
                 "Sunday",
@@ -206,8 +228,8 @@ export const MatchData = (week) => {
 
               const team1 = team1Info.name;
               const team2 = team2Info.name;
-              const record1 = competitors[1].records[0].summary;
-              const record2 = competitors[0].records[0].summary;
+              const record1 = competitors[1]?.records?.[0]?.summary || "";
+              const record2 = competitors[0]?.records?.[0]?.summary || "";
               const team1Id = team1Info.id;
               const team2Id = team2Info.id;
 
@@ -235,6 +257,10 @@ export const MatchData = (week) => {
               if (!itemExists) {
                 matches.push(match);
               }
+            } else {
+              console.error(
+                `Unexpected number of competitors at event ${eventIndex}, competition ${competitionIndex}`
+              );
             }
           });
         });

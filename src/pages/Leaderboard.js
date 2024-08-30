@@ -128,18 +128,6 @@ const Leaderboard = () => {
                       );
                     })}
                 </tbody>
-                {/* <tr role="row" className="odd">
-                  <td aria-controls="ytdTable">1</td>
-                  <td
-                    aria-controls="ytdTable"
-                    aria-label="Entry Name: activate to sort column descending"
-                  >
-                    Jordy Figueroa
-                  </td>
-                  <td aria-controls="ytdTable">120</td>
-                  <td aria-controls="ytdTable">120</td>
-                  <td aria-controls="ytdTable">50</td>
-                </tr> */}
               </table>
             </div>
             <div className="col-12 col-lg-6 pe-lg-5">

@@ -25,41 +25,48 @@ const ApiTest = ({ poolKey, week }) => {
   const userId = currentUser.uid;
   const navigate = useNavigate();
 
-  console.log(displayName);
+  useEffect(() => {
+    console.log(displayName);
+    console.log(userData.displayName);
+  }, [userData]);
 
   useEffect(() => {
     cutOffDates(week).then((data) => {
       setDeadlineDates(data);
     });
-
+    console.log(week);
     MatchData(week).then((data) => {
       setMatchData(data);
     });
   }, [week]);
 
   useEffect(() => {
-    SelectionData(week, poolKey, displayName)
+    console.log(week, poolKey, userData.displayName);
+    SelectionData(week, poolKey, userData.displayName)
       .then((data) => {
-        console.log("Fetched data:", data[0].selections);
+        if (data && data.length > 0 && data[0].selections) {
+          console.log("Fetched data:", data[0].selections);
 
-        const newSelections = data[0].selections.map((teamId, index) => {
-          return {
-            index: index,
-            teamId: teamId,
-          };
-        });
+          const newSelections = data[0].selections.map((teamId, index) => {
+            return {
+              index: index,
+              teamId: teamId,
+            };
+          });
 
-        setSelected(newSelections);
+          setSelected(newSelections);
+        } else {
+          console.warn("No selections data available");
+        }
       })
       .catch((error) => {
         console.error("Error fetching data:", error);
       });
-  }, []);
-  console.log(selected);
+  }, [week, poolKey, userData.displayName]);
 
   useEffect(() => {
     SetPlayerName(userData.displayName);
-  }, [userData]);
+  }, [userData.displayName]);
 
   let lastDate = "";
 

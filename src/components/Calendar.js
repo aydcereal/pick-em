@@ -14,6 +14,7 @@ export const getCurrentWeek = () => {
       currentWeek = weekDate.week;
     }
   }
+  console.log(currentWeek);
   return currentWeek;
 };
 
@@ -24,7 +25,6 @@ const Calendar = () => {
   const [isAnimated, setIsAnimated] = useState(false);
 
   useEffect(() => {
-    // Trigger animation after the component has mounted
     setIsAnimated(true);
   }, []);
 
@@ -41,8 +41,6 @@ const Calendar = () => {
     return dates;
   }
 
-  // Usage:
-
   const today = new Date();
   const currentMonth = today.getMonth();
   const currentYear = today.getFullYear();
@@ -57,6 +55,7 @@ const Calendar = () => {
     let isMounted = true;
 
     const matchDatesPromise = MatchDates(currentWeek);
+    console.log(matchDatesPromise);
 
     matchDatesPromise
       .then((result) => {
@@ -67,6 +66,7 @@ const Calendar = () => {
           const year = date.getFullYear();
           const dateString = date.toLocaleDateString();
           const matchingValue = result[dateString];
+          console.log(result[dateString]);
 
           return {
             dayOfMonth,

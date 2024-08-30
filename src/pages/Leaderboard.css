@@ -21,12 +21,8 @@ table.dataTable.stripe tbody tr.odd, table.dataTable.display tbody tr.odd {
 }
 
 tbody {
-    border-top-width: 1px;
-    border-top: black;
     border-top-style: solid;
-    border-bottom: black;
-    border-bottom-style: solid;
-   
+    border-bottom-style: solid;   
 }
 
 table.dataTable thead .sorting_asc {
