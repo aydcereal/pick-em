@@ -94,8 +94,7 @@ const ManageEntries = () => {
         <p className={styles.managinEntries_p}>
           Make your picks for each entry below. The first game for week{" "}
           {currentSelectedWeek} starts <strong>{deadlineDates[0]}</strong> You
-          can modify your other picks up until the final pick deadline on{" "}
-          <strong>{deadlineDates[1]}</strong>
+          can modify your selections up until kickoff.
         </p>
 
         <div className={`row ${styles.entries}`}>

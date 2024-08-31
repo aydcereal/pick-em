@@ -84,6 +84,8 @@ const Picks = () => {
         SelectionData(week, poolKey),
       ]);
 
+      console.log(matchData);
+
       setMatchData(matchData);
 
       setSelections(selectionsData);
@@ -301,9 +303,7 @@ const Picks = () => {
                     <span className="pts">Weekly Points</span>
                   </td>
 
-                  {matchData.matches &&
-                  matchData.matches &&
-                  matchData.matches.length > 0 ? (
+                  {matchData.matches && matchData.matches.length > 0 ? (
                     matchData.matches.map((match, index) => {
                       return (
                         <React.Fragment>

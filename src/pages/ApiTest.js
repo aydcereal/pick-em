@@ -389,7 +389,7 @@ const ApiTest = ({ poolKey, week }) => {
             </li>
             <li>
               This week's final pick deadline is{" "}
-              <strong>{deadlineDates[1]}</strong>. After this no picks can be
+              <strong>{deadlineDates[0]}</strong>. After this no picks can be
               entered/modified.
             </li>
 

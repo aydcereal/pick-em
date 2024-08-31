@@ -40,13 +40,10 @@ const Overview = () => {
                 Welcome to my NFL Pick 'em Pool!
                 <br></br>
                 <br></br>A brief reminder: You must get your picks in by the
-                weekly deadline - before the first game each Sunday, however if
-                there is an early game you must pick ALL games before it starts.
-                You can modify the remainder of the games up until the Sunday
-                deadline. All picks will be hidden until the game has begun (for
-                early games) or the until the first kickoff on Sunday. Good luck
-                to everyone. If you have any questions, please contact me at
-                jordyfigueroa93@icloud.com.
+                weekly deadline - before the first game each week,you can modify
+                your picks up until the first game kickoff. All picks will be
+                hidden until the first game begins. If you have any questions,
+                please contact me at jordyfigueroa93@icloud.com.
                 <br></br>
                 <br></br>
                 -Jordy Figueroa
