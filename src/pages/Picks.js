@@ -288,9 +288,7 @@ const Picks = () => {
           <div className="well noprint">
             <strong>Note:</strong>
             All picks will appear in the grid below after the pick deadline
-            passes (usually Sunday at 1:00 pm ET). Earlier game picks will show
-            up once the game has started and picks for that game can't be added
-            or changed.
+            passes.
           </div>
           <div className="table-responsive">
             <table border="0" cellPadding="0" cellSpacing="0" id="picksTable">

@@ -14,15 +14,25 @@ export const SelectionData = (week, poolId, displayName) => {
       const query = getSelectionQuery(poolId, week);
 
       query.once("value", (snapshot) => {
+        console.log(snapshot);
+
         const result = [];
         snapshot.forEach((childSnapshot) => {
           const selectionData = childSnapshot.val();
+          console.log(selectionData);
+
           if (selectionData.week === parseInt(week, 10)) {
             if (displayName) {
+              console.log(selectionData.playerName, displayName);
+
               if (selectionData.playerName === displayName) {
+                console.log("true");
+
                 result.push({ id: childSnapshot.key, ...selectionData });
               }
             } else {
+              console.log("false");
+
               result.push({ id: childSnapshot.key, ...selectionData });
             }
           }
