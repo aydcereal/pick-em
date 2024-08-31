@@ -67,6 +67,8 @@ const ManageEntries = () => {
     dataRef.on("value", (snapshot) => {
       const dataObject = snapshot.val();
       if (dataObject) {
+        console.log(dataObject);
+
         const userData = Object.values(dataObject).find(
           (item) =>
             item.userId === userId &&

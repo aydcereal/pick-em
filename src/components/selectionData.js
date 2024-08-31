@@ -1,10 +1,42 @@
 import { app } from "../firebase";
 import "firebase/compat/database";
+const database = app.database();
 
 const getSelectionQuery = (poolId, week) => {
-  const database = app.database();
   const selectionRef = database.ref(`selections/${poolId}/Week ${week}`);
   return selectionRef.orderByChild("poolKey").equalTo(poolId);
+};
+
+const getIndividualSelectionQuery = (poolId, week, id) => {
+  const selectionRef = database.ref(`selections/${poolId}/Week ${week}`);
+  return selectionRef.orderByChild("userId").equalTo(id);
+};
+
+export const individualSelections = (week, poolId, id) => {
+  console.log(week, poolId, id);
+
+  return new Promise((resolve, reject) => {
+    try {
+      const query = getIndividualSelectionQuery(poolId, week, id);
+      query.once("value", (snapshot) => {
+        const result = [];
+        snapshot.forEach((childSnapshot) => {
+          const selectionData = childSnapshot.val();
+          console.log(selectionData);
+
+          if (selectionData) {
+            result.push({ id: childSnapshot.key, ...selectionData });
+          } else {
+            result.push(false);
+          }
+        });
+        resolve(result);
+      });
+    } catch (error) {
+      reject(error);
+      console.error("Error Fetching Data", error);
+    }
+  });
 };
 
 export const SelectionData = (week, poolId, displayName) => {

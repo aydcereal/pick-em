@@ -6,7 +6,10 @@ import { app } from "../firebase";
 import "firebase/compat/database";
 import TeamLogo from "../components/TeamLogo";
 import { useNavigate } from "react-router-dom";
-import { SelectionData } from "../components/selectionData";
+import {
+  SelectionData,
+  individualSelections,
+} from "../components/selectionData";
 import { MatchData } from "./TeamData";
 import cutOffDates from "../components/cutOffDates";
 
@@ -41,8 +44,8 @@ const ApiTest = ({ poolKey, week }) => {
   }, [week]);
 
   useEffect(() => {
-    console.log(week, poolKey, userData.displayName);
-    SelectionData(week, poolKey, userData.displayName)
+    console.log(week, poolKey, userId);
+    individualSelections(week, poolKey, userId)
       .then((data) => {
         if (data && data.length > 0 && data[0].selections) {
           console.log("Fetched data:", data[0].selections);
