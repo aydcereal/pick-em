@@ -286,7 +286,7 @@ const Picks = () => {
             </div>
           </div>
           <div className="well noprint">
-            <strong>Note:</strong>
+            <strong>Note: </strong>
             All picks will appear in the grid below after the pick deadline
             passes.
           </div>
@@ -390,7 +390,8 @@ const Picks = () => {
                       <td className="tie">
                         {item.tiebreakValue}
                         <span className="tb">
-                          ({item.tiebreakValue - matchData.mondayScores})
+                          {typeof item.tiebreakValue === "number" &&
+                            item.tiebreakValue - matchData.mondayScores}
                         </span>
                       </td>
                     </tr>
