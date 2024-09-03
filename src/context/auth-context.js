@@ -22,6 +22,16 @@ const AuthContext = createContext();
 const auth = getAuth(app);
 const db = getDatabase();
 
+export const getUserData = (userId, callback) => {
+  const userRef = ref(db, `users/${userId}`);
+  onValue(userRef, (snapshot) => {
+    const userData = snapshot.val();
+    console.log(userData);
+
+    callback(userData);
+  });
+};
+
 export const AuthProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -36,14 +46,6 @@ export const AuthProvider = ({ children }) => {
       getUserData(currentUser.uid, setUserData);
     }
   }, [currentUser]);
-
-  const getUserData = (userId, callback) => {
-    const userRef = ref(db, `users/${userId}`);
-    onValue(userRef, (snapshot) => {
-      const userData = snapshot.val();
-      callback(userData);
-    });
-  };
 
   const isDisplayNameUnique = async (displayName) => {
     const usersRef = ref(db, "users");

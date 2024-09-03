@@ -1,3 +1,50 @@
+export const parseDate = (dateString) => {
+  console.log("Raw dateString:", dateString);
+
+  if (!dateString) {
+    throw new Error("Invalid date string");
+  }
+
+  // First, split the string by commas
+  const parts = dateString.split(",").map((str) => str.trim());
+
+  // Check if the split parts are what we expect
+  if (parts.length < 2) {
+    throw new Error("Date string does not have the expected format");
+  }
+
+  // Extract the month, day, and time with timezone from the second part
+  const monthDayAndTime = parts[1].split(" ").filter(Boolean);
+
+  // The month and day should be the first two elements
+  const month = monthDayAndTime[0];
+  const day = monthDayAndTime[1];
+
+  // The time should be the last two elements before the timezone (if present)
+  const time = monthDayAndTime.slice(2, 4).join(" ");
+
+  // Split time and period (AM/PM)
+  const [timeString, period] = time.split(" ");
+
+  // Create a new Date object for the current year
+  const date = new Date();
+
+  // Set the month and day
+  date.setMonth(new Date(`${month} 1`).getMonth());
+  date.setDate(parseInt(day));
+
+  // Set the hours and minutes, adjusting for AM/PM
+  let [hours, minutes] = timeString.split(":").map(Number);
+  if (period === "PM" && hours !== 12) hours += 12;
+  if (period === "AM" && hours === 12) hours = 0;
+
+  date.setHours(hours, minutes, 0, 0);
+
+  console.log("Parsed Date:", date);
+
+  return date;
+};
+
 const cutOffDates = (week) => {
   console.log(week);
   return new Promise((resolve, reject) => {

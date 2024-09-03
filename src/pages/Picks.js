@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import ProgressCircle from "../components/ProgressCircle";
 import "@fortawesome/fontawesome-free/css/all.css";
 import classes from "./picks.css";
@@ -16,6 +16,9 @@ import { TeamData } from "./TeamData";
 import { getCurrentWeek } from "../components/Calendar";
 import matchesOver from "../components/matchesOver";
 import VictoryResolver from "../components/VictoryResolver";
+import cutOffDates from "../components/cutOffDates";
+import AuthContext from "../context/auth-context";
+import { parseDate } from "../components/cutOffDates";
 
 import { app } from "../firebase";
 import "firebase/compat/database";
@@ -28,6 +31,7 @@ const Picks = () => {
 
   const [points, setPoints] = useState([]);
   const [usersData, setUsersData] = useState([]);
+  const [currentUserData, setCurrentUserData] = useState({});
   const [sortedUsersData, setSortedUsersData] = useState([]);
   const [allMatchesOver, setAllMatchesOver] = useState();
   const [sort, setSort] = useState(1);
@@ -37,6 +41,7 @@ const Picks = () => {
   const { poolKey } = useParams();
 
   const currentWeek = getCurrentWeek();
+  const { currentUser } = useContext(AuthContext);
 
   const database = app.database();
   const selectionRef = database.ref(`selections/${poolKey}/Week ${week}`);
@@ -47,6 +52,14 @@ const Picks = () => {
     const dataObject = snapshot.val();
     console.log(dataObject);
   });
+
+  useEffect(() => {
+    if (currentUser) {
+      console.log(currentUser.uid);
+
+      setCurrentUserData(currentUser.uid);
+    }
+  }, [currentUser]);
 
   useEffect(() => {
     setWeek(currentWeek);
@@ -165,16 +178,44 @@ const Picks = () => {
 
   const weeks = Array.from({ length: 18 }, (_, index) => `Week ${index + 1}`);
 
-  const sortPicks = () => {
-    if (sort == 3) {
-      const sortedData = [...championData].sort((a, b) => b.wins - a.wins);
-      setSortedUsersData(sortedData);
-    } else if (sort == 1) {
-      const sortedData = [...championData].sort((a, b) =>
-        a.playerName.localeCompare(b.playerName)
-      );
+  const sortPicks = async () => {
+    const dates = await cutOffDates(currentWeek);
+    console.log("Dates returned:", dates); // Ensure the date is logged
 
-      setSortedUsersData(sortedData);
+    if (dates && dates[0]) {
+      console.log("if");
+
+      try {
+        const date = parseDate(dates[0]);
+        console.log("Parsed Date:", date);
+
+        const today = new Date();
+        let filteredData = [];
+
+        if (today < date) {
+          filteredData = championData.filter(
+            (item) => item.userId === currentUserData
+          );
+        } else {
+          filteredData = championData;
+        }
+
+        let sortedData = [];
+
+        if (sort == 3) {
+          sortedData = [...filteredData].sort((a, b) => b.wins - a.wins);
+        } else if (sort == 1) {
+          sortedData = [...filteredData].sort((a, b) =>
+            a.playerName.localeCompare(b.playerName)
+          );
+        }
+
+        setSortedUsersData(sortedData);
+      } catch (error) {
+        console.error("Date parsing error:", error);
+      }
+    } else {
+      console.error("Invalid or undefined date returned from cutOffDates.");
     }
   };
 
@@ -342,7 +383,6 @@ const Picks = () => {
                   </td>
                 </tr>
                 {sortedUsersData.map((item, rowIndex) => {
-                  console.log(item);
                   const pointItem = points.find((obj) =>
                     obj.hasOwnProperty(item.playerName)
                   );
