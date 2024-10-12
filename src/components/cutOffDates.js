@@ -42,7 +42,7 @@ export const parseDate = (dateString) => {
 
   console.log("Parsed Date:", date);
 
-  return date;m
+  return date;
 };
 
 const cutOffDates = (week) => {
